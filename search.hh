@@ -103,7 +103,6 @@ private:
 
 };
 
-  //class SearchTextView::NewIter<wchar_t,Gtk::TextIter> TextIterWchar;
 
 
 class SearchCenter : public   boost::basic_regex<wchar_t>
@@ -117,7 +116,7 @@ public:
 
   void query_find();
 
-  bool forward();
+  bool search_forward();
 
 private:
   SearchCenter();
@@ -145,70 +144,6 @@ private:
 };
 
 
-#if 0
-
-  // iterator works like TextIter except operator*() is wchar_t
-
-class TextIterWchar
-{
-public:
-  typedef Gtk::TextIter::iterator_category iterator_category;
-
-  // value type is changed!
-  typedef wchar_t                         value_type;
-  typedef Gtk::TextIter::difference_type  difference_type;
-  typedef value_type                      reference;
-  typedef Gtk::TextIter::pointer          pointer;
-
-  // can create one from an TextIter
-  TextIterWchar(const Gtk::TextIter& existing):
-    base(existing)
-  {
-  };
-
-
-  // convert back to TextIter by returning base!
-  operator Gtk::TextIter&()
-  {
-    return base;
-  };
-
-  // can assign to TextIter by assigning to base
-  Gtk::TextIter& operator=(Gtk::TextIter& to)
-  {
-    to=base;
-    return to;
-  };
-
-  // value operator by static cast of value of base!
-  value_type operator*() 
-  { 
-    return static_cast<value_type>( base.operator*() ); 
-  };
-
-  // do transversal operators by refering to base!
-  TextIterWchar& operator++() { base.operator++(); return *this; };
-  TextIterWchar const operator++(int i) 
-  {
-    const TextIterWchar nv( *this );
-    base.operator++(i);
-    return nv;
-  };
-
-  TextIterWchar& operator--() { base.operator--(); return *this; };
-  TextIterWchar const operator--(int i) 
-  {
-    const TextIterWchar nv ( *this );
-    base.operator--(i);
-    return nv;
-  };
-
-private:
-  Gtk::TextIter base;
-
-};
-
-#endif
 
 // does search scrool TextView to display results.
 class SearchDisplay
@@ -220,6 +155,8 @@ public:
 		Gtk::TextView& view, 
 		Glib::RefPtr<Gtk::TextBuffer> view_buffer,
 		Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag);
+
+  void SearchAndScroll(SearchCenter& search_center);
 private:
   //disallow do not define trivial constructor, conv ctr, assignment
   SearchDisplay();

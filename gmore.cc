@@ -633,6 +633,7 @@ void NoteGmore::find()
   if( current_gmore )
     {
       search_center.query_find();
+      find_next();
     };
 };
 // find next occurance of string in buffer
@@ -641,6 +642,8 @@ void NoteGmore::find_next()
   //if there is 1 buffer (current)
   if( current_gmore )
     {
+      // search for the regex and scroll to it.
+      current_gmore->search_display.SearchAndScroll(search_center);
     };
 };
 

@@ -168,7 +168,7 @@ namespace SearchTextView {  // avoid namespace conficts.
 
   };
 
-  bool SearchCenter::forward()
+  bool SearchCenter::search_forward()
   {
     return !reverse_checkbutton.get_active();
   };
@@ -187,6 +187,36 @@ namespace SearchTextView {  // avoid namespace conficts.
     // but must _begin==_end i.e. empty
     regex_found_end( buffer.begin() )   
   {
+  };
+
+  void SearchDisplay::SearchAndScroll(SearchCenter& search_center)
+  {
+    // get direction.
+    bool go_forward = search_center.search_forward();
+    if ( ! RegexFoundEmpty() )
+      {
+	buffer.remove_tag(
+			  found_tag,
+			  Gtk::TextBuffer::iterator(regex_found_begin),
+			  Gtk::TextBuffer::iterator(regex_found_end) 
+			  );
+      };
+
+
+    if ( ! RegexFoundEmpty() && ! search_center.empty() )
+      {
+	buffer.apply_tag(
+			 found_tag,
+			 Gtk::TextBuffer::iterator(regex_found_begin),
+			 Gtk::TextBuffer::iterator(regex_found_end) 
+			 );
+	Gtk::TextBuffer::iterator found_begin = regex_found_begin;
+	Gtk::TextBuffer::iterator found_end = regex_found_end;
+	view.scroll_to_iter(found_begin,0.0);
+	buffer.place_cursor( 
+           ( go_forward? regex_found_end: regex_found_begin) 
+	   );
+      };
   };
 
 
