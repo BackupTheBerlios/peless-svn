@@ -13,7 +13,7 @@
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/notebook.h>
 #include <gtkmm/box.h>
-
+#include <gconfmm.h>
 
 #include <string>
 
@@ -189,6 +189,8 @@ namespace Gmore {  // avoid namespace conficts.
     // tag table for all TextView's
     Glib::RefPtr<Gtk::TextTagTable> tag_table;
 
+    // client to remember parameters such as fonts, sizes
+    Glib::RefPtr<Gnome::Conf::Client> m_refClient;
   };
 
 } // namespace Gmore

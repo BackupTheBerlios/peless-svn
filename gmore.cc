@@ -2,6 +2,8 @@
 #include "gmore.hh"
 #include <gtkmm/dialog.h>
 
+#include "inittime.hh"
+
 #include <algorithm>
 
 #include <fstream>
@@ -218,6 +220,16 @@ NoteGmore::NoteGmore(
   regex_found_tag(Gtk::TextTag::create("regex found tag") ),
   tag_table( Gtk::TextTagTable::create() )
 {
+  // only call init one time, no matter how many NoteGmore's are created.
+  static InitTime::FirstTime gconf2_first;
+  if ( gconf2_first() )
+    {
+      Gnome::Conf::init();
+    };
+
+  m_refClient = Gnome::Conf::Client::get_default_client();
+
+  m_refClient->add_dir("/apps/peless");
 
   // setup regex_found_tag collor
   regex_found_tag->property_background() = RegexFoundCollor;
