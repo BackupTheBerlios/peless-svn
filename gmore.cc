@@ -51,8 +51,9 @@ Gmore::Gmore(const std::string pfilename,Glib::ustring& font_name):
 
 Gmore::~Gmore()
 {
-  // disconnect connection that uses this page.
+  // disconnect connections that uses this page.
   change_page_connection.disconnect();
+  change_page_font_connection.disconnect();
 };
 
 // return a TextBuffer RefPtr after loading it from the file.
@@ -390,6 +391,17 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
 	       page_to_add_ref)
 	      );
 #endif
+
+    page_to_add.change_page_font_connection =
+      change_page_font_signal.
+      connect(
+
+	      SigC::bind<RefGmore,void, RefGmore>
+	      (slot(*this,&NoteGmore::change_page_font),
+	       page_to_add_ref)
+
+
+             );
   };
 
 
@@ -471,9 +483,9 @@ void NoteGmore::change_font()
   // get the font name from the font selection.
   textview_font_name = get_selection.get_font_name();
 
-#if 1
   // save current page..
   int start_current = notebook.get_current_page();
+#if 0
   for( int j=0; j <2;j++)
   for(int i=0; i < notebook.get_n_pages(); i++)
     {
@@ -482,7 +494,7 @@ void NoteGmore::change_font()
 
 
       // WARNING WARNING WARNING
-      // UPCAST, detect errors at runtime.
+      // DOWNCAST, detect errors at runtime.
       // replace this code.
       Gmore::Gmore * gmoreP = dynamic_cast<Gmore::Gmore*>(current_widgetP);
       if (gmoreP)
@@ -520,12 +532,50 @@ void NoteGmore::change_font()
 	  notebook.insert_page(current_gmore,label,i);
 
 	};
-      // restore current page.
-      notebook.set_current_page(start_current);
-
-
     };
+#else
+  change_page_font_signal.emit();
+  change_page_font_signal.emit();
 #endif
+  // restore current page.
+  notebook.set_current_page(start_current);
+
+
+};
+void NoteGmore::change_page_font(RefGmore sub_window_ref)
+{
+  Gmore::Gmore& gmore_page = sub_window_ref.get();
+
+  int i = notebook.page_num(gmore_page);
+
+  // get the label assigned.
+  Glib::ustring label=notebook.get_tab_label_text(gmore_page);
+
+  // hide the text view
+  gmore_page.textview.hide();
+  // set current page to us
+  notebook.set_current_page(i);
+  // remove the textview from gmore
+  gmore_page.remove();
+
+  // keep gmore from being deleted.
+  ObjectHolder hold(&gmore_page);
+  //don't work:
+  //Glib::RefPtr<Gmore::Gmore> hold(&gmore_page);
+  //SigC::Ptr<Gmore::Gmore> hold ( manage(&gmore_page) );
+
+  // remove from notebook (will not be deleted)
+  notebook.remove_page(gmore_page);
+
+  // new font in use
+  gmore_page.set_font_in_use(textview_font_name);
+
+  // show text view add back to gmore.
+  gmore_page.textview.show();
+  gmore_page.add(gmore_page.textview);
+
+  // put the gmore back into the norebook
+  notebook.insert_page(gmore_page,label,i);
 
 };
 

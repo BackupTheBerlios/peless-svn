@@ -87,9 +87,10 @@ namespace Gmore {  // avoid namespace conficts.
     // set font in use
     void set_font_in_use(const Glib::ustring&);
 
-    // hold connection that needs to be disconnected
+    // hold connections that needs to be disconnected
     // when this page goes away.
     SigC::Connection change_page_connection;
+    SigC::Connection change_page_font_connection;
 
     // create a TextBuffer from the data in our file.
     Glib::RefPtr<Gtk::TextBuffer> load_textbuffer_from_file();
@@ -165,6 +166,8 @@ namespace Gmore {  // avoid namespace conficts.
 
     // get new font from user apply to all pages.
     void change_font();
+    void change_page_font(RefGmore);
+    SigC::Signal0<void> change_page_font_signal;
 
     //disallow do not define trivial constructor, conv ctr, assignment
     NoteGmore();
