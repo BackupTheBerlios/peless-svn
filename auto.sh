@@ -1,4 +1,4 @@
-autoheader -B/home/pelliott/install/gnome2/include
+autoheader 
 touch NEWS README AUTHORS ChangeLog
 touch stamp-h
 aclocal
