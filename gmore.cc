@@ -200,7 +200,8 @@ NoteGmore::NoteGmore(
   current_gmore(0),
   Gtk::Window(type),
   m_Box(false,0),
-  notebook()
+  notebook(),
+  search_center(*this)
 {
   // copied from glade --
   notebook.set_flags(Gtk::CAN_FOCUS);
@@ -611,6 +612,7 @@ void NoteGmore::find()
   //if there is 1 buffer (current)
   if( current_gmore )
     {
+      search_center.query_find();
     };
 };
 // find next occurance of string in buffer
