@@ -173,7 +173,7 @@ namespace SearchTextView {  // avoid namespace conficts.
 	  catch( std::exception& excpt)
 	    {
 	      // if exception send message dialog.
-	      std::string msg="Error compiling regular exception:\n";
+	      std::string msg=_("Error compiling regular exception:\n");
 	      msg += excpt.what();
 	      Gtk::MessageDialog msgdia(
 					dialog,              //parent
@@ -251,10 +251,10 @@ namespace SearchTextView {  // avoid namespace conficts.
 	  search_region(go_forward,search_center,region_begin,region_end);
 	if ( ! success && 
 	     (region_begin != buffer.begin() ) && 
-	     display_message_YES(
+	     display_message_YES( _(
 	      "Regular expresion search failed, continue search from "
               "beginning of buffer."
-                                )
+                                ) )
 	     )
 	  {
 	    region_end = region_begin;
@@ -271,10 +271,10 @@ namespace SearchTextView {  // avoid namespace conficts.
 	  search_region(go_forward,search_center,region_begin,region_end);
 	if ( ! success && 
 	     (region_end != buffer.end() ) && 
-	     display_message_YES(
+	     display_message_YES( _(
 	      "Regular expresion search failed, continue search from "
               "end of buffer."
-                                )
+                                ) )
 	     )
 	  {
 	    region_begin = region_end;
@@ -287,7 +287,7 @@ namespace SearchTextView {  // avoid namespace conficts.
     if ( ! success )
       {
 	display_message_OK(
-			   "Regular expression search failure."
+			   _("Regular expression search failure.")
                           );
       };
 
