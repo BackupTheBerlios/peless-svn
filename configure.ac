@@ -46,12 +46,19 @@ AC_ARG_WITH(boost,
     [BOOST_PREFIX=[/usr]]
 )
 
+AC_ARG_WITH(boost_version,
+    [ --with-boost_version=1_31 version of Boost installation. e.g. 0_30],
+    [BOOST_VERSION=$with_boost],
+    [BOOST_VERSION=[1_31]]
+)
+
+
 # make BOOST_PREFIX available to Makefile.am
 AC_SUBST(BOOST_PREFIX)
 
 # link file, inclued files needed for boost
-BOOST_LIBS="-L${BOOST_PREFIX}/lib -lboost_filesystem"
-BOOST_CXXFLAGS="-I${BOOST_PREFIX}/include"
+BOOST_LIBS="-L${BOOST_PREFIX}/lib -lboost_filesystem-gcc-${BOOST_VERSION}"
+BOOST_CXXFLAGS="-I${BOOST_PREFIX}/include/boost-${BOOST_VERSION}"
 
 # make data available to Makefile.am
 AC_SUBST(BOOST_LIBS)
