@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.57)
- AC_INIT(peless, 0.50)
+ AC_INIT(peless, 0.56)
  AC_CONFIG_SRCDIR([peless.cc])
  AC_CONFIG_HEADER([config.h])
  AM_INIT_AUTOMAKE([dist-bzip2])
