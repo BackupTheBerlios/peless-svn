@@ -1,3 +1,21 @@
+//
+//     PELESS TABBED TEXT FILE LISTER.
+//     Copyright (C) 2004 Paul Elliott
+//     
+//     This program is free software; you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation; version 1.
+//     
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+//     
+//     You should have received a copy of the GNU General Public License
+//     along with this program; if not, write to the Free Software
+//     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//     Paul Elliott pelliott@io.com
 #include "config.h"
 #include "gmore.hh"
 #include <gtkmm/dialog.h>
@@ -307,7 +325,7 @@ NoteGmore::NoteGmore(
   notebook.set_scrollable(true);              // changed from glade
 
   // code grabed from glade--
-  set_title(_("Gmore"));
+  set_title(_("Copyright (C) Paul Elliott 2004 -- GPL"));
   set_modal(false);
   property_window_position().set_value(Gtk::WIN_POS_NONE);
   set_resizable(true);
