@@ -33,6 +33,7 @@ AC_HEADER_STDBOOL
 # DEPS_LIBS   (Link time)
 
 PKG_CHECK_MODULES(DEPS, gtkmm-2.0 >= 2.2.8 gconfmm-2.0 > 2.0.0)
+#PKG_CHECK_MODULES(DEPS, gtkmm-2.0 >= 2.2.8)
 
 #make this data visible in Makefile.am
 AC_SUBST(DEPS_CFLAGS)

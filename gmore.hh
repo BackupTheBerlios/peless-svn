@@ -191,6 +191,13 @@ namespace Gmore {  // avoid namespace conficts.
 
     // client to remember parameters such as fonts, sizes
     Glib::RefPtr<Gnome::Conf::Client> m_refClient;
+
+    // key for font names.
+    Glib::ustring font_name_key;
+    // window size keys
+    Glib::ustring height_key;
+    Glib::ustring width_key;
+
   };
 
 } // namespace Gmore

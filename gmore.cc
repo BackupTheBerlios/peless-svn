@@ -14,6 +14,7 @@
 
 
 #include <boost/filesystem/path.hpp>
+#include <boost/filesystem/exception.hpp>
 #include <boost/bind.hpp>
 
 // collor for regex found tags.
@@ -218,18 +219,60 @@ NoteGmore::NoteGmore(
   notebook(),
   search_center(*this),
   regex_found_tag(Gtk::TextTag::create("regex found tag") ),
-  tag_table( Gtk::TextTagTable::create() )
+  tag_table( Gtk::TextTagTable::create() ),
+  font_name_key("/FontNameKey"),         // key for lookup.
+  height_key("/SizeHeight"),             // keys for window size
+  width_key("/SizeWidth")
 {
+
+  // hold result of lookup
+  Glib::ustring font_name_value;
+  // use this if lookup fails.
+  Glib::ustring font_name_default("Nimbus Mono L, 12");
   // only call init one time, no matter how many NoteGmore's are created.
+  // init code called only once.
   static InitTime::FirstTime gconf2_first;
   if ( gconf2_first() )
     {
       Gnome::Conf::init();
     };
-
+  // client to get/save data.
   m_refClient = Gnome::Conf::Client::get_default_client();
-
+  // place to look for answer.
   m_refClient->add_dir("/apps/peless");
+  // try to read the font.
+  try
+    {
+      font_name_value = m_refClient->get_string(font_name_key);
+    }
+  catch ( Gnome::Conf::Error& error)
+    {
+      font_name_value = font_name_default;
+    };
+  if ( font_name_value.empty() ) font_name_value = font_name_default;
+  // save the font to use.
+  textview_font_name = font_name_value;
+
+  int height,width;
+  int default_height = 760 ;
+  int default_width = 640;
+
+  try
+    {
+      height = m_refClient->get_int(height_key);
+      width  = m_refClient->get_int(width_key);
+    }
+  catch ( Gnome::Conf::Error& error)
+    {
+      height = default_height;
+      width  = default_width;
+    };
+  if ( ( height == 0 ) || ( width == 0 ) )
+    {
+      height = default_height;
+      width  = default_width;
+    };
+
 
   // setup regex_found_tag collor
   regex_found_tag->property_background() = RegexFoundCollor;
@@ -251,7 +294,7 @@ NoteGmore::NoteGmore(
   set_resizable(true);
 
   // reasonable window size
-  set_default_size(640,760);
+  set_default_size(width,height);
 
 
   // for each passed in argument
@@ -350,6 +393,28 @@ NoteGmore::NoteGmore(
 // destroy the notebook gmore
 NoteGmore::~NoteGmore()
 {
+  int width,height;
+  get_size(width,height);
+  try
+    {
+      // store the new font name in gconf
+      m_refClient->set(width_key,width);
+      m_refClient->set(height_key,height);
+    }
+  catch( Gnome::Conf::Error& error )
+    {
+      // problem saving font
+      Glib::ustring text(_("error saving window size in gconf\n"));
+      text += error.what();
+      text += '\n';
+      Gtk::MessageDialog msg(
+			     text,
+			     Gtk::MESSAGE_ERROR,
+			     Gtk::BUTTONS_OK,
+			     true
+			     );
+
+    };
 
 };
 
@@ -367,9 +432,18 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
     }
   else
     {
-      // if not empty get boost to parse get leaf end of filename.
-      boost::filesystem::path filepath(fullfilename);
-      label= filepath.leaf();
+      try
+	{
+	  // if not empty get boost to parse get leaf end of filename.
+	  boost::filesystem::path filepath(fullfilename);
+	  label= filepath.leaf();
+	}
+      catch(boost::filesystem::filesystem_error& error)
+	{
+	  using namespace std;
+	  cerr << "problem=" << error.what() << endl;
+	  label=fullfilename;
+	};
     };
 
   // construct our page!
@@ -544,6 +618,25 @@ void NoteGmore::change_font()
 
   // get the font name from the font selection.
   textview_font_name = get_selection.get_font_name();
+  try
+    {
+      // store the new font name in gconf
+      m_refClient->set(font_name_key,textview_font_name);
+    }
+  catch( Gnome::Conf::Error& error )
+    {
+      // problem saving font
+      Glib::ustring text(_("error saving fontname in gconf\n"));
+      text += error.what();
+      text += '\n';
+      Gtk::MessageDialog msg(
+			     text,
+			     Gtk::MESSAGE_ERROR,
+			     Gtk::BUTTONS_OK,
+			     true
+			     );
+
+    };
 
   // save current page..
   int start_current = notebook.get_current_page();
