@@ -1,8 +1,8 @@
 Name: peless
 %define prefix   /opt/gnome
 Summary: Text browser
-Version: 0.58
-Release: 0.050120.pe.suse092
+Version: 0.63
+Release: 0.040120.pe.suse092
 License: GPL
 Group: Productivity/Text/Utilities
 Source: %{name}-%{version}.tar.bz2
@@ -13,11 +13,11 @@ Prefix: /opt/gnome
 Url: http://www.io.com/~pelliott/pme/
 Provides: peless 
 Vendor: Paul Elliott
-Requires: gtkmm2 >= 2.0.0 gconfmm >= 2.0.0
+Requires: gtkmm24 >= 2.4.1 gconfmm26 >= 2.0.0
 
 %description
 peless the tabbed notebook multifile text file browser with 
-regular expression searching. Uses gtkmm, gconfmm2, boost.
+regular expression searching. Uses gtkmm, gconfmm26, boost.
 
 %prep
 rm -rf $RPM_BUILD_ROOT 
@@ -27,8 +27,7 @@ mkdir $RPM_BUILD_ROOT
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
-./configure --prefix=%{prefix}  --with-boost_include=/usr/include \
---with-boost_lib_postfix=-gcc-1_31
+./configure --prefix=%{prefix}
 CCFLAGS=$RPM_OPT_FLAGS make %{?_smp_mflags}
 
 %install
@@ -47,5 +46,5 @@ rm -rf $RPM_BUILD_DIR/file.list.%{name}.dirs
 
 %files
 %defattr(-, root, root)
-%doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION philo.txt peless.spec peless.spec.SuSE.91
+%doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION philo.txt
 %{prefix}/bin/peless
