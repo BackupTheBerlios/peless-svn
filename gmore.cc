@@ -14,6 +14,9 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/bind.hpp>
 
+// collor for regex found tags.
+const static char RegexFoundCollor[]="yellow";
+
 class ObjectHolder  // prevent Object from being deleted while I live!
 {
 private:
@@ -45,7 +48,7 @@ NoteGmore::Gmore::Gmore(
   the_note_gmore(gmore), // reference to owning gmore
   filename(pfilename),   //filename to load
   Gtk::ScrolledWindow(), // scrolled window holds the textview.
-  textview()            // view of the data of the file
+  textview()             // view of the data of the file
 
 {
   // readin textbuffer, and add textview after setup.
@@ -67,7 +70,9 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
     using namespace std;
     // create a text buffer to hold the text.
     // managed refcounted pointer no memory leak.
-    Glib::RefPtr<Gtk::TextBuffer> load_bufferPtr( Gtk::TextBuffer::create() );
+    // use the global tag_table on all created buffers
+    Glib::RefPtr<Gtk::TextBuffer> 
+         load_bufferPtr( Gtk::TextBuffer::create(the_note_gmore.tag_table) );
     // get reference to underlying object
     // RefPtr does not have * operator so this code looks wierd.
     // use explicit call to operator-> instead!
@@ -175,6 +180,7 @@ void NoteGmore::Gmore::setup_textview(Glib::RefPtr<Gtk::TextBuffer> buffer,
 // set the font to use
 void NoteGmore::Gmore::set_font_in_use(const Glib::ustring& our_font)
 {
+
   // if the font is empty then do nothing
   if (our_font.empty() ) return;
   
@@ -201,8 +207,17 @@ NoteGmore::NoteGmore(
   Gtk::Window(type),
   m_Box(false,0),
   notebook(),
-  search_center(*this)
+  search_center(*this),
+  regex_found_tag(Gtk::TextTag::create("regex found tag") ),
+  tag_table( Gtk::TextTagTable::create() )
 {
+
+  // setup regex_found_tag collor
+  regex_found_tag->property_background() = RegexFoundCollor;
+
+  // add the collor tag to tag table
+  tag_table->add(regex_found_tag);
+
   // copied from glade --
   notebook.set_flags(Gtk::CAN_FOCUS);
   notebook.set_show_tabs(true);

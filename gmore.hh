@@ -175,6 +175,12 @@ namespace Gmore {  // avoid namespace conficts.
     //font to use for all the textviews
     Glib::ustring textview_font_name;
 
+    // info used for textbuffer searcher.
+    // text tag for found strings.
+    Glib::RefPtr<Gtk::TextTag> regex_found_tag;
+
+    Glib::RefPtr<Gtk::TextTagTable> tag_table;
+
   };
 
 } // namespace Gmore

@@ -2,10 +2,11 @@
 
 // implementation for searching TextViews for regular expressions.
 
+
 namespace SearchTextView {  // avoid namespace conficts.
 
   SearchCenter::SearchCenter(Gtk::Window& parent): 
-    Gtk::Dialog(
+    dialog(
 		_("Regular Expression Search"),
 		parent,
 		true,
@@ -27,22 +28,21 @@ namespace SearchTextView {  // avoid namespace conficts.
     extended_radiobutton(type_group,_("extended")),
 
     exact_checkbutton(_("require exact case match")),
-    reverse_checkbutton(_("reverse search direction"))
-    
+    reverse_checkbutton(_("reverse search direction")),
+    regex_string()
   {
-
     // most of this shown by glade-2.
-    add_button(Gtk::StockID("gtk-cancel"), Gtk::RESPONSE_CANCEL );
-    add_button(Gtk::StockID("gtk-ok"),   Gtk::RESPONSE_OK );
+    dialog.add_button(Gtk::StockID("gtk-cancel"), Gtk::RESPONSE_CANCEL );
+    dialog.add_button(Gtk::StockID("gtk-ok"),   Gtk::RESPONSE_OK );
 
     // exit dialog.run() on above buttons
-    set_response_sensitive(Gtk::RESPONSE_CANCEL);
-    set_response_sensitive(Gtk::RESPONSE_OK);
-    set_default_response(Gtk::RESPONSE_OK);
+    dialog.set_response_sensitive(Gtk::RESPONSE_CANCEL);
+    dialog.set_response_sensitive(Gtk::RESPONSE_OK);
+    dialog.set_default_response(Gtk::RESPONSE_OK);
 
-    get_vbox()->pack_start(regex_vbox);
-    get_vbox()->set_homogeneous(false);
-    get_vbox()->set_spacing(0);
+    dialog.get_vbox()->pack_start(regex_vbox);
+    dialog.get_vbox()->set_homogeneous(false);
+    dialog.get_vbox()->set_spacing(0);
 
     regex_vbox.pack_start(top_hbox);
     regex_vbox.pack_start(entry_frame, Gtk::PACK_SHRINK, 0);
@@ -126,11 +126,47 @@ namespace SearchTextView {  // avoid namespace conficts.
 
   void SearchCenter::query_find()
   {
-    if( run() == Gtk::RESPONSE_OK)
+    if( dialog.run() == Gtk::RESPONSE_OK)
       {
-      };
-    hide();
 
+	// get the new regular expression search string.
+	regex_string = regex_entry.get_text();
+
+	boost::regex_constants::syntax_option_type flags=0;
+	if ( !exact_checkbutton.get_active() )
+	  {
+	    flags |= boost::regex_constants::icase;
+	  };
+	if ( literal_radiobutton.get_active() )
+	  {
+	    flags |= boost::regex_constants::literal;
+	  };
+	if ( normal_radiobutton.get_active() )
+	  {
+	    flags |= boost::regex_constants::normal;
+	  };
+	if ( basic_radiobutton.get_active() )
+	  {
+	    flags |= boost::regex_constants::basic;
+	  };
+	if ( extended_radiobutton.get_active() )
+	  {
+	    flags |= boost::regex_constants::extended;
+	  };
+
+	assign(
+	       regex_string.begin(),
+	       regex_string.end(),
+	       flags);
+
+      };
+    dialog.hide();
+
+  };
+
+  bool SearchCenter::forward()
+  {
+    return !reverse_checkbutton.get_active();
   };
 
 
