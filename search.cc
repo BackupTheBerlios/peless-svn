@@ -38,7 +38,7 @@ namespace SearchTextView {  // avoid namespace conficts.
     // exit dialog.run() on above buttons
     set_response_sensitive(Gtk::RESPONSE_CANCEL);
     set_response_sensitive(Gtk::RESPONSE_OK);
-    set_default_response(Gtk::RESPONSE_CANCEL);
+    set_default_response(Gtk::RESPONSE_OK);
 
     get_vbox()->pack_start(regex_vbox);
     get_vbox()->set_homogeneous(false);
@@ -53,7 +53,7 @@ namespace SearchTextView {  // avoid namespace conficts.
     regex_entry.set_max_length(0);
     regex_entry.set_text(_(""));
     regex_entry.set_has_frame(true);
-    regex_entry.set_activates_default(false);
+    regex_entry.set_activates_default(true);
 
     entry_frame.set_border_width(3);
     entry_frame.set_shadow_type(Gtk::SHADOW_ETCHED_IN);
