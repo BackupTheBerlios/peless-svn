@@ -123,7 +123,7 @@ namespace SearchTextView {  // avoid namespace conficts.
     // run() it instead.
     //show();
   };
-
+  typedef NewIter<wchar_t,Glib::ustring::iterator> wchar_ustring_iterator;
   void SearchCenter::query_find()
   {
     if( dialog.run() == Gtk::RESPONSE_OK)
@@ -155,8 +155,8 @@ namespace SearchTextView {  // avoid namespace conficts.
 	  };
 
 	assign(
-	       regex_string.begin(),
-	       regex_string.end(),
+	       wchar_ustring_iterator(regex_string.begin()),
+	       wchar_ustring_iterator(regex_string.end()),
 	       flags);
 
       };
