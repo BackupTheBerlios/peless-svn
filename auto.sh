@@ -6,7 +6,7 @@ autoconf
 if [[ -e missing ]] ; then
 automake
 else
-automake -a
+automake -ac
 fi
 ./configure
 make
