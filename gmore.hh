@@ -59,87 +59,88 @@
 #endif
 
 namespace Gmore {  // avoid namespace conficts.
-
-  // A Gmore is a scrolled window containing
-  // and a textview 
-  // loaded with the data from the file.
-  // scrollwindow allows text to be scrolled.
-  // subclass to NewsGmore later.
-  class Gmore : public Gtk::ScrolledWindow
-  {  
-  public:
-    // displays text of file
-    class Gtk::TextView textview;
-
-  private:
-    // filename of the data displayed
-    std::string filename;
-
-  public:
-    // construct from filename.
-    Gmore(const std::string filename,Glib::ustring& font_name);
-    // destructor
-    virtual ~Gmore();
-
-    // property gets filename of file displayed.
-    const std::string FileName() const { return filename; };
-
-    // set font in use
-    void set_font_in_use(const Glib::ustring&);
-
-    // hold connections that needs to be disconnected
-    // when this page goes away.
-    SigC::Connection change_page_connection;
-    SigC::Connection change_page_font_connection;
-
-    // create a TextBuffer from the data in our file.
-    Glib::RefPtr<Gtk::TextBuffer> load_textbuffer_from_file();
-    
-    // setup a textview.
-    void setup_textview(Glib::RefPtr<Gtk::TextBuffer>,
-			const Glib::ustring& font_name);
-
-  private:
-    //disallow do not define trivial constructor, conv ctr, assignment
-    Gmore();
-    Gmore(const Gmore&);
-    Gmore& operator=(const Gmore&);
-
-    // property haveing title parent window should use to title this file.
-    Glib::ustring external_title;
-  public:
-    // define property set/get methods.
-    const Glib::ustring& get_external_title() const 
-    { 
-      return external_title; 
-    };
-    void set_external_title(const Glib::ustring& etitle) 
-    { 
-      external_title=etitle; 
-    };
-
-  };
-
-  // the boost library gives us a reference warper
-  // with value sematics!
-  typedef boost::reference_wrapper<Gmore> RefGmore;
-
   // a NoteGmore is a notebook containing any number of
   // Gmores.
   class NoteGmore : public Gtk::Window
   {  
+  private:
+    // A Gmore is a scrolled window containing
+    // and a textview 
+    // loaded with the data from the file.
+    // scrollwindow allows text to be scrolled.
+    // subclass to NewsGmore later.
+    class Gmore : public Gtk::ScrolledWindow
+    {  
+    public:
+      // displays text of file
+      class Gtk::TextView textview;
+
+    private:
+      // filename of the data displayed
+      std::string filename;
+
+    public:
+      // construct from filename.
+      Gmore(const std::string filename,Glib::ustring& font_name);
+      // destructor
+      virtual ~Gmore();
+
+      // property gets filename of file displayed.
+      const std::string FileName() const { return filename; };
+
+      // set font in use
+      void set_font_in_use(const Glib::ustring&);
+
+      // hold connections that needs to be disconnected
+      // when this page goes away.
+      SigC::Connection change_page_connection;
+      SigC::Connection change_page_font_connection;
+
+      // create a TextBuffer from the data in our file.
+      Glib::RefPtr<Gtk::TextBuffer> load_textbuffer_from_file();
+    
+      // setup a textview.
+      void setup_textview(Glib::RefPtr<Gtk::TextBuffer>,
+			  const Glib::ustring& font_name);
+
+    private:
+      //disallow do not define trivial constructor, conv ctr, assignment
+      Gmore();
+      Gmore(const Gmore&);
+      Gmore& operator=(const Gmore&);
+
+      // property haveing title parent window should use to title this file.
+      Glib::ustring external_title;
+    public:
+      // define property set/get methods.
+      const Glib::ustring& get_external_title() const 
+      { 
+	return external_title; 
+      };
+      void set_external_title(const Glib::ustring& etitle) 
+      { 
+	external_title=etitle; 
+      };
+
+    };
+
+    friend class NoteGmore::Gmore;
+    // the boost library gives us a reference warper
+    // with value sematics!
+    typedef boost::reference_wrapper<Gmore> RefGmore;
+
 
   public:
 
     typedef char ** file_list_iterator_type;
     typedef Glib::Sequence<NoteGmore::file_list_iterator_type> 
-                                                       file_list_type;
+    file_list_type;
 
     typedef const file_list_iterator_type file_list_const_iterator_type;
 
     // construct from list of fileames.
     NoteGmore( const file_list_type & ,
-	      Gtk::WindowType type=Gtk::WINDOW_TOPLEVEL);
+	       Gtk::WindowType type=Gtk::WINDOW_TOPLEVEL);
     virtual ~NoteGmore();
 
 

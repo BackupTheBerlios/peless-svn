@@ -21,11 +21,11 @@ private:
 public:
   ObjectHolder(Glib::Object * O): P(O)
   {
-    O->reference();
+    O->reference();  // increase refcount when constructed
   };
   ~ObjectHolder()
   {
-    P->unreference();
+    P->unreference(); // decrease refcount when destroyed
   };
 private:
   //disable do not define.
@@ -37,7 +37,9 @@ private:
 namespace Gmore {
 
   // constructor create from a file, font name
-Gmore::Gmore(const std::string pfilename,Glib::ustring& font_name):  
+NoteGmore::Gmore::Gmore(
+               const std::string pfilename,
+	       Glib::ustring& font_name):  
   filename(pfilename),   //filename to load
   Gtk::ScrolledWindow(), // scrolled window holds the textview.
   textview()            // view of the data of the file
@@ -49,7 +51,7 @@ Gmore::Gmore(const std::string pfilename,Glib::ustring& font_name):
 };
 
 
-Gmore::~Gmore()
+NoteGmore::Gmore::~Gmore()
 {
   // disconnect connections that uses this page.
   change_page_connection.disconnect();
@@ -57,7 +59,7 @@ Gmore::~Gmore()
 };
 
 // return a TextBuffer RefPtr after loading it from the file.
-Glib::RefPtr<Gtk::TextBuffer> Gmore::load_textbuffer_from_file()
+Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
 {
     using namespace std;
     // create a text buffer to hold the text.
@@ -128,7 +130,7 @@ Glib::RefPtr<Gtk::TextBuffer> Gmore::load_textbuffer_from_file()
 };
 
 // setup a textview in the case of a already loeaded buffer.
-void Gmore::setup_textview(Glib::RefPtr<Gtk::TextBuffer> buffer,
+void NoteGmore::Gmore::setup_textview(Glib::RefPtr<Gtk::TextBuffer> buffer,
 			   const Glib::ustring& font_name )
 {
   {
@@ -168,7 +170,7 @@ void Gmore::setup_textview(Glib::RefPtr<Gtk::TextBuffer> buffer,
 };
 
 // set the font to use
-void Gmore::set_font_in_use(const Glib::ustring& our_font)
+void NoteGmore::Gmore::set_font_in_use(const Glib::ustring& our_font)
 {
   // if the font is empty then do nothing
   if (our_font.empty() ) return;
