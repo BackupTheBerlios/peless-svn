@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title>Peless Text File Lister.</title>
+</head>
+<body>
+<h1>Peless is a text file lister for X11 and Gtk.</h1>
+<h2>Powered by <a href="http://developer.berlios.de">BerliOS</a><br>
+</h2>
+<br>
+<a href="http://developer.berlios.de"> <img
+ src="http://developer.berlios.de/bslogo.php?group_id=1681"
+ alt="BerliOS Developer Logo" border="0" height="32" width="124"></a>
+<br>
+<br>
+<h2>What is peless?</h2>
+Peless is a simple text file lister. It only displays files and never
+modifies them. It can display multiple files using a tabbed notebook.
+It can display international characters. It can search the files for
+regular expressions or literal expressions. Users can choose the fonts
+used to display files. By the way, gless and kless (not the Klingon!)
+do not seem to be distributed with many distributions. Perhaps peless
+can replace them.<span style="font-weight: bold;"> <a
+ href="http://developer.berlios.de/screenshots/?group_id=1681">Take a
+look at some screen shots.</a></span><br>
+<h2>How do I use peless?</h2>
+In a command context, like bash, or something like that, type: <code>peless
+[list of files to display]</code><br>
+Once peless is going, you can click on notebook tabs to switch between
+files you want to view. You can use the File menu to open new files to
+display and stop displaying files you are currently displaying. You can
+quit the program from the File menu or from your window mananger's X
+button. You can use the Edit menu to change the font and the font's
+size used in display in the files. You can also use the Edit menu to
+Search for text in your files. You can search for a literal string, or
+for a full fledged regular expression.<br>
+<br>
+<h2>Peless internals.</h2>
+Peless is written in C++, using the Gtkmm and boost libraries. Peless
+is written in English at this time, but all user visible strings are
+indicated with the _() macro so it should be easy to translate. Any
+volunteers for translators?<br>
+<h2>What are peless's dependencies?</h2>
+Peless uses the following libraries:<br>
+<ul>
+  <li><a href="http://www.boost.org/">The Boost library.</a></li>
+  <li><a href="http://www.gtkmm.org/">The Gtkmm library.</a></li>
+  <li><a href="http://libsigc.sourceforge.net/">The Libsigc++ library.</a></li>
+  <li><a
+ href="http://www.gtkmm.org/gnomemm2/reference/html/namespaceGnome_1_1Conf.html">The
+Gconfmm2 library.</a></li>
+</ul>
+<h2>License = GPL.</h2>
+Peless is released under the GPL.<br>
+<h2>Where can I get Peless?</h2>
+There is a gtkmm2-2.4 version available as a tarball in <a
+ href="https://developer.berlios.de/project/showfiles.php?group_id=1681">files
+area.</a><br>
+<br>
+<h2>The SuSE 9.2 version of peless uses gtkmm 2.4!</h2>
+Here are the 9.2 RPMs.<br>
+<ul>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse92/peless-0.63-0.040120.pe.suse092.i586.rpm">suse092
+peless runtime RPM</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse92/peless-0.63-0.040120.pe.suse092.src.rpm">suse092
+peless source RPM</a><br>
+  </li>
+</ul>
+<h3>Here are the dependancies for peless for suse 9.2!</h3>
+<ul>
+  <li>The boost libraries now come with SuSE 9.2.</li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/gtkmm24-2.4.8-1.i586.rpm">gtkmm
+2.4</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/libsigc++20-2.0.6-1.i586.rpm">libsigc++20</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/glibmm-2.4.5-1.i586.rpm">glibmm
+2.4</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/gconfmm26-2.6.1-1.i586.rpm">gconfmm
+2.6</a><br>
+  </li>
+</ul>
+<h4>If you want to hack peless, you will need the "devel" and "doc"
+rpms for the above:</h4>
+<ul>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/gtkmm24-devel-2.4.8-1.i586.rpm">gtkmm
+devel 2.4</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/gtkmm24-doc-2.4.8-1.i586.rpm">gtkmm
+doc 2.4</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/libsigc++20-devel-2.0.6-1.i586.rpm">libsigc++20
+devel</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/libsigc++20-examples-2.0.6-1.i586.rpm">libsigc++20
+examples</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/glibmm-devel-2.4.5-1.i586.rpm">glibmm
+2.4 devel</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/glibmm-doc-2.4.5-1.i586.rpm">glibmm
+2.4 doc</a></li>
+  <li><a
+ href="ftp://ftp.gwdg.de/pub/linux/misc/suser-sbarnin/suse92/i586/RPMS/gconfmm26-devel-2.6.1-1.i586.rpm">gconfmm
+2.6 devel</a><br>
+  </li>
+</ul>
+For gtkmm2-2.2 there are a number of options. If you do not have <a
+ href="http://www.suse.com/">SuSE</a> 9.0, 9.2 or 9.2, you
+will have to install Peless from the tarball which can be found on the <a
+ href="http://developer.berlios.de/project/showfiles.php?group_id=1681">peless
+project files page</a>. You will have to follow the usual procedure of:<br>
+<pre><code>./confgure<br>make<br>make install<br></code><code></code></pre>
+Make sure you have already installed the dependancies (see above); and
+the dependencies' dependencies!<br>
+<h3>If you have SuSE 9.1 RPMs are available!</h3>
+<ul>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse91/peless-0.57-0.040530.i586.rpm">peless
+runtime RPM</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse91/peless-0.57-0.040530.src.rpm">peless
+source RPM</a></li>
+</ul>
+Suse 9.1 has all the dependencies!<br>
+<h3>If you have SuSE 9.0 RPMs are available!</h3>
+<ul>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/peless-0.41-0.040427.i586.rpm">peless
+runtime RPM</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/peless-0.41-0.040427.src.rpm">peless
+source RPM</a></li>
+</ul>
+<h4>You must also have the RPMs for Peless' dependencies!</h4>
+<br>
+SuSE RPMs for libsigc++2 and gtkmm2 can be found at <a
+ href="http://www.usr-local-bin.org/">the usr-local-bin web site.</a> <br>
+<ul>
+  <li><a
+ href="http://www.usr-local-bin.org/misc/gtkmm2-2.2.10-100.SuSE.ulb.1.i586.rpm">gttmm2
+runtime</a></li>
+  <li><a
+ href="http://www.usr-local-bin.org/misc/gtkmm2-devel-2.2.10-100.SuSE.ulb.1.i586.rpm">gtkmm2
+development</a></li>
+  <li><a
+ href="http://www.usr-local-bin.org/misc/gtkmm2-2.2.10-100.SuSE.ulb.1.src.rpm">gtkmm2
+sources</a></li>
+  <li><a
+ href="http://www.usr-local-bin.org/misc/libsigc++2-1.2.5-100.SuSE.ulb.1.i586.rpm">libsigc++2
+runtime</a></li>
+  <li><a
+ href="http://www.usr-local-bin.org/misc/libsigc++2-devel-1.2.5-100.SuSE.ulb.1.i586.rpm">libsigc++2
+development</a></li>
+  <li><a
+ href="http://www.usr-local-bin.org/misc/libsigc++2-1.2.5-100.SuSE.ulb.1.src.rpm">libsigc++2
+sources</a></li>
+</ul>
+The peless project has <span style="font-weight: bold;">packaged, but
+not authored</span> SuSE RPMs for boost and gconfmm2.<br>
+<ul>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/boost-1.31.0-0.i586.rpm">boost
+runtime</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/boost-devel-1.31.0-0.i586.rpm">boost
+developement</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/boost-doc-1.31.0-0.i586.rpm">boost
+documentation</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/boost-1.31.0-0.src.rpm">boost
+sources</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/gconfmm2-2.0.1-2.SuSE.pme.1.i586.rpm">gconfmm2
+runtime</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/gconfmm2-devel-2.0.1-2.SuSE.pme.1.i586.rpm">gconfmm2
+development</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/suse90/gconfmm2-2.0.1-2.SuSE.pme.1.src.rpm">gconfmm2
+sources</a></li>
+</ul>
+If you only want to run peless, you should only need the runtimes from
+the above. If you want to hack, you probably will need everthing.<br>
+<h3>If you have Fedora Core 2, RPMs are now available!</h3>
+<ul>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/peless-0.50-0.040523fc2.i386.rpm">peless
+runtime RPM</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/peless-0.50-0.040523fc2.src.rpm">peless
+source RPM</a></li>
+</ul>
+The peless project has <span style="font-weight: bold;">packaged, but
+not authored</span> Fecora Core 2 RPMs for gconfmm, glibmm,
+gtkmm2-2.4.0, and libsigc++.<br>
+<ul>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/libsigc++-2.0.1-1.fc2.pe.i386.rpm">libsigc++2
+runtime</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/libsigc++-devel-2.0.1-1.fc2.pe.i386.rpm">libsigc++2
+development</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/libsigc++-2.0.1-1.fc2.pe.src.rpm">libsigc++2
+sources</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/gconfmm-2.6.0-2.fc2.pe.i386.rpm">gcomfmm
+runtime</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/gconfmm-devel-2.6.0-2.fc2.pe.i386.rpm">gconfmm
+development</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/gconfmm-2.6.0-2.fc2.pe.src.rpm">gconfmm
+sources</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/glibmm-2.4.0-1.fc2.pe.i386.rpm">glibmm
+runtime</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/glibmm-devel-2.4.0-1.fc2.pe.i386.rpm">glibmm
+development</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/glibmm-2.4.0-1.fc2.pe.src.rpm">glibmm
+sources</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/gtkmm2-2.4.0-1.fc2.pe.i386.rpm">gtkmm2
+runtime</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/gtkmm2-devel-2.4.0-1.fc2.pe.i386.rpm">gtkmm2
+development</a></li>
+  <li><a
+ href="ftp://ftp.BerliOS.de/pub/peless/fc2/gtkmm2-2.4.0-1.fc2.pe.src.rpm">gtkmm2
+sources</a></li>
+</ul>
+If you only want to run peless, you should only need the runtimes from
+the above. If you want to hack, you probably will need everthing.
+<pre><code></code></pre>
+</body>
+</html>
