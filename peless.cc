@@ -24,7 +24,9 @@ int main(int argc, char *argv[])
     };
 
   
-  Gmore::NoteGmore::file_list_type arguement_list(files,files+filecount);
+  Gmore::NoteGmore::file_list_type arguement_list =
+    Glib::sequence<Gmore::NoteGmore::file_list_iterator_type>
+    (files,files+filecount);
 
   // create a note book with one page for every file
   Gmore::NoteGmore note_gmore( arguement_list);

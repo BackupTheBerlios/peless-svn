@@ -12,7 +12,6 @@
 #include <gtkmm/notebook.h>
 #include <gtkmm/box.h>
 
-#include <vector>
 
 #include <string>
 
@@ -131,9 +130,11 @@ namespace Gmore {  // avoid namespace conficts.
 
   public:
 
-    typedef std::vector<std::string> file_list_type;
-    typedef file_list_type::iterator file_list_iterator_type;
-    typedef file_list_type::const_iterator file_list_const_iterator_type;
+    typedef char ** file_list_iterator_type;
+    typedef Glib::Sequence<NoteGmore::file_list_iterator_type> 
+                                                       file_list_type;
+
+    typedef const file_list_iterator_type file_list_const_iterator_type;
 
     // construct from list of fileames.
     NoteGmore( const file_list_type & ,
