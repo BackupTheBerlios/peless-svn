@@ -197,6 +197,7 @@ NoteGmore::NoteGmore(
 		     const file_list_type& file_list,
 		     Gtk::WindowType type
 		     ):
+  current_gmore(0),
   Gtk::Window(type),
   m_Box(false,0),
   notebook()
@@ -439,6 +440,9 @@ void NoteGmore::change_title(
     {
       // set the title of the main page.
       set_title( gmore_page.get_external_title() );
+
+      // keep track of which gmore is the current one.
+      current_gmore = & gmore_page;
     };
 };
 

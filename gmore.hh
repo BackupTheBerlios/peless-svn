@@ -183,6 +183,9 @@ namespace Gmore {  // avoid namespace conficts.
     NoteGmore(const NoteGmore&);
     NoteGmore& operator=(const NoteGmore&);
 
+    //pointer to current Gmore; no deletion responsibility
+    NoteGmore::Gmore * current_gmore;
+
     // verticle has menu and display
     Gtk::VBox m_Box;
 
