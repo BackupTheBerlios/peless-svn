@@ -242,21 +242,56 @@ namespace SearchTextView {  // avoid namespace conficts.
       };
     Gtk::TextBuffer::iterator region_begin,region_end;
 
+    bool success;
     if (go_forward)
       {
 	region_begin = buffer.get_iter_at_mark( buffer.get_insert() );
 	region_end   = buffer.end();
+	success =
+	  search_region(go_forward,search_center,region_begin,region_end);
+	if ( ! success && 
+	     (region_begin != buffer.begin() ) && 
+	     display_message_YES(
+	      "Regular expresion search failed, continue search from "
+              "beginning of buffer."
+                                )
+	     )
+	  {
+	    region_end = region_begin;
+	    region_begin = buffer.begin();
+	    success =
+	      search_region(go_forward,search_center,region_begin,region_end);
+	  };
       }
     else
       {
 	region_begin   = buffer.begin();
 	region_end = buffer.get_iter_at_mark( buffer.get_insert() );
+	success =
+	  search_region(go_forward,search_center,region_begin,region_end);
+	if ( ! success && 
+	     (region_end != buffer.end() ) && 
+	     display_message_YES(
+	      "Regular expresion search failed, continue search from "
+              "end of buffer."
+                                )
+	     )
+	  {
+	    region_begin = region_end;
+	    region_end = buffer.end();
+	    success =
+	      search_region(go_forward,search_center,region_begin,region_end);
+	  };
       };
+
+    if ( ! success )
+      {
+	display_message_OK(
+			   "Regular expression search failure."
+                          );
+      };
+
     // if search failure empty found region
-
-    bool success = 
-         search_region(go_forward,search_center,region_begin,region_end);
-
     if ( success && ( ! RegexFoundEmpty() ) )
       {
 	buffer.apply_tag(
@@ -322,6 +357,30 @@ namespace SearchTextView {  // avoid namespace conficts.
 	// last sucessfull search will find match closest to end.
       };
     return success;
+  };
+  bool SearchDisplay::display_message_YES(const Glib::ustring& msg)
+  {
+    //message dialog yes/no
+    Gtk::MessageDialog msgdia(
+			      msg,                 // message str
+			      Gtk::MESSAGE_WARNING, // severity
+			      Gtk::BUTTONS_YES_NO,  // OK button
+			      true                 // modal
+			      );
+    return ( msgdia.run() == Gtk::RESPONSE_YES );   //run the dialog
+
+  };
+  void SearchDisplay::display_message_OK(const Glib::ustring& msg)
+  {
+    // message dialog OK
+    Gtk::MessageDialog msgdia(
+			      msg,                 // message str
+			      Gtk::MESSAGE_WARNING,// severity
+			      Gtk::BUTTONS_OK,     // OK button
+			      true                 // modal
+			      );
+      msgdia.run();
+
   };
 
 

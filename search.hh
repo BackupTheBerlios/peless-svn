@@ -198,6 +198,8 @@ private:
 		     SearchDisplay::TextBufferIterWchar reg_begin,
 		     SearchDisplay::TextBufferIterWchar reg_end
 		     );
+  bool display_message_YES(const Glib::ustring& msg);
+  void display_message_OK(const Glib::ustring& msg);
 };
 
 } // namespace SearchTextView
