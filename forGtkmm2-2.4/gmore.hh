@@ -17,7 +17,6 @@
 
 #include <string>
 
-#include <boost/ref.hpp>
 
 //#include <iostream>
 //#include <fstream>
@@ -109,7 +108,6 @@ namespace Gmore {  // avoid namespace conficts.
     friend class NoteGmore::Gmore;
     // the boost library gives us a reference wrapper
     // with value sematics!
-    typedef boost::reference_wrapper<Gmore> RefGmore;
 
 
   public:
@@ -136,7 +134,7 @@ namespace Gmore {  // avoid namespace conficts.
 		      // of bug in bind. bound paramenter must be
 		      // destructable. i.e. not a reference.
 		      // boost::reference_wrapper gives us this.
-		      RefGmore
+		      Gmore&
 		      );
 
     // create a Gmore and add it to the notebook as a page.
@@ -152,7 +150,7 @@ namespace Gmore {  // avoid namespace conficts.
     void change_font();
 
     // change font for a page.
-    void change_page_font(RefGmore);
+    void change_page_font(Gmore&);
 
     // search functions
     // find string in buffer after getting string using dialog.

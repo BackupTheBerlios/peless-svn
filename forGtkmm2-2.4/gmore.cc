@@ -514,7 +514,6 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
 
 
 
-    RefGmore page_to_add_ref(page_to_add);
 
 #if 0
     // when the signal happens we want our method,
@@ -570,7 +569,7 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
       connect(
 	      sigc::bind 
 	      (mem_fun(*this,&NoteGmore::change_title),
-	       page_to_add_ref)
+	       ref(page_to_add) )
 	      );
 #endif
 
@@ -580,7 +579,7 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
 
 	      sigc::bind 
 	      (mem_fun(*this,&NoteGmore::change_page_font),
-	       page_to_add_ref)
+	       ref(page_to_add))
 
 
              );
@@ -603,10 +602,9 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
 void NoteGmore::change_title( 
 			     GtkNotebookPage* raw_page, 
 			     guint index,
-			     RefGmore sub_window_ref
+			     Gmore& gmore_page
 			     )
 {
-  Gmore::Gmore& gmore_page = sub_window_ref.get();
 
   // if the page given to us in the current page....
   if ( (notebook.get_current_page() ) == (notebook.page_num(gmore_page) ) )
@@ -750,9 +748,8 @@ void NoteGmore::change_font()
 
 
 };
-void NoteGmore::change_page_font(RefGmore sub_window_ref)
+void NoteGmore::change_page_font(Gmore& gmore_page)
 {
-  Gmore::Gmore& gmore_page = sub_window_ref.get();
 
   int i = notebook.page_num(gmore_page);
 
