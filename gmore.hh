@@ -41,12 +41,11 @@ namespace Gmore {  // avoid namespace conficts.
     // nested class. this class is NoteGmore's bitch.
     class Gmore : public Gtk::ScrolledWindow
     {  
-    public:
+    private:
       friend class NoteGmore;   // this class is NoteGmore's bitch.
       // displays text of file
       class Gtk::TextView textview;
 
-    private:
       // filename of the data displayed
       std::string filename;
 
@@ -61,6 +60,7 @@ namespace Gmore {  // avoid namespace conficts.
       // destructor
       virtual ~Gmore();
 
+    private:
       // property gets filename of file displayed.
       const std::string FileName() const { return filename; };
 
@@ -94,7 +94,6 @@ namespace Gmore {  // avoid namespace conficts.
       // regular expression search viewer.
       SearchTextView::SearchDisplay search_display;
 
-    public:
       // define property set/get methods.
       const Glib::ustring& get_external_title() const 
       { 
