@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.51)
- AC_INIT(peless, 0.63)
+ AC_INIT(peless, 0.66)
  AC_CONFIG_SRCDIR([peless.cc])
  AC_CONFIG_HEADER([config.h])
  AM_INIT_AUTOMAKE([dist-bzip2])
@@ -48,9 +48,9 @@ AC_ARG_WITH(boost,
 )
 
 AC_ARG_WITH(boost_version,
-    [ --with-boost_version=1_31 version of Boost installation. e.g. 0_30],
+    [ --with-boost_version=1_32 version of Boost installation. e.g. 0_30],
     [BOOST_VERSION=$with_boost_version],
-    [BOOST_VERSION=[1_31]]
+    [BOOST_VERSION=[1_32]]
 )
 
 AC_ARG_WITH(boost_include,
@@ -60,7 +60,7 @@ AC_ARG_WITH(boost_include,
 )
 
 AC_ARG_WITH(boost_lib_postfix,
-    [ --with-boost_lib_postfix=postfix on boost library files i.e. -gcc-1_31],
+    [ --with-boost_lib_postfix=postfix on boost library files i.e. -gcc-1_32],
     [BOOST_LIB_POSTFIX=$with_boost_lib_postfix],
     [BOOST_LIB_POSTFIX=""]
 )

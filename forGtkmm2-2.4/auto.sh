@@ -10,3 +10,4 @@ automake -ac
 fi
 ./configure
 make
+make dist-bzip2

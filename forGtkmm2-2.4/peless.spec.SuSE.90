@@ -1,8 +1,8 @@
 Name: peless
 %define prefix   /opt/gnome
 Summary: Text browser
-Version: 0.63
-Release: 0.040120.pe.suse
+Version: 0.66
+Release: 0.050123
 License: GPL
 Group: Productivity/Text/Utilities
 Source: %{name}-%{version}.tar.bz2
