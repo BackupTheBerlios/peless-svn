@@ -70,12 +70,12 @@ public:
   };
 
   // equality operators
-  bool operator==(const NewIter& other)
+  bool operator==(const NewIter& other) const
   {
     return ( base == other.base );
   };
 
-  bool operator!=(const NewIter& other)
+  bool operator!=(const NewIter& other) const
   {
     return ( base != other.base );
   };
@@ -229,8 +229,23 @@ private:
   Gtk::TextView& view;
   Glib::RefPtr<Gtk::TextBuffer> view_buffer;
 
+  // convienance refference to buffer.
+  Gtk::TextBuffer& buffer;
+
 
   Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag;
+
+  typedef SearchTextView::NewIter<wchar_t,Gtk::TextBuffer::iterator> 
+                                                     TextBufferIterWchar;
+
+  // limits on regex found string if == then empty.
+  TextBufferIterWchar regex_found_begin,regex_found_end;
+
+  bool RegexFoundEmpty() const 
+  { 
+    return ( regex_found_begin == regex_found_end );
+  };
+
 };
 
 
