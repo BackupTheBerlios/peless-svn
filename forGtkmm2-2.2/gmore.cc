@@ -171,7 +171,14 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
     } 
     // on catching io errors while doing above.
     // display error dialog.
+    // catch io error reading data.
     catch (ios_base::failure& ex){
+      Gtk::MessageDialog error_message(ex.what());
+      error_message.set_modal();
+      error_message.run();
+    }
+    // catch error converting to utf8
+    catch (Glib::ConvertError & ex){
       Gtk::MessageDialog error_message(ex.what());
       error_message.set_modal();
       error_message.run();
