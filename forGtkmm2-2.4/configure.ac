@@ -49,8 +49,20 @@ AC_ARG_WITH(boost,
 
 AC_ARG_WITH(boost_version,
     [ --with-boost_version=1_31 version of Boost installation. e.g. 0_30],
-    [BOOST_VERSION=$with_boost],
+    [BOOST_VERSION=$with_boost_version],
     [BOOST_VERSION=[1_31]]
+)
+
+AC_ARG_WITH(boost_include,
+    [ --with-boost_version=location of boost include directory],
+    [BOOST_INCLUDE=$with_boost_include],
+    [BOOST_INCLUDE=${BOOST_PREFIX}/include/boost-${BOOST_VERSION}]
+)
+
+AC_ARG_WITH(boost_lib_postfix,
+    [ --with-boost_lib_postfix=postfix on boost library files i.e. -gcc-1_31],
+    [BOOST_LIB_POSTFIX=$with_boost_lib_postfix],
+    [BOOST_LIB_POSTFIX=-gcc-${BOOST_VERSION}]
 )
 
 
@@ -58,8 +70,8 @@ AC_ARG_WITH(boost_version,
 AC_SUBST(BOOST_PREFIX)
 
 # link file, inclued files needed for boost
-BOOST_LIBS="-L${BOOST_PREFIX}/lib -lboost_filesystem-gcc-${BOOST_VERSION} -lboost_regex-gcc-${BOOST_VERSION}"
-BOOST_CXXFLAGS="-I${BOOST_PREFIX}/include/boost-${BOOST_VERSION}"
+BOOST_LIBS="-L${BOOST_PREFIX}/lib -lboost_filesystem${BOOST_LIB_POSTFIX} -lboost_regex${BOOST_LIB_POSTFIX}"
+BOOST_CXXFLAGS="-I${BOOST_INCLUDE}"
 
 # make data available to Makefile.am
 AC_SUBST(BOOST_LIBS)

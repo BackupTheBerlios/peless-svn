@@ -62,7 +62,9 @@ namespace SearchTextView {  // avoid namespace conficts.
     // use class locale on our regular expressions
     // this may be a mistake
     // what would be the international portable way to handle this?
+    #ifdef BOOST_REGEX_USE_CPP_LOCALE
     imbue(std::locale::classic());
+    #endif // BOOST_REGEX_USE_CPP_LOCALE
     // most of this shown by glade-2.
     dialog.add_button(Gtk::StockID("gtk-cancel"), Gtk::RESPONSE_CANCEL );
     dialog.add_button(Gtk::StockID("gtk-ok"),   Gtk::RESPONSE_OK );
