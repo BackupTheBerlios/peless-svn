@@ -1,6 +1,7 @@
 #ifndef _INTERNAT_
 #define _INTERNAT_
 
+// See the file INTERNATIONALIZATION!
 
 // grabbed from glade-- 
 // use these macros to indicate strings to be translated.

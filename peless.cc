@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
       files = onenullfile;
     };
 
-  
+  // convert argv to argument list sequence to pass to NoteGmore.
   Gmore::NoteGmore::file_list_type arguement_list =
     Glib::sequence<Gmore::NoteGmore::file_list_iterator_type>
     (files,files+filecount);

@@ -20,6 +20,15 @@
 // collor for regex found tags.
 const static char RegexFoundCollor[]="yellow";
 
+// When a widget is managed and put into a gtk container,
+// sometimes you want to release it and do something with it.
+// this could be bad, the release removes the last reference
+// causing deletion.
+// the following class "holds" the object preventing deletion.
+// the destruction of the "holder" removes the hold allow the object
+// to be deleted. But by that time, perhaps you have put the
+// object in some other container, keeping it alive!
+
 class ObjectHolder  // prevent Object from being deleted while I live!
 {
 private:
@@ -42,10 +51,14 @@ private:
 
 namespace Gmore {
 
+  // gmore is a page in the notebook
   // constructor create from a file, font name
 NoteGmore::Gmore::Gmore(
+			// notebook we are in
 			NoteGmore& gmore,
+			// file we display
 			const std::string pfilename,
+			// font we use.
 			Glib::ustring& font_name
 			):  
   the_note_gmore(gmore), // reference to owning gmore
@@ -54,6 +67,9 @@ NoteGmore::Gmore::Gmore(
   textview(),            // view of the data of the file
 
   // initialize, create the textbuffer pointer
+  // can not use the buffer associated with view i.e. view.get_buffer()
+  // because must create the buffer with the tag table.
+  // is no buffer.set_tagtable method.
   load_bufferPtr( Gtk::TextBuffer::create(the_note_gmore.tag_table) ),
 
   // construct textview regex searcher
@@ -163,6 +179,9 @@ void NoteGmore::Gmore::setup_textview(Glib::RefPtr<Gtk::TextBuffer> buffer,
   };
 
   // copied from glade--
+  // glade-- created most of this code
+  // I converted pointers to objects
+  // to class member objects i.e. (changed -> to .)
   textview.set_flags(Gtk::CAN_FOCUS);
   textview.set_editable(false);
   textview.set_cursor_visible(true);
@@ -320,23 +339,27 @@ NoteGmore::NoteGmore(
     {
       add_less_page(*it);
     };
+
 #endif
 
+  // menulist at the top of the window.
   Gtk::Menu::MenuList& file_menulist = m_Menu_File.items();
 
+  // openpage menu item
   file_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
       _("_Open"),  
       Gtk::Menu::AccelKey(_("<control>o")),
       SigC::slot(*this, &NoteGmore::OpenNewPage) ) 
 			   );
 
+  // close page menu item.
   file_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
       _("_Close current page"),  
       Gtk::Menu::AccelKey(_("<control>c")),
       SigC::slot(*this, &NoteGmore::UnLoadCurrentPage) ) 
 			   );
 
-
+  // quit menu item.
   file_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
       _("_Quit"),  
       Gtk::Menu::AccelKey(_("<control>q")),
@@ -345,6 +368,7 @@ NoteGmore::NoteGmore(
 
   Gtk::Menu::MenuList& edit_menulist = m_Menu_Edit.items();
 
+  // font menu item.
   edit_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
       _("Fon_t"),  
       Gtk::Menu::AccelKey(_("<control>t")),
@@ -366,8 +390,10 @@ NoteGmore::NoteGmore(
 
 
   //Add the menus to the MenuBar:
+  // file menu
   m_MenuBar.items().push_back( 
 	Gtk::Menu_Helpers::MenuElem(_("_File"), m_Menu_File) );
+  // edit menu
   m_MenuBar.items().push_back( 
         Gtk::Menu_Helpers::MenuElem(_("_Edit"), m_Menu_Edit) );
 
@@ -393,8 +419,11 @@ NoteGmore::NoteGmore(
 // destroy the notebook gmore
 NoteGmore::~NoteGmore()
 {
+  // get the size of the window.
   int width,height;
   get_size(width,height);
+
+  // try to store size in gconf.
   try
     {
       // store the new font name in gconf
@@ -407,6 +436,7 @@ NoteGmore::~NoteGmore()
       Glib::ustring text(_("error saving window size in gconf\n"));
       text += error.what();
       text += '\n';
+      // can not save size complain.
       Gtk::MessageDialog msg(
 			     text,
 			     Gtk::MESSAGE_ERROR,
@@ -438,10 +468,10 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
 	  boost::filesystem::path filepath(fullfilename);
 	  label= filepath.leaf();
 	}
+      // failure to parse path: use whole filename
+      // probably fail to open as well.
       catch(boost::filesystem::filesystem_error& error)
 	{
-	  using namespace std;
-	  cerr << "problem=" << error.what() << endl;
 	  label=fullfilename;
 	};
     };
@@ -542,6 +572,8 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
   // we are using a pointer, but we are making it managed
   // and we are immeadiately adding to container (Notebook)
   // which will take responsibility for deletion.
+  // we release our auto_ptr before calling manage and append_page
+  // giving deletion responsibility to the notebook
 
   // release the local holder as container takes responsibility for it.
   notebook.append_page( *manage( local_gmore_holder.release() ), label);

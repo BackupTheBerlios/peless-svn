@@ -23,11 +23,12 @@
 //#include <fstream>
 //#include <iomanip>
 
-#include "internat.hh"
+#include "internat.hh"              // define _() macro to use i18n
 
 namespace Gmore {  // avoid namespace conficts.
   // a NoteGmore is a notebook containing any number of
   // Gmores.
+  // each notebook page displays a file.
   class NoteGmore : public Gtk::Window
   {  
   private:
@@ -36,10 +37,12 @@ namespace Gmore {  // avoid namespace conficts.
     // loaded with the data from the file.
     // scrollwindow allows text to be scrolled.
     // subclass to NewsGmore later.
+    // each one of these will be a page in the notebook
+    // nested class. this class is NoteGmore's bitch.
     class Gmore : public Gtk::ScrolledWindow
     {  
     public:
-      friend class NoteGmore;
+      friend class NoteGmore;   // this class is NoteGmore's bitch.
       // displays text of file
       class Gtk::TextView textview;
 
@@ -77,7 +80,7 @@ namespace Gmore {  // avoid namespace conficts.
 			  const Glib::ustring& font_name);
 
     private:
-      //disallow do not define trivial constructor, conv ctr, assignment
+      //disallow: do not define trivial constructor, conv ctr, assignment
       Gmore();
       Gmore(const Gmore&);
       Gmore& operator=(const Gmore&);
@@ -105,13 +108,14 @@ namespace Gmore {  // avoid namespace conficts.
     };
 
     friend class NoteGmore::Gmore;
-    // the boost library gives us a reference warper
+    // the boost library gives us a reference wrapper
     // with value sematics!
     typedef boost::reference_wrapper<Gmore> RefGmore;
 
 
   public:
 
+    // simple pointer interator in sequence of files passed in.
     typedef char ** file_list_iterator_type;
     typedef Glib::Sequence<NoteGmore::file_list_iterator_type> 
     file_list_type;
@@ -147,6 +151,8 @@ namespace Gmore {  // avoid namespace conficts.
 
     // get new font from user apply to all pages.
     void change_font();
+
+    // change font for a page.
     void change_page_font(RefGmore);
 
     // search functions

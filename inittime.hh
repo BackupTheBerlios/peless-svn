@@ -2,6 +2,9 @@
 #define _INITTIME_ 1
 #include  <boost/utility.hpp>
 
+// Am I reinventing the wheel here? If there is a publicly released
+// class that does the same thing, email pelliott@io.com.
+
 namespace InitTime {
 
   // functional object returns true first time

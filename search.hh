@@ -26,6 +26,9 @@
 
 namespace SearchTextView {  // avoid namespace conficts.
 
+  // convert an iterator by using static_cast on the "pointed to" type.
+  // Am I reinventing the wheel here? If so, email pelliott@io.com
+
   // modify iterator's pointed to type.
   //Requirement: OldIter must be bi-di traversal iterator
   //with equality
@@ -36,7 +39,10 @@ template<typename New, typename OldIter >
 class NewIter
 {
 public:
+  // required typdefs when defing an iterator
+  // most come from OldIter.
   typedef typename OldIter::iterator_category iterator_category;
+  // this type changes!
   typedef New value_type;
   typedef typename OldIter::difference_type difference_type;
   typedef typename OldIter::reference     reference;
@@ -99,11 +105,12 @@ public:
   };
 
 private:
+  // NewIter "has-a" OldIter which makes it work!
   OldIter base;
 
 };
 
-
+  //This class has a dialog that gets a regular expression to search for!
 
 class SearchCenter : public   boost::basic_regex<wchar_t>
 {
@@ -112,19 +119,26 @@ public:
 
   typedef Glib::ustring::value_type value_type;
 
+  // create a search dialog given its parent.
   SearchCenter(Gtk::Window& parent);
 
+  // query user to get regular expression
   void query_find();
 
+  // should we search in forward direction.
   bool search_forward();
 
+  // regular expression string is NULL.
   bool Empty() { return regex_string.empty(); };
 
 private:
+  // disabled, declare private but do not define.
   SearchCenter();
   SearchCenter(const SearchCenter&);
   SearchCenter& operator=(const SearchCenter&);
 
+  // I used glade-2 for these elements converting 
+  // pointers to objects, to object members.
   // dialog elements.
   Gtk::Dialog dialog;
   Gtk::VBox regex_vbox;
@@ -140,6 +154,7 @@ private:
   Gtk::CheckButton exact_checkbutton,reverse_checkbutton;
   //end of dialog elements
 
+  // string contains regular expression.
   Glib::ustring regex_string;
 
 };
@@ -147,18 +162,27 @@ private:
 
 
 // does search scrool TextView to display results.
+// result is taged (possibly chaning collor) with the TextTable tag.
 class SearchDisplay
 {
 public:
   // requirement: view uses a TextBuffer that has a TextTable that
   // contains the found_tag!
+
+  // create a search and displayer
   SearchDisplay(
+		// view that displays buffer
 		Gtk::TextView& view, 
+		// buffer in view above
 		Glib::RefPtr<Gtk::TextBuffer> view_buffer,
+		// tag must be in tagtable of buffer above.
 		Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag);
 
+  // search for text in buffer and scroll the buffer so we can see.
   void SearchAndScroll(SearchCenter& search_center);
 
+  // iterator over text buffer converted so that regex_search
+  // can use it! changes value type returned with static_cast<>
   typedef SearchTextView::NewIter<wchar_t,Gtk::TextBuffer::iterator> 
                                                      TextBufferIterWchar;
 
@@ -168,11 +192,13 @@ private:
   SearchDisplay(const SearchDisplay&);
   SearchDisplay& operator=(const SearchDisplay&);
 
+  // save the view buffer.
   Gtk::TextView& view;
   Glib::RefPtr<Gtk::TextBuffer> view_buffer;
 
   Gtk::TextBuffer& buffer;
 
+  // save the tag.
   Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag;
 
 
@@ -191,14 +217,19 @@ private:
     regex_found_begin = regex_found_end = buffer.begin();
   };
 
-
+  // search region for regular expression. setting regex_found
   bool search_region(
+		     // direction to search
 		     bool forward,
+		     // regular expresion to search for.
 		     SearchCenter& search_center,
+		     // region to search
 		     SearchDisplay::TextBufferIterWchar reg_begin,
 		     SearchDisplay::TextBufferIterWchar reg_end
 		     );
+  // display yes no message. return if OK pressed.
   bool display_message_YES(const Glib::ustring& msg);
+  // display message.
   void display_message_OK(const Glib::ustring& msg);
 };
 
