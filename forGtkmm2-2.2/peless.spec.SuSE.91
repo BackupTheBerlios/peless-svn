@@ -13,7 +13,7 @@ Prefix: /opt/gnome
 Url: http://www.io.com/~pelliott/pme/
 Provides: peless 
 Vendor: Paul Elliott
-Requires: gtkmm2 >= 2.0.0 gconfmm2 >= 2.0.0
+Requires: gtkmm2 >= 2.0.0 gconfmm >= 2.0.0
 
 %description
 peless the tabbed notebook multifile text file browser with 
