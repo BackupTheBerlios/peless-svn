@@ -1,7 +1,7 @@
 Name: peless
 %define prefix   /opt/gnome
 Summary: Text browser
-Version: 0.36
+Version: 0.39
 Release: 0.040429
 License: GPL
 Group: Productivity/Text/Utilities
@@ -46,5 +46,5 @@ rm -rf $RPM_BUILD_DIR/file.list.%{name}.dirs
 
 %files
 %defattr(-, root, root)
-%doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION
+%doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION philo.txt
 %{prefix}/bin/peless
