@@ -8,19 +8,53 @@
 #include <string>
 #include <exception>
 
+
 #include <boost/filesystem/path.hpp>
+
+class ObjectHolder  // prevent Object from being deleted while I live!
+{
+private:
+  Glib::Object * P;
+public:
+  ObjectHolder(Glib::Object * O): P(O)
+  {
+    O->reference();
+  };
+  ~ObjectHolder()
+  {
+    P->unreference();
+  };
+private:
+  //disable do not define.
+  ObjectHolder();
+  ObjectHolder(const ObjectHolder&);
+  ObjectHolder& operator=(const ObjectHolder&);
+};
 
 namespace Gmore {
 
-
-Gmore::Gmore(const std::string pfilename):  
+  // constructor create from a file, font name
+Gmore::Gmore(const std::string pfilename,Glib::ustring& font_name):  
   filename(pfilename),   //filename to load
   Gtk::ScrolledWindow(), // scrolled window holds the textview.
   textview()            // view of the data of the file
 
 {
+  // readin textbuffer, and add textview after setup.
+  setup_textview( load_textbuffer_from_file(), font_name );
 
-  {
+};
+
+
+Gmore::~Gmore()
+{
+  // disconnect connection that uses this page.
+  change_page_connection.disconnect();
+};
+
+// return a TextBuffer RefPtr after loading it from the file.
+Glib::RefPtr<Gtk::TextBuffer> Gmore::load_textbuffer_from_file()
+{
     using namespace std;
     // create a text buffer to hold the text.
     // managed refcounted pointer no memory leak.
@@ -47,15 +81,15 @@ Gmore::Gmore(const std::string pfilename):
       else   // not empty filename we must open.
 	{
 	  inputPtr=&input;
-	  input.open(filename.c_str() );
+	  input.open( filename.c_str() );
 	  // if open failure thow exception.
 	  if ( ! input )
 	    {
-	      string msg("unable to open ");
+	      string msg( _("unable to open ") );
 	      msg += filename;
-	      msg += " for reading.\n";
+	      msg += _(" for reading.\n");
 	      ios_base::failure fail(msg);
-	      filename += " Failed to Open.";
+	      filename += _(" Failed to Open.");
 	      throw fail;
 	    };
 	};
@@ -86,9 +120,20 @@ Gmore::Gmore(const std::string pfilename):
       error_message.set_modal();
       error_message.run();
     };
+    return load_bufferPtr;
+};
+
+// setup a textview in the case of a already loeaded buffer.
+void Gmore::setup_textview(Glib::RefPtr<Gtk::TextBuffer> buffer,
+			   const Glib::ustring& font_name )
+{
+  {
+
+    // set the font to use.
+    set_font_in_use(font_name);
 
     // load our loaded buffer into the text view.
-    textview.set_buffer(load_bufferPtr);
+    textview.set_buffer( buffer );
 
 
   };
@@ -116,18 +161,32 @@ Gmore::Gmore(const std::string pfilename):
 
   show();
 
-
 };
 
-
-Gmore::~Gmore()
+// set the font to use
+void Gmore::set_font_in_use(const Glib::ustring& our_font)
 {
+  // if the font is empty then do nothing
+  if (our_font.empty() ) return;
+  
+  // create a font description from our font
+  Pango::FontDescription font_description( our_font ) ;
+
+  // get the style
+  Glib::RefPtr<Gtk::Style> style = textview.get_style();
+
+  // set the font description into the style
+  style->set_font( font_description );
+
+  // set the updated style backinto the textinfo.
+  textview.set_style(style);
+
 };
 
-
-
+// construct a notebook gmore.
 NoteGmore::NoteGmore(int argc, char *argv[],Gtk::WindowType type):
   Gtk::Window(type),
+  m_Box(false,0),
   notebook()
 {
   // copied from glade --
@@ -142,7 +201,6 @@ NoteGmore::NoteGmore(int argc, char *argv[],Gtk::WindowType type):
   set_modal(false);
   property_window_position().set_value(Gtk::WIN_POS_NONE);
   set_resizable(true);
-  // ?? property_destroy_with_parent().set_value(false);
 
   // reasonable window size
   set_default_size(640,760);
@@ -151,143 +209,178 @@ NoteGmore::NoteGmore(int argc, char *argv[],Gtk::WindowType type):
   // for each passed in argument
   for( int i=0; i < argc ; i++)
     {
-      // convert argument to string
-      std::string fullfilename=argv[i];
-      std::string label;
-      // label value is ...
-      if ( fullfilename.empty() )
-	{
-	  // STDIN if empty.
-	  label=_("STDIN");
-	}
-      else
-	{
-	  // if not empty get boost to parse get leaf end of filename.
-	  boost::filesystem::path filepath(fullfilename);
-	  label= filepath.leaf();
-	};
-
-      // hold a pointer to our page locally while we fool with it.
-      std::auto_ptr<Gmore::Gmore>
-          local_gmore_holder( new Gmore::Gmore(fullfilename) );
-      {
-	using namespace SigC;
-	Gmore::Gmore & page_to_add( *local_gmore_holder );
-
-	page_to_add.set_external_title( _("Gmore : ") + fullfilename );
-
-
-#if 0
-	// We want to call page_to_add.signal_switch_page ().connect( X )
-	// where X must be of type Slot2<void, GtkNotebookPage*, guint > 
-	// but  GtkNotebookPage*, guint parameters are not needed.
-	// so assume we had Y of type Slot0<void> then we could create
-	// X by X=
-	//hide<guint,void,GtkNotebookPage*>(
-	//           hide<GtkNotebookPage*,void>(Slot0<void>) )
-	// i.e.
-	//hide<guint,void,GtkNotebookPage*>(
-	//           hide<GtkNotebookPage*,void>(Y) )
-	//
-	// but when the signal happens we want this->set_title(Z)
-	// to be called where Z is ustring = value of this->title here
-	// so we want Q with type Slot1<void,const ustring&> 
-	//to be changed into 
-	// the form of Y=Slot0<void> fixing this->title to be passed
-	// to this->set_title therefore we must use bind
-	//
-	// Y type Slot0<void> = bind<const ustring&,void,ustring>(Q,title)
-	// remember to disconnect the connection is a destructor.
-#endif
-
-	RefGmore page_to_add_ref(page_to_add);
-
-#if 1
-	// when the signal happens we want our method,
-	// change_title to be called, it returns void
-	// and takes 3 parameters:
-	//		      GtkNotebookPage*, 
-	//		      guint,
-	//		      RefGmore
-	// Create a slot for this!
-
-	const Slot3<void,GtkNotebookPage*, guint, RefGmore> change_title_slot =
-	  slot(*this,&NoteGmore::change_title);
-	
-	// But the slot above is not appropriate to be connected
-	// to signal_switch_page! signal_switch_page
-	// wants only 2 parameters:
-	//		      GtkNotebookPage*, 
-	//		      guint,
-	// The extra parameter
-	// RefGmore i.e. page_to_add, we want to add to the call
-	// We "bind" in the extra parameter with a call to SigC::bind
-	// it converts slots by "binding" in an extra parameter.
-	// The extra parameter must have "value" semantics
-	// so we can not use type Gmore& reference to Gmore
-	// because when the parameter to be bound in is reference
-	// bind has the reference to reference problem
-	// we can not use type Gmore, because Gmore is derived
-	// from a window and therefore does not have a copy constructor or
-	// assignment operator i.e. value semantics.
-	// fortunately the boost library has a solution to this
-	// template reference warper
-	//  typedef boost::reference_wrapper<Gmore> RefGmore;
-	// reference wrappers can be constructed from a type
-	// implement reference functionality, and have
-	// value sematics.
-
-
-	const Slot2<void,GtkNotebookPage*, guint> connect_slot =
-	  SigC::bind<RefGmore,void,GtkNotebookPage*, guint, RefGmore>
-	  (change_title_slot,page_to_add_ref);
-
-	// now we have an appropriate slot connect it!
-
-	notebook.signal_switch_page().connect(connect_slot);
-#else
-	// this is a more compact version of the above.
-	// instead of using 2 intermediate vars, change_title_slot
-	// and connect_slot, make it one large expression like apl
-	// I beleive this is less readable. (but it works as well)
-	notebook.signal_switch_page().
-	  connect(
-		  SigC::bind<RefGmore,void,GtkNotebookPage*, guint, RefGmore>
-		  (slot(*this,&NoteGmore::change_title),
-		   page_to_add_ref)
-		  );
-#endif
-      };
-
-
-      // We append the new page
-      // we are using a pointer, but we are making it managed
-      // and we are immeadiately adding to container (Notebook)
-      // which will take responsibility for deletion.
-
-      // release the local holder as container takes responsibility for it.
-      notebook.append_page( *manage( local_gmore_holder.release() ), label);
+      // add this page to our list of displayed pages after loading
+      add_less_page(argv[i]);
 
     };
+
+  Gtk::Menu::MenuList& file_menulist = m_Menu_File.items();
+
+  file_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
+      _("_Open"),  
+      Gtk::Menu::AccelKey(_("<control>o")),
+      SigC::slot(*this, &NoteGmore::OpenNewPage) ) 
+			   );
+
+  file_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
+      _("_Close current page"),  
+      Gtk::Menu::AccelKey(_("<control>c")),
+      SigC::slot(*this, &NoteGmore::UnLoadCurrentPage) ) 
+			   );
+
+
+  file_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
+      _("_Quit"),  
+      Gtk::Menu::AccelKey(_("<control>q")),
+      SigC::slot(*(Gtk::Window*)this, &Window::hide) ) 
+			   );
+
+  Gtk::Menu::MenuList& edit_menulist = m_Menu_Edit.items();
+
+  edit_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
+      _("Fon_t"),  
+      Gtk::Menu::AccelKey(_("<control>t")),
+      SigC::slot(*this, &NoteGmore::change_font) ) 
+			   );
+
+
+  //Add the menus to the MenuBar:
+  m_MenuBar.items().push_back( 
+	Gtk::Menu_Helpers::MenuElem(_("_File"), m_Menu_File) );
+  m_MenuBar.items().push_back( 
+        Gtk::Menu_Helpers::MenuElem(_("_Edit"), m_Menu_Edit) );
+
+  //Add the MenuBar to the window:
+  m_Box.pack_start(m_MenuBar, Gtk::PACK_SHRINK);
+  // add notebook to our window.
+  m_Box.pack_start(notebook);
+
+  // show the menubar.
+  m_MenuBar.show();
 
   // show the notebook
   notebook.show();
 
+  // show our VBox.
+  m_Box.show();
 
-  // add notebook to our window.
-  add(notebook);
-
-  // show our window.
+  add(m_Box);
   show();
 
-
 };
 
-
+// destroy the notebook gmore
 NoteGmore::~NoteGmore()
 {
+
 };
 
+// add a page to the notebook
+void NoteGmore::add_less_page(const std::string& fullfilename)
+{
+
+  //determine file to use.
+  std::string label;
+  // label value is ...
+  if ( fullfilename.empty() )
+    {
+      // STDIN if empty.
+      label=_("STDIN");
+    }
+  else
+    {
+      // if not empty get boost to parse get leaf end of filename.
+      boost::filesystem::path filepath(fullfilename);
+      label= filepath.leaf();
+    };
+
+  // construct our page!
+  // hold a pointer to our page locally while we fool with it.
+  std::auto_ptr<Gmore::Gmore>
+    local_gmore_holder( new Gmore::Gmore(fullfilename , textview_font_name) );
+  {
+    using namespace SigC;
+    Gmore::Gmore & page_to_add( *local_gmore_holder );
+
+    //    page_to_add.set_font_in_use(textview_font_name);
+
+    page_to_add.set_external_title( _("Gmore : ") + fullfilename );
+
+
+
+    RefGmore page_to_add_ref(page_to_add);
+
+#if 1
+    // when the signal happens we want our method,
+    // change_title to be called, it returns void
+    // and takes 3 parameters:
+    //		      GtkNotebookPage*, 
+    //		      guint,
+    //		      RefGmore
+    // Create a slot for this!
+
+    const Slot3<void,GtkNotebookPage*, guint, RefGmore> change_title_slot =
+      slot(*this,&NoteGmore::change_title);
+	
+    // But the slot above is not appropriate to be connected
+    // to signal_switch_page! signal_switch_page
+    // wants only 2 parameters:
+    //		      GtkNotebookPage*, 
+    //		      guint,
+    // The extra parameter
+    // RefGmore i.e. page_to_add, we want to add to the call
+    // We "bind" in the extra parameter with a call to SigC::bind
+    // it converts slots by "binding" in an extra parameter.
+    // The extra parameter must have "value" semantics
+    // so we can not use type Gmore& reference to Gmore
+    // because when the parameter to be bound in is reference
+    // bind has the reference to reference problem
+    // we can not use type Gmore, because Gmore is derived
+    // from a window and therefore does not have a copy constructor or
+    // assignment operator i.e. value semantics.
+    // fortunately the boost library has a solution to this
+    // template reference warper
+    //  typedef boost::reference_wrapper<Gmore> RefGmore;
+    // reference wrappers can be constructed from a type
+    // implement reference functionality, and have
+    // value sematics.
+
+
+    const Slot2<void,GtkNotebookPage*, guint> connect_slot =
+      SigC::bind<RefGmore,void,GtkNotebookPage*, guint, RefGmore>
+      (change_title_slot,page_to_add_ref);
+
+    // now we have an appropriate slot connect it!
+    page_to_add.change_page_connection =
+    notebook.signal_switch_page().connect(connect_slot);
+
+#else
+    // this is a more compact version of the above.
+    // instead of using 2 intermediate vars, change_title_slot
+    // and connect_slot, make it one large expression like apl
+    // I beleive this is less readable. (but it works as well)
+    page_to_add.change_page_connection =
+      notebook.signal_switch_page().
+      connect(
+	      SigC::bind<RefGmore,void,GtkNotebookPage*, guint, RefGmore>
+	      (slot(*this,&NoteGmore::change_title),
+	       page_to_add_ref)
+	      );
+#endif
+  };
+
+
+  // We append the new page
+  // we are using a pointer, but we are making it managed
+  // and we are immeadiately adding to container (Notebook)
+  // which will take responsibility for deletion.
+
+  // release the local holder as container takes responsibility for it.
+  notebook.append_page( *manage( local_gmore_holder.release() ), label);
+};
+
+// if this sub_window_ref is the current page
+// the change the title of main window.
 void NoteGmore::change_title( 
 			     GtkNotebookPage* raw_page, 
 			     guint index,
@@ -296,13 +389,121 @@ void NoteGmore::change_title(
 {
   Gmore::Gmore& gmore_page = sub_window_ref.get();
 
-
+  // if the page given to us in the current page....
   if ( (notebook.get_current_page() ) == (notebook.page_num(gmore_page) ) )
     {
+      // set the title of the main page.
       set_title( gmore_page.get_external_title() );
     };
 };
 
 
+// code to open and load a new page.
+void NoteGmore::OpenNewPage()
+{
+
+  // setup open file dialog.
+  Gtk::FileSelection selection( _("Select File to display") );
+  selection.set_select_multiple(true);
+  selection.hide_fileop_buttons();
+  // run dialog , if not ok, exit.
+  if (selection.run() != Gtk::RESPONSE_OK ) return;
+
+  // get selected files
+  Glib::ArrayHandle<std::string> selections=selection.get_selections();
+  Glib::ArrayHandle<std::string>::iterator it(selections.begin() );
+  // for each selected file
+  for( it=selections.begin(); it<selections.end(); it++)
+    {
+
+      // add page to notebook.
+      add_less_page( *it );
+    };
+
+};
+// code to remove current page.
+void NoteGmore::UnLoadCurrentPage()
+{
+  // get current page
+  int current = notebook.get_current_page();
+
+
+  if (current >= 0 ) 
+    {
+      // remove it.
+      notebook.remove_page(current);
+    };
+};
+
+// get new font from user, change.
+void NoteGmore::change_font()
+{
+  // setup font seelection dialog.
+  Gtk::FontSelectionDialog dialog;
+  // run dialog if not OK done.
+  if (dialog.run() != Gtk::RESPONSE_OK ) return;
+  // get the font selection.
+  Gtk::FontSelection& get_selection = *dialog.get_font_selection();
+
+  // get the font name from the font selection.
+  textview_font_name = get_selection.get_font_name();
+
+#if 1
+  // save current page..
+  int start_current = notebook.get_current_page();
+  for( int j=0; j <2;j++)
+  for(int i=0; i < notebook.get_n_pages(); i++)
+    {
+      // get current page as a widget
+      Gtk::Widget * current_widgetP = notebook.get_nth_page(i);
+
+
+      // WARNING WARNING WARNING
+      // UPCAST, detect errors at runtime.
+      // replace this code.
+      Gmore::Gmore * gmoreP = dynamic_cast<Gmore::Gmore*>(current_widgetP);
+      if (gmoreP)
+	{
+	  //create reference to the gmore.
+	  Gmore::Gmore& current_gmore = *gmoreP;
+
+	  // get the label assigned.
+	  Glib::ustring label=notebook.get_tab_label_text(current_gmore);
+
+	  // hide the text view
+	  current_gmore.textview.hide();
+	  // set current page to us
+	  notebook.set_current_page(i);
+	  // remove the textview from gmore
+	  current_gmore.remove();
+
+	  // keep gmore from being deleted.
+	  ObjectHolder hold(gmoreP);
+	  //don't work:
+	  //Glib::RefPtr<Gmore::Gmore> hold(gmoreP);
+	  //SigC::Ptr<Gmore::Gmore> hold ( manage(gmoreP) );
+
+	  // remove from notebook (will not be deleted)
+	  notebook.remove_page(current_gmore);
+
+	  // new font in use
+	  current_gmore.set_font_in_use(textview_font_name);
+
+	  // show text view add back to gmore.
+	  current_gmore.textview.show();
+	  current_gmore.add(current_gmore.textview);
+
+	  // put the gmore back into the norebook
+	  notebook.insert_page(current_gmore,label,i);
+
+	};
+      // restore current page.
+      notebook.set_current_page(start_current);
+
+
+    };
+#endif
+
+};
 
 } // namespace Gmore

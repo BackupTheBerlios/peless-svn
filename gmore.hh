@@ -63,25 +63,39 @@ namespace Gmore {  // avoid namespace conficts.
   // and a textview 
   // loaded with the data from the file.
   // scrollwindow allows text to be scrolled.
+  // subclass to NewsGmore later.
   class Gmore : public Gtk::ScrolledWindow
   {  
-  private:
-
+  public:
     // displays text of file
     class Gtk::TextView textview;
 
-        
+  private:
     // filename of the data displayed
     std::string filename;
 
   public:
     // construct from filename.
-    Gmore(const std::string filename);
+    Gmore(const std::string filename,Glib::ustring& font_name);
     // destructor
     virtual ~Gmore();
 
     // property gets filename of file displayed.
     const std::string FileName() const { return filename; };
+
+    // set font in use
+    void set_font_in_use(const Glib::ustring&);
+
+    // hold connection that needs to be disconnected
+    // when this page goes away.
+    SigC::Connection change_page_connection;
+
+    // create a TextBuffer from the data in our file.
+    Glib::RefPtr<Gtk::TextBuffer> load_textbuffer_from_file();
+    
+    // setup a textview.
+    void setup_textview(Glib::RefPtr<Gtk::TextBuffer>,
+			const Glib::ustring& font_name);
 
   private:
     //disallow do not define trivial constructor, conv ctr, assignment
@@ -122,6 +136,7 @@ namespace Gmore {  // avoid namespace conficts.
 
 
   private:
+    // set the title to the external title of the current page.
     void change_title( 
 		      GtkNotebookPage*, 
 		      guint,
@@ -132,15 +147,34 @@ namespace Gmore {  // avoid namespace conficts.
 		      RefGmore
 		      );
 
+    // create a Gmore and add it to the notebook as a page.
+    void add_less_page(const std::string& );
+
+    // get filename from user and add coresponding Gmore to notebook
+    void OpenNewPage();
+
+    // remove the current page.
+    void UnLoadCurrentPage();
+
+    // get new font from user apply to all pages.
+    void change_font();
 
     //disallow do not define trivial constructor, conv ctr, assignment
     NoteGmore();
     NoteGmore(const NoteGmore&);
     NoteGmore& operator=(const NoteGmore&);
 
+    // verticle has menu and display
+    Gtk::VBox m_Box;
+
+    Gtk::MenuBar m_MenuBar;
+    Gtk::Menu m_Menu_File, m_Menu_Edit;
+
     // this is the notebook containing any number of (Gmore)s
     Gtk::Notebook notebook;
 
+    //font to use for all the textviews
+    Glib::ustring textview_font_name;
 
   };
 
