@@ -535,7 +535,6 @@ void NoteGmore::change_font()
     };
 #else
   change_page_font_signal.emit();
-  change_page_font_signal.emit();
 #endif
   // restore current page.
   notebook.set_current_page(start_current);
