@@ -118,6 +118,8 @@ public:
 
   bool search_forward();
 
+  bool Empty() { return regex_string.empty(); };
+
 private:
   SearchCenter();
   SearchCenter(const SearchCenter&);
@@ -140,7 +142,6 @@ private:
 
   Glib::ustring regex_string;
 
-
 };
 
 
@@ -157,6 +158,10 @@ public:
 		Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag);
 
   void SearchAndScroll(SearchCenter& search_center);
+
+  typedef SearchTextView::NewIter<wchar_t,Gtk::TextBuffer::iterator> 
+                                                     TextBufferIterWchar;
+
 private:
   //disallow do not define trivial constructor, conv ctr, assignment
   SearchDisplay();
@@ -170,8 +175,6 @@ private:
 
   Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag;
 
-  typedef SearchTextView::NewIter<wchar_t,Gtk::TextBuffer::iterator> 
-                                                     TextBufferIterWchar;
 
   // limits on regex found string if == then empty.
   TextBufferIterWchar regex_found_begin,regex_found_end;
@@ -188,9 +191,14 @@ private:
     regex_found_begin = regex_found_end = buffer.begin();
   };
 
+
+  bool search_region(
+		     bool forward,
+		     SearchCenter& search_center,
+		     SearchDisplay::TextBufferIterWchar reg_begin,
+		     SearchDisplay::TextBufferIterWchar reg_end
+		     );
 };
-
-
 
 } // namespace SearchTextView
 

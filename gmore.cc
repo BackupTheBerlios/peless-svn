@@ -139,6 +139,8 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
       error_message.set_modal();
       error_message.run();
     };
+    // put the cursor at beginning of buffer.
+    load_buffer.place_cursor( load_buffer.begin() );
     return load_bufferPtr;
 };
 

@@ -157,12 +157,14 @@ namespace SearchTextView {  // avoid namespace conficts.
 	  {
 	    flags |= boost::regex_constants::extended;
 	  };
+	if ( ! regex_string.empty() )
+	  {
+	    assign(
+		   wchar_ustring_iterator(regex_string.begin()),
+		   wchar_ustring_iterator(regex_string.end()),
+		   flags);
 
-	assign(
-	       wchar_ustring_iterator(regex_string.begin()),
-	       wchar_ustring_iterator(regex_string.end()),
-	       flags);
-
+	  };
       };
     dialog.hide();
 
@@ -202,8 +204,26 @@ namespace SearchTextView {  // avoid namespace conficts.
 			  );
       };
 
+    // on empty regular expression return.
+    if ( search_center.Empty() ) return;
+    Gtk::TextBuffer::iterator region_begin,region_end;
 
-    if ( ! RegexFoundEmpty() && ! search_center.empty() )
+    if (go_forward)
+      {
+	region_begin = buffer.get_iter_at_mark( buffer.get_insert() );
+	region_end   = buffer.end();
+      }
+    else
+      {
+	region_begin   = buffer.begin();
+	region_end = buffer.get_iter_at_mark( buffer.get_insert() );
+      };
+    // if search failure empty found region
+
+    bool success = 
+         search_region(go_forward,search_center,region_begin,region_end);
+
+    if ( success && ( ! RegexFoundEmpty() ) )
       {
 	buffer.apply_tag(
 			 found_tag,
@@ -216,7 +236,58 @@ namespace SearchTextView {  // avoid namespace conficts.
 	buffer.place_cursor( 
            ( go_forward? regex_found_end: regex_found_begin) 
 	   );
+      }
+    else
+      {
+	// for some strange reason after failure
+	// must remove the old tag a second time! possible bug.
+	buffer.remove_tag(
+			  found_tag,
+			  Gtk::TextBuffer::iterator(regex_found_begin),
+			  Gtk::TextBuffer::iterator(regex_found_end) 
+			  );
+	// now no found string.
+	RegexSetFoundEmpty();
       };
+  };
+
+  // search a defined region in a direction for regex
+  bool SearchDisplay::search_region(
+			   bool forward,
+			   SearchCenter& search_center,
+			   SearchDisplay::TextBufferIterWchar reg_begin,
+			   SearchDisplay::TextBufferIterWchar reg_end
+			   )
+  {
+    if (search_center.Empty() ) return false;
+    bool success = false;  // assume failure
+    // if forward
+    if (forward)
+      {
+	// search for match.
+	boost::match_results<SearchDisplay::TextBufferIterWchar> result;
+	success = regex_search(reg_begin,reg_end,result,search_center);
+	if(success)
+	  {
+	    // if match store location of match.
+	    regex_found_begin = result[0].first;
+	    regex_found_end   = result[0].second;
+	  };
+      }
+    else
+      {
+	//to search in reverse direction
+	//search in forward direction untill failure
+	while ( search_region(true,search_center,reg_begin,reg_end) )
+	  {
+	    // if at least one search is success, then total is success.
+	    success |= true;
+	    // next search starts at end of last match.
+	    reg_begin = regex_found_end;
+	  };
+	// last sucessfull search will find match closest to end.
+      };
+    return success;
   };
 
 
