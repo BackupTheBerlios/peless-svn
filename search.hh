@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include <gtkmm/textview.h>
+#include <gtkmm/textbuffer.h>
 #include <gtkmm/dialog.h>
 #include <gtkmm/frame.h>
 #include <gtkmm/entry.h>
@@ -208,6 +209,31 @@ private:
 };
 
 #endif
+
+// does search scrool TextView to display results.
+class SearchDisplay
+{
+public:
+  // requirement: view uses a TextBuffer that has a TextTable that
+  // contains the found_tag!
+  SearchDisplay(
+		Gtk::TextView& view, 
+		Glib::RefPtr<Gtk::TextBuffer> view_buffer,
+		Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag);
+private:
+  //disallow do not define trivial constructor, conv ctr, assignment
+  SearchDisplay();
+  SearchDisplay(const SearchDisplay&);
+  SearchDisplay& operator=(const SearchDisplay&);
+
+  Gtk::TextView& view;
+  Glib::RefPtr<Gtk::TextBuffer> view_buffer;
+
+
+  Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag;
+};
+
+
 
 } // namespace SearchTextView
 

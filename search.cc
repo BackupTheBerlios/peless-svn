@@ -1,4 +1,7 @@
+#include <locale>
+
 #include "search.hh"
+
 
 // implementation for searching TextViews for regular expressions.
 
@@ -31,6 +34,7 @@ namespace SearchTextView {  // avoid namespace conficts.
     reverse_checkbutton(_("reverse search direction")),
     regex_string()
   {
+    imbue(std::locale::classic());
     // most of this shown by glade-2.
     dialog.add_button(Gtk::StockID("gtk-cancel"), Gtk::RESPONSE_CANCEL );
     dialog.add_button(Gtk::StockID("gtk-ok"),   Gtk::RESPONSE_OK );
@@ -169,6 +173,16 @@ namespace SearchTextView {  // avoid namespace conficts.
     return !reverse_checkbutton.get_active();
   };
 
+  SearchDisplay::SearchDisplay(
+		Gtk::TextView& viewA, 
+		Glib::RefPtr<Gtk::TextBuffer> view_bufferA,
+		Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tagA
+		):
+    view(viewA),
+    view_buffer( view_bufferA ),
+    found_tag(found_tagA)
+  {
+  };
 
 
 } // namespace SearchTextView

@@ -84,6 +84,13 @@ namespace Gmore {  // avoid namespace conficts.
 
       // property haveing title parent window should use to title this file.
       Glib::ustring external_title;
+
+      // buffer to use in this TextView
+      Glib::RefPtr<Gtk::TextBuffer>  load_bufferPtr;
+
+      // regular expression search viewer.
+      SearchTextView::SearchDisplay search_display;
+
     public:
       // define property set/get methods.
       const Glib::ustring& get_external_title() const 
@@ -179,6 +186,7 @@ namespace Gmore {  // avoid namespace conficts.
     // text tag for found strings.
     Glib::RefPtr<Gtk::TextTag> regex_found_tag;
 
+    // tag table for all TextView's
     Glib::RefPtr<Gtk::TextTagTable> tag_table;
 
   };

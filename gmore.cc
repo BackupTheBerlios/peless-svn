@@ -48,7 +48,9 @@ NoteGmore::Gmore::Gmore(
   the_note_gmore(gmore), // reference to owning gmore
   filename(pfilename),   //filename to load
   Gtk::ScrolledWindow(), // scrolled window holds the textview.
-  textview()             // view of the data of the file
+  textview(),            // view of the data of the file
+  // construct textview regex searcher
+  search_display(textview,load_bufferPtr,the_note_gmore.regex_found_tag)
 
 {
   // readin textbuffer, and add textview after setup.
@@ -71,8 +73,8 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
     // create a text buffer to hold the text.
     // managed refcounted pointer no memory leak.
     // use the global tag_table on all created buffers
-    Glib::RefPtr<Gtk::TextBuffer> 
-         load_bufferPtr( Gtk::TextBuffer::create(the_note_gmore.tag_table) );
+
+    load_bufferPtr = Gtk::TextBuffer::create(the_note_gmore.tag_table);
     // get reference to underlying object
     // RefPtr does not have * operator so this code looks wierd.
     // use explicit call to operator-> instead!
