@@ -121,6 +121,8 @@ namespace SearchTextView {  // avoid namespace conficts.
     entry_frame.show();
     regex_vbox.show();
 
+    // text entry has focus when dialog starts.
+    dialog.set_focus(regex_entry);
     // most of the above came from glade-2
 
     // do not show dialog, make it appear on tasklist when not in use!
@@ -205,7 +207,17 @@ namespace SearchTextView {  // avoid namespace conficts.
       };
 
     // on empty regular expression return.
-    if ( search_center.Empty() ) return;
+    if ( search_center.Empty() ) 
+      {
+	// for some strange reason after failure
+	// must remove the old tag a second time! possible bug.
+	buffer.remove_tag(
+			  found_tag,
+			  Gtk::TextBuffer::iterator(regex_found_begin),
+			  Gtk::TextBuffer::iterator(regex_found_end) 
+			  );
+	return;
+      };
     Gtk::TextBuffer::iterator region_begin,region_end;
 
     if (go_forward)
