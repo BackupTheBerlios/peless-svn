@@ -643,6 +643,8 @@ void NoteGmore::change_font()
 {
   // setup font seelection dialog.
   Gtk::FontSelectionDialog dialog;
+  // current font is font to start dialog with.
+  dialog.set_font_name(textview_font_name);
   // run dialog if not OK done.
   if (dialog.run() != Gtk::RESPONSE_OK ) return;
   // get the font selection.
