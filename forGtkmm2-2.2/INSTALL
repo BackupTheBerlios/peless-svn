@@ -1,3 +1,54 @@
+To make
+
+./configure  --prefix=LOCATION
+make
+
+
+in the above LOCATION should be where peless will be installed.
+--prefix=/usr/local
+means peless will be in /usr/local/bin
+--prefix=/opt/gnome
+means peless will be in /opt/gnome/bin
+DEFAULT=/usr
+
+
+
+
+
+
+ --with-boost=<path> prefix of Boost installation. e.g. /usr/local or /usr
+   default /usr
+ --with-boost_version=1_31 version of Boost installation. e.g. 0_30
+   default 1_31
+
+
+ --with-boost_version=location of boost include directory
+   default /usr/include/boost-1_31
+Location of boost include directory. Should be /usr/include/boost-1_31
+for SuSE, /usr/include for Fedora Core 2.
+because the include files for SuSE are in the directory
+/usr/include/boost-1_31/boost
+and for fedora core 2 they
+are in
+/usr/include/boost.
+
+To INSTALL after make use root account (or one with permission
+to write to destination) and:
+
+make install
+
+ --with-boost_lib_postfix=postfix on boost library files i.e. -gcc-1_31
+This controls the postfix on the boost libraries to link to.
+
+For SuSE the boost filesystem library is 
+/usr/lib/libboost_filesystem-gcc-1_31.so
+so use --with-boost_version=-gcc-1_31
+With Fedora Core 2 the library is
+/usr/lib/libboost_filesystem.so
+
+
+
+
 Copyright (C) 1994, 1995, 1996, 1999, 2000, 2001, 2002 Free Software
 Foundation, Inc.
 
