@@ -178,12 +178,14 @@ namespace SearchTextView {  // avoid namespace conficts.
 		Glib::RefPtr<Gtk::TextBuffer> view_bufferA,
 		Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tagA
 		):
-    view(viewA),                              //TextView
-    view_buffer( view_bufferA ),              //TextBuffer ref pointer
-    buffer( *(view_buffer.operator->()) ),    // convienance ref to buffer
-    found_tag(found_tagA),                    // tag to use.
-    regex_found_begin( buffer.begin() ),   // empty make it point somewhere
-    regex_found_end( buffer.begin() )      // but must _begin==_end i.e. empty
+    view(viewA),                          //TextView
+    view_buffer( view_bufferA ),          //TextBuffer ref pointer
+    buffer( *view_buffer.operator->() ),  //TextBuffer convieneince reference
+    found_tag(found_tagA),                // tag to use.
+    // empty make it point somewhere
+    regex_found_begin( buffer.begin() ),
+    // but must _begin==_end i.e. empty
+    regex_found_end( buffer.begin() )   
   {
   };
 

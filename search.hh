@@ -229,9 +229,7 @@ private:
   Gtk::TextView& view;
   Glib::RefPtr<Gtk::TextBuffer> view_buffer;
 
-  // convienance refference to buffer.
   Gtk::TextBuffer& buffer;
-
 
   Glib::RefPtr<Gtk::TextBuffer::Tag>& found_tag;
 
@@ -241,9 +239,16 @@ private:
   // limits on regex found string if == then empty.
   TextBufferIterWchar regex_found_begin,regex_found_end;
 
+  // is found buffer empty
   bool RegexFoundEmpty() const 
   { 
     return ( regex_found_begin == regex_found_end );
+  };
+
+  // 
+  void RegexSetFoundEmpty()
+  {
+    regex_found_begin = regex_found_end = buffer.begin();
   };
 
 };
