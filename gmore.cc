@@ -114,7 +114,7 @@ Glib::RefPtr<Gtk::TextBuffer> Gmore::load_textbuffer_from_file()
 	  // add back eol char getline stripped.
 	  line += '\n';
 	  // add line to our buffer
-	  load_buffer.insert( load_buffer.end() , line );
+	  load_buffer.insert( load_buffer.end() , Glib::locale_to_utf8(line) );
 	};
     } 
     // on catching io errors while doing above.
