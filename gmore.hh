@@ -154,7 +154,7 @@ namespace Gmore {  // avoid namespace conficts.
 		      );
 
     // create a Gmore and add it to the notebook as a page.
-    void add_less_page(const std::string& );
+    void add_less_page( const std::string& );
 
     // get filename from user and add coresponding Gmore to notebook
     void OpenNewPage();
