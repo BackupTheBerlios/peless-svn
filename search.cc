@@ -310,11 +310,14 @@ namespace SearchTextView {  // avoid namespace conficts.
       {
 	// for some strange reason after failure
 	// must remove the old tag a second time! possible bug.
-	buffer.remove_tag(
-			  found_tag,
-			  Gtk::TextBuffer::iterator(regex_found_begin),
-			  Gtk::TextBuffer::iterator(regex_found_end) 
-			  );
+	if ( ! RegexFoundEmpty() )
+	  {
+	    buffer.remove_tag(
+			      found_tag,
+			      Gtk::TextBuffer::iterator(regex_found_begin),
+			      Gtk::TextBuffer::iterator(regex_found_end) 
+			      );
+	  };
 	// now no found string.
 	RegexSetFoundEmpty();
       };
