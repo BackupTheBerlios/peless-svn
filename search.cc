@@ -1,6 +1,8 @@
 #include <locale>
 
 #include "search.hh"
+#include <gtkmm/messagedialog.h>
+#include <exception>
 
 
 // implementation for searching TextViews for regular expressions.
@@ -160,13 +162,30 @@ namespace SearchTextView {  // avoid namespace conficts.
 	    flags |= boost::regex_constants::extended;
 	  };
 	if ( ! regex_string.empty() )
-	  {
-	    assign(
+	  try 
+	    {
+	      assign(
 		   wchar_ustring_iterator(regex_string.begin()),
 		   wchar_ustring_iterator(regex_string.end()),
 		   flags);
 
-	  };
+	    }
+	  catch( std::exception& excpt)
+	    {
+	      // if exception send message dialog.
+	      std::string msg="Error compiling regular exception:\n";
+	      msg += excpt.what();
+	      Gtk::MessageDialog msgdia(
+					dialog,              //parent
+					msg,                 // message str
+					Gtk::MESSAGE_WARNING, // severity
+					Gtk::BUTTONS_OK,     // OK button
+					true                 // modal
+					);
+	      msgdia.run();
+	      regex_entry.set_text("");
+	      regex_string="";
+	    };
       };
     dialog.hide();
 
@@ -207,15 +226,18 @@ namespace SearchTextView {  // avoid namespace conficts.
       };
 
     // on empty regular expression return.
-    if ( search_center.Empty() ) 
+    if ( search_center.Empty()   ) 
       {
-	// for some strange reason after failure
-	// must remove the old tag a second time! possible bug.
-	buffer.remove_tag(
-			  found_tag,
-			  Gtk::TextBuffer::iterator(regex_found_begin),
-			  Gtk::TextBuffer::iterator(regex_found_end) 
-			  );
+	if ( ! RegexFoundEmpty() )
+	  {
+	    // for some strange reason after failure
+	    // must remove the old tag a second time! possible bug.
+	    buffer.remove_tag(
+			      found_tag,
+			      Gtk::TextBuffer::iterator(regex_found_begin),
+			      Gtk::TextBuffer::iterator(regex_found_end) 
+			      );
+	  };
 	return;
       };
     Gtk::TextBuffer::iterator region_begin,region_end;
