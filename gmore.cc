@@ -789,7 +789,7 @@ void NoteGmore::change_page_font(RefGmore sub_window_ref)
 void NoteGmore::find()
 {
   //if there is 1 buffer (current)
-  if( current_gmore )
+  if( ( notebook.get_n_pages() > 0 ) && current_gmore )
     {
       search_center.query_find();
       find_next();
@@ -799,7 +799,7 @@ void NoteGmore::find()
 void NoteGmore::find_next()
 {
   //if there is 1 buffer (current)
-  if( current_gmore )
+  if( ( notebook.get_n_pages() > 0 ) && current_gmore )
     {
       // search for the regex and scroll to it.
       current_gmore->search_display.SearchAndScroll(search_center);
