@@ -2,6 +2,8 @@
 #include "gmore.hh"
 #include <gtkmm/dialog.h>
 
+#include <algorithm>
+
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -10,6 +12,7 @@
 
 
 #include <boost/filesystem/path.hpp>
+#include <boost/bind.hpp>
 
 class ObjectHolder  // prevent Object from being deleted while I live!
 {
@@ -184,7 +187,10 @@ void Gmore::set_font_in_use(const Glib::ustring& our_font)
 };
 
 // construct a notebook gmore.
-NoteGmore::NoteGmore(int argc, char *argv[],Gtk::WindowType type):
+NoteGmore::NoteGmore(
+		     const file_list_type& file_list,
+		     Gtk::WindowType type
+		     ):
   Gtk::Window(type),
   m_Box(false,0),
   notebook()
@@ -207,12 +213,29 @@ NoteGmore::NoteGmore(int argc, char *argv[],Gtk::WindowType type):
 
 
   // for each passed in argument
-  for( int i=0; i < argc ; i++)
-    {
-      // add this page to our list of displayed pages after loading
-      add_less_page(argv[i]);
+  // call add_less_page
 
+#if 1
+  // use bind library to create a functor object
+  // binding in pointer to member to add_less_page and this
+  // giveing a functor of 1 variable the same as member function
+  // add_less_page = const string&
+  // then use std::for_each to call this functor for all members
+  // of the <vector> file_list
+  std::for_each
+    (file_list.begin(),file_list.end(),
+     boost::bind(&NoteGmore::add_less_page,this,  _1) );
+
+#else
+  // this is the old way to do it with a traditional for loop.
+
+  for(file_list_const_iterator_type  it=file_list.begin();
+       it < file_list.end() ; 
+       it++)
+    {
+      add_less_page(*it);
     };
+#endif
 
   Gtk::Menu::MenuList& file_menulist = m_Menu_File.items();
 

@@ -1,6 +1,8 @@
 #include "config.h"
 #include <gtkmm.h>
 
+#include <algorithm>
+
 #include "gmore.hh"
 
 
@@ -21,8 +23,14 @@ int main(int argc, char *argv[])
       files = onenullfile;
     };
 
+  
+  Gmore::NoteGmore::file_list_type arguement_list(filecount);
+
+  std::copy<char **,Gmore::NoteGmore::file_list_iterator_type> 
+    (files,files+filecount,arguement_list.begin() );
+
   // create a note book with one page for every file
-  Gmore::NoteGmore note_gmore( filecount, files );
+  Gmore::NoteGmore note_gmore( arguement_list);
 
   // run Gtk, X11 main event loop.
   Gtk::Main::run(note_gmore);
