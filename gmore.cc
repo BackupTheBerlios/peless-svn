@@ -273,6 +273,19 @@ NoteGmore::NoteGmore(
       SigC::slot(*this, &NoteGmore::change_font) ) 
 			   );
 
+  //menu items for finding text in buffer
+  edit_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
+      _("_Find"),  
+      Gtk::Menu::AccelKey(_("<control>f")),
+      SigC::slot(*this, &NoteGmore::find) ) 
+			   );
+
+  edit_menulist.push_back( Gtk::Menu_Helpers::MenuElem(
+      _("Find _Next"),  
+      Gtk::Menu::AccelKey(_("<control>n")),
+      SigC::slot(*this, &NoteGmore::find_next) ) 
+			   );
+
 
   //Add the menus to the MenuBar:
   m_MenuBar.items().push_back( 
@@ -590,6 +603,23 @@ void NoteGmore::change_page_font(RefGmore sub_window_ref)
   // put the gmore back into the norebook
   notebook.insert_page(gmore_page,label,i);
 
+};
+
+// find string in buffer after getting string using dialog.
+void NoteGmore::find()
+{
+  //if there is 1 buffer (current)
+  if( current_gmore )
+    {
+    };
+};
+// find next occurance of string in buffer
+void NoteGmore::find_next()
+{
+  //if there is 1 buffer (current)
+  if( current_gmore )
+    {
+    };
 };
 
 } // namespace Gmore

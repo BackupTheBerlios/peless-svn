@@ -176,6 +176,14 @@ namespace Gmore {  // avoid namespace conficts.
     // get new font from user apply to all pages.
     void change_font();
     void change_page_font(RefGmore);
+
+    // search functions
+    // find string in buffer after getting string using dialog.
+    void find();
+
+    // find next occurance of string in buffer
+    void find_next();
+
     SigC::Signal0<void> change_page_font_signal;
 
     //disallow do not define trivial constructor, conv ctr, assignment
