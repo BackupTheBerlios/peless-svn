@@ -57,7 +57,7 @@ AC_ARG_WITH(boost_version,
 AC_SUBST(BOOST_PREFIX)
 
 # link file, inclued files needed for boost
-BOOST_LIBS="-L${BOOST_PREFIX}/lib -lboost_filesystem-gcc-${BOOST_VERSION}"
+BOOST_LIBS="-L${BOOST_PREFIX}/lib -lboost_filesystem-gcc-${BOOST_VERSION} -lboost_regex-gcc-${BOOST_VERSION}"
 BOOST_CXXFLAGS="-I${BOOST_PREFIX}/include/boost-${BOOST_VERSION}"
 
 # make data available to Makefile.am

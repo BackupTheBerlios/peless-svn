@@ -3,6 +3,8 @@
 
 #include "config.h"
 
+#include "search.hh"
+
 //#include "myhide.h"   // sometimes hide.h cause ambiguity
 #include <sigc++/sigc++.h>
 #include <gtkmm.h>
@@ -72,6 +74,7 @@ namespace Gmore {  // avoid namespace conficts.
     class Gmore : public Gtk::ScrolledWindow
     {  
     public:
+      friend class NoteGmore;
       // displays text of file
       class Gtk::TextView textview;
 
@@ -79,9 +82,14 @@ namespace Gmore {  // avoid namespace conficts.
       // filename of the data displayed
       std::string filename;
 
+      // reference to owning gmore.
+      NoteGmore& the_note_gmore;
+
     public:
       // construct from filename.
-      Gmore(const std::string filename,Glib::ustring& font_name);
+      Gmore(NoteGmore& gmore,
+	    const std::string filename,
+	    Glib::ustring& font_name);
       // destructor
       virtual ~Gmore();
 

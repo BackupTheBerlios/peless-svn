@@ -38,8 +38,11 @@ namespace Gmore {
 
   // constructor create from a file, font name
 NoteGmore::Gmore::Gmore(
-               const std::string pfilename,
-	       Glib::ustring& font_name):  
+			NoteGmore& gmore,
+			const std::string pfilename,
+			Glib::ustring& font_name
+			):  
+  the_note_gmore(gmore), // reference to owning gmore
   filename(pfilename),   //filename to load
   Gtk::ScrolledWindow(), // scrolled window holds the textview.
   textview()            // view of the data of the file
@@ -323,7 +326,12 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
   // construct our page!
   // hold a pointer to our page locally while we fool with it.
   std::auto_ptr<Gmore::Gmore>
-    local_gmore_holder( new Gmore::Gmore(fullfilename , textview_font_name) );
+    local_gmore_holder( new 
+			Gmore::Gmore(
+				     *this,
+				     fullfilename , 
+				     textview_font_name) 
+			);
   {
     using namespace SigC;
     Gmore::Gmore & page_to_add( *local_gmore_holder );

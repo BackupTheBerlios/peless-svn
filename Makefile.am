@@ -2,7 +2,7 @@
 bin_PROGRAMS = peless
 
 # sources required for peless
-peless_SOURCES = peless.cc gmore.cc
+peless_SOURCES = peless.cc gmore.cc search.cc
 
 # to compile, use flags needed by both gtkmm and boost
 peless_CXXFLAGS=$(DEPS_CFLAGS) $(BOOST_CXXFLAGS)
