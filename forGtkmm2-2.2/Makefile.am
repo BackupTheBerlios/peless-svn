@@ -6,7 +6,7 @@ peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh s
 
 
 #extra files
-EXTRA_DIST = philo.txt INTERNATIONALIZATION
+EXTRA_DIST = philo.txt INTERNATIONALIZATION peless.spec peless.spec.SuSE.91
 
 # to compile, use flags needed by both gtkmm and boost
 peless_CXXFLAGS=$(DEPS_CFLAGS) $(BOOST_CXXFLAGS)
