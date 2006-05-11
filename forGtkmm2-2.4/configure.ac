@@ -54,7 +54,7 @@ AC_ARG_WITH(boost_version,
 )
 
 AC_ARG_WITH(boost_include,
-    [ --with-boost_version=location of boost include directory],
+    [ --with-boost_include=location of boost include directory],
     [BOOST_INCLUDE=$with_boost_include],
     [BOOST_INCLUDE=${BOOST_PREFIX}/include]
 )
@@ -64,6 +64,7 @@ AC_ARG_WITH(boost_lib_postfix,
     [BOOST_LIB_POSTFIX=$with_boost_lib_postfix],
     [BOOST_LIB_POSTFIX=""]
 )
+
 
 
 # make BOOST_PREFIX available to Makefile.am
