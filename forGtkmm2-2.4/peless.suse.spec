@@ -62,21 +62,9 @@ CCFLAGS=$RPM_OPT_FLAGS make %{?_smp_mflags}
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf "$RPM_BUILD_ROOT"
 
-mkdir -p $RPM_BUILD_ROOT%{_sharedir}/pixmaps
-mkdir -p $RPM_BUILD_ROOT%{_sharedir}/applications
-cp -p %SOURCE1 $RPM_BUILD_ROOT%{_sharedir}/pixmaps/%{name}.png
 
 make DESTDIR=$RPM_BUILD_ROOT install-strip
 
-echo "[Desktop Entry]" > $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
-echo "Encoding=UTF-8" >> $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
-echo "Name=%{name}" >> $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
-echo "Type=Application" >> $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
-echo "Exec=%{_prefix}/bin/%{name}" >> $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
-echo "Icon=%{_sharedir}/pixmaps/%{name}.png" >> $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
-echo "Terminal=0" >> $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
-echo "StartupNotify=true" >> $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
-echo "Categories=Application;Utility;" >> $RPM_BUILD_ROOT%{_sharedir}/applications/%{name}.desktop
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf "$RPM_BUILD_ROOT"

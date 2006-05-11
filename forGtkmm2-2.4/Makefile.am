@@ -15,3 +15,25 @@ peless_CXXFLAGS=$(DEPS_CFLAGS) $(BOOST_CXXFLAGS)
 # to link, use flags needed by both gtkmm and boost
 peless_LDADD=$(DEPS_LIBS) $(BOOST_LIBS)
 # in above, DEPS_LIBS and BOOST_LIBS came from configure.ac
+
+#clean this created file after each make
+CLEANFILES=peless.desktop
+
+# place peless.png in its proper place.
+pixmapdir = @datadir@/pixmaps
+pixmap_DATA = peless.png
+
+# create and place peless.desktop
+desktopdir = @datadir@/applications
+desktop_DATA = peless.desktop
+peless.desktop:
+	echo "[Desktop Entry]" >peless.desktop
+	echo "Encoding=UTF-8" >>peless.desktop
+	echo "Name=peless" >>peless.desktop
+	echo "Exec=@prefix@/bin/peless" >>peless.desktop
+	echo -n "Icon=" >>peless.desktop
+	echo -n @datadir@ >>peless.desktop
+	echo "/pixmaps/peless.png" >>peless.desktop
+	echo "Terminal=0" >>peless.desktop
+	echo "StartupNotify=true" >>peless.desktop
+	echo "Categories=Application;Utility;" >>peless.desktop
