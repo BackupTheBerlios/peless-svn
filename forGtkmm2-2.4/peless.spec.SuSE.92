@@ -2,7 +2,7 @@
 %define _prefix   /opt/gnome
 %define _sharedir %{_prefix}/share
 %define boost_version 1.32.0
-%define boost_flags --with-boost=/usr --with-boost-version=1_32 --with-boost-include=/usr/include/boost --with-boost-lib-postfix=-gcc-1_32
+%define boost_flags --with-boost=/usr --with-boost-version=1_32 --with-boost-include=/usr/include/boost 
 
 Name:		peless
 Summary:	Text browser
@@ -11,7 +11,6 @@ Release:	0.050123
 Copyright:	GPL
 Group:		Productivity/Text/Utilities
 Source0:	%{name}-%{version}.tar.bz2
-Source1:	peless.png
 BuildRoot:	%{_tmppath}/%{name}-root
 Packager:	D. Scott Barninger <barninger@fairfieldcomputers.com>
 Distribution:	%{_dist}
