@@ -18,9 +18,10 @@ Prefix:		/opt/gnome
 URL:		http://www.io.com/~pelliott/pme/ 
 Vendor:		Paul Elliott
 
-BuildRequires: gtkmm24-devel, gconfmm26-devel, pango-devel, atk-devel, boost-devel
-BuildRequires: libsigc++20-devel, gtk2-devel, freetype2-devel, orbit2-devel
-Requires: gtkmm24 >= 2.4, gconfmm26 >= 2.0, pango, atk, libsigc++20, gtk2, freetype2, orbit2, boost = %{boost_version}
+BuildRequires: gtkmm24-devel, gconfmm26-devel,  boost-devel
+BuildRequires: libsigc++20-devel
+
+Requires: gtkmm24 >= 2.4, gconfmm26 >= 2.0,  libsigc++20,  boost = %{boost_version}
 
 %description
 Peless is a simple text file lister. It only displays files and 
