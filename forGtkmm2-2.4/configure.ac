@@ -65,13 +65,25 @@ AC_ARG_WITH(boost_lib_postfix,
     [BOOST_LIB_POSTFIX=""]
 )
 
+AC_ARG_WITH(static_boost,
+    [--with-static-boost=link to boost staticly])
+
 
 
 # make BOOST_PREFIX available to Makefile.am
 AC_SUBST(BOOST_PREFIX)
 
 # link file, inclued files needed for boost
+
+if test "$with_static_boost" == "yes"
+then
+BOOST_LIBS="-L${BOOST_PREFIX}/lib -Wl,-Bstatic -lboost_filesystem${BOOST_LIB_POSTFIX} -lboost_regex${BOOST_LIB_POSTFIX} -Wl,-Bdynamic"
+else
 BOOST_LIBS="-L${BOOST_PREFIX}/lib -lboost_filesystem${BOOST_LIB_POSTFIX} -lboost_regex${BOOST_LIB_POSTFIX}"
+fi
+
+
+
 BOOST_CXXFLAGS="-I${BOOST_INCLUDE}"
 
 # make data available to Makefile.am
