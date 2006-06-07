@@ -6,7 +6,7 @@ peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh s
 
 
 #extra files
-EXTRA_DIST = philo.txt INTERNATIONALIZATION peless.spec.FedoraCore2 peless.spec.SuSE.90 peless.spec.SuSE.92 peless.png peless.spec.ubuntu.510 ubuntu.510/control ubuntu.510/dirs ubuntu.510/docs ubuntu.510/rules peless.spec.SuSE.93 peless.spec.SuSE.10.0 peless.spec.SuSE.10.1 peless.spec.FedoraCore5
+EXTRA_DIST = philo.txt INTERNATIONALIZATION peless.spec.FedoraCore2 peless.spec.SuSE.90 peless.spec.SuSE.92 peless.png peless.spec.ubuntu.510 ubuntu.510/control ubuntu.510/dirs ubuntu.510/docs ubuntu.510/rules peless.spec.SuSE.93 peless.spec.SuSE.10.0 peless.spec.SuSE.10.1 peless.spec.FedoraCore5 peless.spec.man2006
 
 # to compile, use flags needed by both gtkmm and boost
 peless_CXXFLAGS=$(DEPS_CFLAGS) $(BOOST_CXXFLAGS)
