@@ -1,8 +1,8 @@
 Name: peless
 %define prefix   /usr
 Summary: Text browser
-Version: 0.51
-Release: 0.040523fc2
+Version: 0.85
+Release: 0.060607
 License: GPL
 Group: Productivity/Text/Utilities
 Source: %{name}-%{version}.tar.bz2
