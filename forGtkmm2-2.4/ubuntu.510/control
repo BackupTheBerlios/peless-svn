@@ -1,0 +1,12 @@
+Source: peless
+Section: unknown
+Priority: optional
+Maintainer: pelliott <pelliott@io.com>
+Build-Depends: debhelper (>= 4.0.0), autotools-dev, libboost-dev, libboost-dev, libboost-regex-dev, libgconfmm-2.6-dev, libgtkmm-2.4-dev, libsigc++-2.0-dev, libboost-filesystem1.33.0 libboost-regex1.33.0
+Standards-Version: 3.6.1
+
+Package: peless
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libgtkmm-2.4-1c2, libgconfmm-2.6-1c2 libsigc++-2.0-0c2, libboost-filesystem1.33.0, libboost-regex1.33.0
+Description: Text browser
+ Peless is a simple text file lister. It only displays files and never modifies them. It can display multiple files using a tabbed notebook, display international characters, and search the files for regular expressions or literal expressions. Users can choose the fonts used to display files.
