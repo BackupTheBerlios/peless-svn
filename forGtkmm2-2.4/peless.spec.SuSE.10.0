@@ -2,7 +2,8 @@
 %define _prefix   /opt/gnome
 %define _sharedir %{_prefix}/share
 %define boost_version 1.33.1
-%define boost_flags --with-boost=/usr --with-boost-version=1_33 --with-boost-include=/usr/include/boost --with-boost_lib_postfix="-gcc"
+%define boost_flags --with-boost=/usr --with-boost-version=1_33 --with-boost-include=/usr/include/boost --with-boost_lib_postfix=""
+#change for ver 17 of 1.33.1
 
 Name:		peless
 Summary:	Text browser
