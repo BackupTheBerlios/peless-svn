@@ -37,7 +37,7 @@ Version:	0.63
 Release:	0.040120
 %endif
 %if %suse_version == 1000 || %suse_version == 1010
-Version:	0.85
+Version:	0.90
 Release:	0.060709
 %endif
 
