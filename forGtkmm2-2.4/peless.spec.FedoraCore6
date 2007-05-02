@@ -1,4 +1,4 @@
-%define _dist %(Mandriva2006)
+le%define _dist %(Fedora Core 6)
 %define _prefix   /usr
 %define _sharedir %{_prefix}/share
 %define boost_version 1.32.0
