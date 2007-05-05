@@ -33,7 +33,6 @@ or literal expressions. Users can choose the fonts used to display files.
 %setup -q
 
 %build
-echo abc
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
 PKG_CONFIG_PATH=/opt/gnome/lib/pkgconfig:/opt/gnome/share/pkgconfig \
 	./configure --prefix=%{prefix} %{boost_flags}
