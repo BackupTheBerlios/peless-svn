@@ -3,5 +3,5 @@
 %define _sharedir %{_prefix}/share
 %define boost_version 1.33.1
 %define boost_flags --with-boost=/usr --with-boost-version=1_33 --with-boost-include=/usr/include/boost 
-%define _build_requires gtkmm24-devel, gconfmm-devel,  boost-devel, libsigc++2-devel
+%define _build_requires gtkmm24-devel, gconfmm-devel,  boost-devel = %{boost_version}, libsigc++2-devel
 %define _requires gtkmm2 >= 2.4, gconfmm >= 2.0,  libsigc++2,  boost = %{boost_version}
