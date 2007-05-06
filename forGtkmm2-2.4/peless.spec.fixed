@@ -1,13 +1,7 @@
-%define _dist SuSE 10.2
-%define _prefix   /opt/gnome
-%define _sharedir %{_prefix}/share
-%define boost_version 1.33.1
-%define boost_flags --with-boost=/usr --with-boost-version=1_33 --with-boost-include=/usr/include/boost 
-
 Name:		peless
 Summary:	Text browser
-Version:	0.90
-Release:	0.070419
+Version:	%{_version}
+Release:	%{_release}%{?dist}
 License:	GPL
 Group:		Productivity/Text/Utilities
 Source0:	%{name}-%{version}.tar.bz2
@@ -18,10 +12,10 @@ Prefix:		/opt/gnome
 URL:		http://www.io.com/~pelliott/pme/ 
 Vendor:		Paul Elliott
 
-BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel
-BuildRequires: libsigc++2-devel
+BuildRequires: %{_build_requires}
 
-Requires: gtkmm2 >= 2.4, gconfmm >= 2.0,  libsigc++2,  boost = %{boost_version}
+
+Requires: %{_requires}
 
 %description
 Peless is a simple text file lister. It only displays files and 
@@ -60,7 +54,7 @@ rm -rf $RPM_BUILD_DIR/file.list.%{name}.dirs
 %{prefix}/bin/peless
 %{_sharedir}/applications/%{name}.desktop
 %{_sharedir}/pixmaps/%{name}.png
-%doc %_mandir/man1/peless.1.gz
+%doc %_mandir/man1/peless.1.*
 
 %changelog
 * Sun Jan 22 2005 D. Scott Barninger <barninger@fairfieldcomputers.com>
