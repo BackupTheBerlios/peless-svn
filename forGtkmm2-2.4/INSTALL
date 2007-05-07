@@ -1,3 +1,15 @@
+to make an .rpm:
+from the distribution tarball,
+copy peless*.bz2 to xxxxx/SOURCES
+copy one of peless.spec* to xxxxx/SPEC/peless.spec
+
+Edit as necessary
+
+rpmbuild -ba peless.spec
+
+
+
+
 To make
 
 ./configure  --prefix=LOCATION
