@@ -6,9 +6,9 @@ License:	GPL
 Group:		Productivity/Text/Utilities
 Source0:	%{name}-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
-Packager:	D. Scott Barninger <barninger@fairfieldcomputers.com>
+Packager:	https://developer.berlios.de/projects/peless/
 Distribution:	%{_dist}
-Prefix:		/opt/gnome
+Prefix:		%{_prefix}
 URL:		http://www.io.com/~pelliott/pme/ 
 Vendor:		Paul Elliott
 
@@ -28,10 +28,10 @@ or literal expressions. Users can choose the fonts used to display files.
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
-PKG_CONFIG_PATH=/opt/gnome/lib/pkgconfig:/opt/gnome/share/pkgconfig \
+PKG_CONFIG_PATH=%{prefix}/lib/pkgconfig:%{prefix}/share/pkgconfig \
 	./configure --prefix=%{prefix} %{boost_flags}
 CCFLAGS=$RPM_OPT_FLAGS \
-PKG_CONFIG_PATH=/opt/gnome/lib/pkgconfig:/opt/gnome/share/pkgconfig \
+PKG_CONFIG_PATH=%{prefix}/lib/pkgconfig:%{prefix}/share/pkgconfig \
 	 make %{?_smp_mflags}
 
 %install
