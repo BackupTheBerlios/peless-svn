@@ -3,7 +3,7 @@ Summary:	Text browser
 Version:	%{_version}
 Release:	%{_release}%{?dist}
 License:	GPL
-Group:		Productivity/Text/Utilities
+Group:		Applications/Text
 Source0:	%{name}-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
 Packager:	https://developer.berlios.de/projects/peless/
