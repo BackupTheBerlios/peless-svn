@@ -1,5 +1,5 @@
 Source: peless
-Section: unknown
+Section: text
 Priority: optional
 Maintainer: pelliott <pelliott@io.com>
 Build-Depends: debhelper (>= 4.0.0), autotools-dev, libboost-dev, libboost-dev, libboost-regex-dev, libgconfmm-2.6-dev, libgtkmm-2.4-dev, libsigc++-2.0-dev, libboost-filesystem-dev (>= 1.33.1 ) libboost-regex-dev (>= 1.33.1 )

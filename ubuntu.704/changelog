@@ -1,0 +1,8 @@
+peless (1.100-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * Ignore above ITP not filed yet
+  * added info to copyright file
+  * section text
+
+ -- Paul Elliott <pelliott@io.com>  Tue, 15 May 2007 02:45:33 -0500

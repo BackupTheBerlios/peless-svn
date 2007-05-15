@@ -1,0 +1,21 @@
+This package was debianized by Paul Elliott <pelliott@io.com> on
+Mon, 14 May 2007 05:39:20 -0500.
+
+It was downloaded from <http://peless.berlios.de/>
+
+Upstream Author: <pelliott@io.com>
+
+Copyright: <2006,2007 Paul Elliott, D. Scott Barninger <barninger@fairfieldcomputers.com>>
+
+License:
+
+<GPL>
+
+
+The Debian packaging is (C) 2007, Paul Elliott <pelliott@io.com> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+
+
+# Please also look if there are files or directories which have a
+# different copyright/license attached and list them here. (None)
+
