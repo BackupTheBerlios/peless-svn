@@ -28,10 +28,10 @@ or literal expressions. Users can choose the fonts used to display files.
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
-PKG_CONFIG_PATH=%{prefix}/lib/pkgconfig:%{prefix}/share/pkgconfig \
-	./configure --prefix=%{prefix} --with-boost=%{boost_prefix}
+PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig:%{_prefix}/share/pkgconfig \
+	./configure --prefix=%{_prefix} --with-boost=%{boost_prefix}
 CCFLAGS=$RPM_OPT_FLAGS \
-PKG_CONFIG_PATH=%{prefix}/lib/pkgconfig:%{prefix}/share/pkgconfig \
+PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig:%{_prefix}/share/pkgconfig \
 	 make %{?_smp_mflags}
 
 %install
@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_DIR/file.list.%{name}.dirs
 %files
 %defattr(-, root, root)
 %doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION philo.txt
-%{prefix}/bin/peless
+%{_prefix}/bin/peless
 %{_sharedir}/applications/%{name}.desktop
 %{_sharedir}/pixmaps/%{name}.png
 %doc %_mandir/man1/peless.1.*
