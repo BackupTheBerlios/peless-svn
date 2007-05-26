@@ -5,7 +5,7 @@ Release:	%{_release}%{?dist}
 License:	GPL
 Group:		Applications/Text
 Source0:	http:/prdownload.berlios.de/peless/%{name}-%{version}.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-root
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Packager:	https://developer.berlios.de/projects/peless/
 URL:		http://www.io.com/~pelliott/pme/ 
 
