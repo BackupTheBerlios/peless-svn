@@ -4,7 +4,7 @@ ACLOCAL_AMFLAGS = -I m4
 bin_PROGRAMS = peless
 
 #DEPS_CFLAGS from gtkmm, others boost
-peless_CXXFLAGS = $(DEPS_CFLAGS) $(BOOST_CPPFLAGS)
+peless_CXXFLAGS = $(DEPS_CFLAGS) $(BOOST_CPPFLAGS) -O2 -g
 #boost link flags
 peless_LDFLAGS = $(BOOST_LDFLAGS)
 # gtkmm, boost libraries.

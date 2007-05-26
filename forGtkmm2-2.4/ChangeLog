@@ -1,3 +1,5 @@
 eThu Apr 19 03:41:34 CDT 2007 added peless man page.
 Fri, 25 May 2007 20:06:44 -0500 fixed copyright notices.
 Sat, 26 May 2007 13:23:14 -0500 changed boost auto* system to use ax_boost_base.m4
+Sat, 26 May 2007 15:55:43 -0500 changed spec file to comply with Fedora requirements.
+Sat, 26 May 2007 15:59:34 -0500 compile with -O2 -g
