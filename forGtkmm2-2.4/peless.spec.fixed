@@ -7,10 +7,8 @@ Group:		Applications/Text
 Source0:	%{name}-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-root
 Packager:	https://developer.berlios.de/projects/peless/
-Distribution:	%{_dist}
-Prefix:		%{_prefix}
 URL:		http://www.io.com/~pelliott/pme/ 
-Vendor:		Paul Elliott
+
 
 BuildRequires: %{_build_requires}
 
