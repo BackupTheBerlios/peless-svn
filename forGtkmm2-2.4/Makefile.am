@@ -16,7 +16,7 @@ peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh s
 man1_MANS = peless.1
 
 #extra files
-EXTRA_DIST = philo.txt INTERNATIONALIZATION peless.spec.FedoraCore2 peless.spec.SuSE.90 peless.spec.SuSE.92 peless.png peless.spec.ubuntu.510  peless.spec.SuSE.93 peless.spec.SuSE.10.0 peless.spec.SuSE.10.1 peless.spec.FedoraCore5 peless.spec.man2006 peless.spec.fc6 peless.spec.SuSE.scott peless.1 peless.spec.man2007 peless.spec.OpenSuSE-10.2 peless.spec.data.OpenSuSE-10.2   peless.spec.data.fc6   peless.spec.data.man2007 peless.spec.fixed m4/ax_boost_base.m4 m4/ax_boost_filesystem.m4 m4/ax_boost_regex.m4
+EXTRA_DIST = philo.txt INTERNATIONALIZATION    peless.png   peless.spec.fc6  peless.1 peless.spec.man2007 peless.spec.OpenSuSE-10.2 peless.spec.data.OpenSuSE-10.2   peless.spec.data.fc6   peless.spec.data.man2007 peless.spec.fixed m4/ax_boost_base.m4 m4/ax_boost_filesystem.m4 m4/ax_boost_regex.m4
 
 
 #clean this created file after each make
