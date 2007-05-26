@@ -1,5 +1,14 @@
+#m4 macros needed to configure, link boost
+ACLOCAL_AMFLAGS = -I m4
 # program we want built
 bin_PROGRAMS = peless
+
+#DEPS_CFLAGS from gtkmm, others boost
+peless_CXXFLAGS = $(DEPS_CFLAGS) $(BOOST_CPPFLAGS)
+#boost link flags
+peless_LDFLAGS = $(BOOST_LDFLAGS)
+# gtkmm, boost libraries.
+peless_LDADD=$(DEPS_LIBS)  $(BOOST_FILESYSTEM_LIB) $(BOOST_REGEX_LIB)
 
 # sources required for peless
 peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh search.hh
@@ -7,15 +16,8 @@ peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh s
 man1_MANS = peless.1
 
 #extra files
-EXTRA_DIST = philo.txt INTERNATIONALIZATION peless.spec.FedoraCore2 peless.spec.SuSE.90 peless.spec.SuSE.92 peless.png peless.spec.ubuntu.510  peless.spec.SuSE.93 peless.spec.SuSE.10.0 peless.spec.SuSE.10.1 peless.spec.FedoraCore5 peless.spec.man2006 peless.spec.fc6 peless.spec.SuSE.scott peless.1 peless.spec.man2007 peless.spec.OpenSuSE-10.2 peless.spec.data.OpenSuSE-10.2   peless.spec.data.fc6   peless.spec.data.man2007 peless.spec.fixed
+EXTRA_DIST = philo.txt INTERNATIONALIZATION peless.spec.FedoraCore2 peless.spec.SuSE.90 peless.spec.SuSE.92 peless.png peless.spec.ubuntu.510  peless.spec.SuSE.93 peless.spec.SuSE.10.0 peless.spec.SuSE.10.1 peless.spec.FedoraCore5 peless.spec.man2006 peless.spec.fc6 peless.spec.SuSE.scott peless.1 peless.spec.man2007 peless.spec.OpenSuSE-10.2 peless.spec.data.OpenSuSE-10.2   peless.spec.data.fc6   peless.spec.data.man2007 peless.spec.fixed m4/ax_boost_base.m4 m4/ax_boost_filesystem.m4 m4/ax_boost_regex.m4
 
-# to compile, use flags needed by both gtkmm and boost
-peless_CXXFLAGS=$(DEPS_CFLAGS) $(BOOST_CXXFLAGS)
-# in above, DEPS_CFLAGS and BOOST_CXXFLAGS came from configure.ac
-
-# to link, use flags needed by both gtkmm and boost
-peless_LDADD=$(DEPS_LIBS) $(BOOST_LIBS)
-# in above, DEPS_LIBS and BOOST_LIBS came from configure.ac
 
 #clean this created file after each make
 CLEANFILES=peless.desktop peless.spec.OpenSuSE-10.2 peless.spec.version peless.spec.fc6 peless.spec.man2007

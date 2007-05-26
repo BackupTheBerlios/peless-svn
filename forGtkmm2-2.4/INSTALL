@@ -12,9 +12,11 @@ rpmbuild -ba peless.spec
 
 To make
 
-./configure  --prefix=LOCATION
+./configure  --prefix=LOCATION --with-boost=BOOST-LOCATION
 make
 
+BOOST-LOCATION is the prefix to search for boost include files & libraries
+it will be usually be "/usr" if defaulted /usr /usr/local and /opt will be searched.
 
 in the above LOCATION should be where peless will be installed.
 --prefix=/usr/local

@@ -10,6 +10,8 @@ AC_PREREQ(2.51)
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+
+
 AC_PROG_INSTALL
 
 # Checks for libraries.
@@ -35,60 +37,19 @@ AC_HEADER_STDBOOL
 PKG_CHECK_MODULES(DEPS, gtkmm-2.4 >= 2.4.0 gconfmm-2.6 >= 2.6.0)
 #PKG_CHECK_MODULES(DEPS, gtkmm-2.0 >= 2.2.8)
 
+#use boost. by default /usr /usr/local and /opt directories will be searched for boost
+AX_BOOST_BASE([1.32.1])
+#use the boost filesystem library
+AX_BOOST_FILESYSTEM
+#use the boost regex library.
+AX_BOOST_REGEX
+
+
 #make this data visible in Makefile.am
 AC_SUBST(DEPS_CFLAGS)
 AC_SUBST(DEPS_LIBS)
 
-# give user a chance to tell where boost libraries are located.
-# default=/usr
-AC_ARG_WITH(boost,
-    [ --with-boost=<path> prefix of Boost installation. e.g. /usr/local or /usr],
-    [BOOST_PREFIX=$with_boost],
-    [BOOST_PREFIX=[/usr]]
-)
 
-AC_ARG_WITH(boost_version,
-    [ --with-boost_version=1_32 version of Boost installation. e.g. 0_30],
-    [BOOST_VERSION=$with_boost_version],
-    [BOOST_VERSION=[1_32]]
-)
-
-AC_ARG_WITH(boost_include,
-    [ --with-boost_include=location of boost include directory],
-    [BOOST_INCLUDE=$with_boost_include],
-    [BOOST_INCLUDE=${BOOST_PREFIX}/include]
-)
-
-AC_ARG_WITH(boost_lib_postfix,
-    [ --with-boost_lib_postfix=postfix on boost library files i.e. -gcc-1_32],
-    [BOOST_LIB_POSTFIX=$with_boost_lib_postfix],
-    [BOOST_LIB_POSTFIX=""]
-)
-
-AC_ARG_WITH(static_boost,
-    [--with-static-boost=link to boost staticly])
-
-
-
-# make BOOST_PREFIX available to Makefile.am
-AC_SUBST(BOOST_PREFIX)
-
-# link file, inclued files needed for boost
-
-if test "$with_static_boost" == "yes"
-then
-BOOST_LIBS="-L${BOOST_PREFIX}/lib -Wl,-Bstatic -lboost_filesystem${BOOST_LIB_POSTFIX} -lboost_regex${BOOST_LIB_POSTFIX} -Wl,-Bdynamic"
-else
-BOOST_LIBS="-L${BOOST_PREFIX}/lib -lboost_filesystem${BOOST_LIB_POSTFIX} -lboost_regex${BOOST_LIB_POSTFIX}"
-fi
-
-
-
-BOOST_CXXFLAGS="-I${BOOST_INCLUDE}"
-
-# make data available to Makefile.am
-AC_SUBST(BOOST_LIBS)
-AC_SUBST(BOOST_CXXFLAGS)
 
 # require a makefile
 AC_OUTPUT(Makefile)
