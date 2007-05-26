@@ -29,7 +29,7 @@ or literal expressions. Users can choose the fonts used to display files.
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
 PKG_CONFIG_PATH=%{prefix}/lib/pkgconfig:%{prefix}/share/pkgconfig \
-	./configure --prefix=%{prefix} %{boost_flags}
+	./configure --prefix=%{prefix} --with-boost=%{boost_prefix}
 CCFLAGS=$RPM_OPT_FLAGS \
 PKG_CONFIG_PATH=%{prefix}/lib/pkgconfig:%{prefix}/share/pkgconfig \
 	 make %{?_smp_mflags}
