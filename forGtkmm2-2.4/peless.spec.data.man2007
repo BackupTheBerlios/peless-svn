@@ -1,4 +1,3 @@
-%define _dist %for Mandriva2007
 %define boost_prefix /usr
 %define boost_version 1.33.1
 %define _build_requires libgtkmm2.4_1-devel, libgconfmm2.6_1-devel, boost-devel = %{boost_version}, libsigc++2.0_0-devel
