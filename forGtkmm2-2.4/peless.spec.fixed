@@ -55,7 +55,7 @@ rm -rf $RPM_BUILD_DIR/file.list.%{name}.dirs
 %doc %_mandir/man1/peless.1.*
 
 %changelog
-* Sun Jan 22 2005 D. Scott Barninger <barninger@fairfieldcomputers.com>
-- modify for gwdg.de repository
 * Sun May 27 2007 Paul Elliott <pelliott@io.com>
 - update to satisfy fedora rules.
+* Sun Jan 22 2005 D. Scott Barninger <barninger@fairfieldcomputers.com>
+- modify for gwdg.de repository
