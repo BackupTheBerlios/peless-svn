@@ -50,10 +50,12 @@ rm -rf $RPM_BUILD_DIR/file.list.%{name}.dirs
 %defattr(-, root, root)
 %doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION philo.txt
 %{_prefix}/bin/peless
-%{_sharedir}/applications/%{name}.desktop
-%{_sharedir}/pixmaps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
 %doc %_mandir/man1/peless.1.*
 
 %changelog
 * Sun Jan 22 2005 D. Scott Barninger <barninger@fairfieldcomputers.com>
 - modify for gwdg.de repository
+* Sun May 27 2007 Paul Elliott <pelliott@io.com>
+- update to satisfy fedora rules.
