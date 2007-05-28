@@ -31,12 +31,13 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <exception>
+#include <cerrno>
 
 
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/exception.hpp>
 #include <boost/bind.hpp>
+#include "ucompose.hpp"
 
 // collor for regex found tags.
 const static char RegexFoundCollor[]="yellow";
@@ -144,10 +145,13 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
 	  // if open failure thow exception.
 	  if ( ! input )
 	    {
-	      string msg( _("unable to open ") );
-	      msg += filename;
-	      msg += _(" for reading.\n");
-	      ios_base::failure fail(msg);
+
+	      // create failure exception.
+	      Glib::FileError::FileError  
+		fail( Glib::FileError::Code(errno), 
+		      String::ucompose(_("unable to open %1 for reading.\n"), 
+				       filename ) 
+		      );
 	      filename += _(" Failed to Open.");
 	      throw fail;
 	    };
@@ -175,7 +179,7 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
     // on catching io errors while doing above.
     // display error dialog.
     // catch io error reading data.
-    catch (ios_base::failure& ex){
+    catch ( Glib::FileError::FileError ex){
       Gtk::MessageDialog error_message(ex.what());
       error_message.set_modal();
       error_message.run();

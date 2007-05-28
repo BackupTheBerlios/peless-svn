@@ -11,7 +11,7 @@ peless_LDFLAGS = $(BOOST_LDFLAGS)
 peless_LDADD=$(DEPS_LIBS)  $(BOOST_FILESYSTEM_LIB) $(BOOST_REGEX_LIB)
 
 # sources required for peless
-peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh search.hh
+peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh search.hh ucompose.hpp
 
 man1_MANS = peless.1
 
