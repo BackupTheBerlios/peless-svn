@@ -32,6 +32,15 @@ int main(int argc, char *argv[])
   // Let gtk get its parameters;
   Gtk::Main kit(argc, argv);
 
+
+  // this code is needed for internationalization
+  bindtextdomain(GETTEXT_PACKAGE, PELESS_LOCALEDIR);
+  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+  textdomain(GETTEXT_PACKAGE);
+
+
+  char **files = argv + 1;
+
   // filename parameters
   int filecount = argc - 1;
   char **files = argv + 1;
