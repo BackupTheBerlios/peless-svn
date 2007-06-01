@@ -4,3 +4,4 @@ Sat, 26 May 2007 13:23:14 -0500 changed boost auto* system to use ax_boost_base.
 Sat, 26 May 2007 15:55:43 -0500 changed spec file to comply with Fedora requirements.
 Sat, 26 May 2007 15:59:34 -0500 compile with -O2 -g
 Mon, 28 May 2007 16:28:47 -0500 clean up exception message for internationalization.
+Fri,  1 Jun 2007 14:50:45 -0500 international set up code added to peless.cc
