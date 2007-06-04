@@ -1,7 +1,7 @@
 autoheader 
 touch NEWS README AUTHORS ChangeLog
 touch stamp-h
-aclocal
+aclocal -I /opt/gnome/share/aclocal -I /usr/share/aclocal -I ./m4
 autoconf
 if [[ -e missing ]] ; then
 automake
