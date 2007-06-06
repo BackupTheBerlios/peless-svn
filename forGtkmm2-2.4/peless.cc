@@ -39,8 +39,6 @@ int main(int argc, char *argv[])
   textdomain(GETTEXT_PACKAGE);
 
 
-  char **files = argv + 1;
-
   // filename parameters
   int filecount = argc - 1;
   char **files = argv + 1;
