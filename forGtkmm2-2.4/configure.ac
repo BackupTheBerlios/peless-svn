@@ -2,10 +2,20 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.51)
- AC_INIT(peless, 1.131)
+ AC_INIT(peless, 1.125)
  AC_CONFIG_SRCDIR([peless.cc])
  AC_CONFIG_HEADER([config.h])
  AM_INIT_AUTOMAKE([dist-bzip2])
+
+IT_PROG_INTLTOOL([0.35.0])
+
+GETTEXT_PACKAGE=peless
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [The domain to use with gettext])
+AM_GLIB_GNU_GETTEXT
+
+PELESS_LOCALEDIR=[${datadir}/locale]
+AC_SUBST(PELESS_LOCALEDIR)
 
 # Checks for programs.
 AC_PROG_CXX
@@ -52,4 +62,4 @@ AC_SUBST(DEPS_LIBS)
 
 
 # require a makefile
-AC_OUTPUT(Makefile)
+AC_OUTPUT(po/Makefile.in peless.desktop.in Makefile)

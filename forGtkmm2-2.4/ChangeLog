@@ -5,3 +5,6 @@ Sat, 26 May 2007 15:55:43 -0500 changed spec file to comply with Fedora requirem
 Sat, 26 May 2007 15:59:34 -0500 compile with -O2 -g
 Mon, 28 May 2007 16:28:47 -0500 clean up exception message for internationalization.
 Fri,  1 Jun 2007 14:50:45 -0500 international set up code added to peless.cc
+Thu,  7 Jun 2007 16:18:19 -0500 international configuration setup
+Thu,  7 Jun 2007 16:19:33 -0500 peless.desktop created by peless.desktop.in.in
+Thu,  7 Jun 2007 16:20:33 -0500 auto.sh changed to use gnome-autogen.sh, setup internationalization
