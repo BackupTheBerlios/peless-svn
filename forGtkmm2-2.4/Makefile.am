@@ -3,6 +3,7 @@ ACLOCAL_AMFLAGS = -I m4
 # program we want built
 bin_PROGRAMS = peless
 
+#subdirectory for internationalization.
 SUBDIRS=po
 
 INTLTOOL_FILES = intltool-extract.in intltool-merge.in intltool-update.in
@@ -20,7 +21,7 @@ peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh s
 man1_MANS = peless.1
 
 #extra files
-EXTRA_DIST = philo.txt INTERNATIONALIZATION    peless.png   peless.spec.fc6  peless.1 peless.spec.man2007 peless.spec.OpenSuSE-10.2 peless.spec.data.OpenSuSE-10.2   peless.spec.data.fc6   peless.spec.data.man2007 peless.spec.fixed m4/ax_boost_base.m4 m4/ax_boost_filesystem.m4 m4/ax_boost_regex.m4 intltool-extract.in intltool-merge.in intltool-update.in po/LINGUAS po/POTFILES.in po/Makefile.in.in
+EXTRA_DIST = philo.txt INTERNATIONALIZATION    peless.png   peless.spec.fc6  peless.1 peless.spec.man2007 peless.spec.OpenSuSE-10.2 peless.spec.data.OpenSuSE-10.2   peless.spec.data.fc6   peless.spec.data.man2007 peless.spec.fixed m4/ax_boost_base.m4 m4/ax_boost_filesystem.m4 m4/ax_boost_regex.m4 intltool-extract.in intltool-merge.in intltool-update.in po/LINGUAS po/POTFILES.in po/Makefile.in.in peless.spec.version
 
 
 #clean this created file after each make

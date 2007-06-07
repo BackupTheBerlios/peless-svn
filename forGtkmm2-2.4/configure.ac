@@ -7,6 +7,7 @@ AC_PREREQ(2.51)
  AC_CONFIG_HEADER([config.h])
  AM_INIT_AUTOMAKE([dist-bzip2])
 
+#required for internationalization
 IT_PROG_INTLTOOL([0.35.0])
 
 GETTEXT_PACKAGE=peless
@@ -62,4 +63,7 @@ AC_SUBST(DEPS_LIBS)
 
 
 # require a makefile
+# po/Makefile.in required for internationalization
+# peless.desktop created in 2 steps substitutions in peless.desktop.in.in ->peless.desktop.in
+# internationalization peless.desktop.in -> peless.desktop
 AC_OUTPUT(po/Makefile.in peless.desktop.in Makefile)
