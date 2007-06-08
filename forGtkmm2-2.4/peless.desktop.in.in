@@ -6,4 +6,4 @@ Icon=@prefix@/share/pixmaps/peless.png
 Terminal=false
 StartupNotify=true
 Type=Application
-Categories=GTK;Application;Utility;
+Categories=GTK;Utility;
