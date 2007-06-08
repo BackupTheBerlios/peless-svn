@@ -21,7 +21,7 @@ peless_SOURCES = peless.cc gmore.cc search.cc gmore.hh inittime.hh internat.hh s
 man1_MANS = peless.1
 
 #extra files
-EXTRA_DIST = philo.txt INTERNATIONALIZATION    peless.png   peless.spec.fc6  peless.1 peless.spec.man2007 peless.spec.OpenSuSE-10.2 peless.spec.data.OpenSuSE-10.2   peless.spec.data.fc6   peless.spec.data.man2007 peless.spec.fixed m4/ax_boost_base.m4 m4/ax_boost_filesystem.m4 m4/ax_boost_regex.m4 intltool-extract.in intltool-merge.in intltool-update.in po/LINGUAS po/POTFILES.in po/Makefile.in.in peless.spec.version
+EXTRA_DIST = philo.txt INTERNATIONALIZATION    peless.png peless.xpm  peless.spec.fc6  peless.1 peless.spec.man2007 peless.spec.OpenSuSE-10.2 peless.spec.data.OpenSuSE-10.2   peless.spec.data.fc6   peless.spec.data.man2007 peless.spec.fixed m4/ax_boost_base.m4 m4/ax_boost_filesystem.m4 m4/ax_boost_regex.m4 intltool-extract.in intltool-merge.in intltool-update.in po/LINGUAS po/POTFILES.in po/Makefile.in.in peless.spec.version
 
 
 #clean this created file after each make
@@ -29,9 +29,9 @@ CLEANFILES=peless.desktop peless.spec.OpenSuSE-10.2 peless.spec.version peless.s
 
 DISTCLEANFILES = peless-1.125.tar.bz2 peless-1.125.tar.gz intltool-extract intltool-merge intltool-update po/.intltool-merge-cache peless.desktop.in
 
-# place peless.png in its proper place.
+# place peless.png, peless.xpm in its proper place.
 pixmapdir = @datadir@/pixmaps
-pixmap_DATA = peless.png
+pixmap_DATA = peless.png peless.xpm
 
 # create and place peless.desktop
 desktopdir = @datadir@/applications
