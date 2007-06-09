@@ -9,3 +9,4 @@ Thu,  7 Jun 2007 16:18:19 -0500 international configuration setup
 Thu,  7 Jun 2007 16:19:33 -0500 peless.desktop created by peless.desktop.in.in
 Thu,  7 Jun 2007 16:20:33 -0500 auto.sh changed to use gnome-autogen.sh, setup internationalization
 Thu,  7 Jun 2007 23:37:13 -0500 distribute peless.xpm
+Sat,  9 Jun 2007 02:18:08 -0500 Categories parmeter now defined by --with-dtcat=xxxx paremeter to ./configure

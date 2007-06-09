@@ -18,6 +18,12 @@ AM_GLIB_GNU_GETTEXT
 PELESS_LOCALEDIR=[${datadir}/locale]
 AC_SUBST(PELESS_LOCALEDIR)
 
+AC_ARG_WITH(dtcat,[ --with-dtcat=categories to use in peless.desktop],
+	[PELESS_DTCAT=$with_dtcat],
+	[PELESS_DTCAT='GTK;Utility;'])
+
+AC_SUBST(PELESS_DTCAT)
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC

@@ -27,7 +27,8 @@ or literal expressions. Users can choose the fonts used to display files.
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
 PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig:%{_prefix}/share/pkgconfig \
-	./configure --prefix=%{_prefix} --with-boost=%{boost_prefix}
+	./configure --prefix=%{_prefix} --with-boost=%{boost_prefix} \
+	--with-dtcat=%{?DTCAT:%{DTCAT}}%{!?DTCAT:'Application;Utility;'}
 CCFLAGS=$RPM_OPT_FLAGS \
 PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig:%{_prefix}/share/pkgconfig \
 	 make %{?_smp_mflags}
@@ -52,6 +53,7 @@ rm -rf $RPM_BUILD_DIR/file.list.%{name}.dirs
 %{_prefix}/bin/peless
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
+%{_datadir}/pixmaps/%{name}.xpm
 %doc %_mandir/man1/peless.1.*
 
 %changelog
