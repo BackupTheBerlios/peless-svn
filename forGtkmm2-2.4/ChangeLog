@@ -11,3 +11,4 @@ Thu,  7 Jun 2007 16:20:33 -0500 auto.sh changed to use gnome-autogen.sh, setup i
 Thu,  7 Jun 2007 23:37:13 -0500 distribute peless.xpm
 Sat,  9 Jun 2007 02:18:08 -0500 Categories parmeter now defined by --with-dtcat=xxxx paremeter to ./configure
 Sun, 22 Jul 2007 04:30:15 -0500 Comments added to aid translators.
+Mon, 23 Jul 2007 01:01:16 -0500 moved spec files to spec svn directory, removed from distribution.
