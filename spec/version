@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#$1 is the version
+#$2 is the package
+
+
+PACKAGE=$2
+
+VERSION=$1
+
+
+if [[ ! $VERSION ]] 
+then
+
+  VERSION=$(cat version.no)
+
+  if [[ ! $VERSION ]]
+  then
+    VERSION=1
+  fi
+
+
+fi
+
+
+
+
+if [[ ! $PACKAGE ]]
+then
+
+PACKAGE=$(grep -P -o '(?<=#define\sPACKAGE_VERSION\s").+(?=")' ../forGtkmm2-2.4/config.h )
+
+
+fi
+
+
+
+
+for x in peless.spec.*;
+do
+
+
+
+if sed peless.spec.OpenSuSE -r \
+ -e 's/(^Version:\s+).+$/\1'$PACKAGE'/' \
+ -e 's/(^Release:\s+).+($|\%\{\?dist\})/\1'$VERSION'\2/' \
+ > ${x}.tmp
+then
+
+
+mv ${x}.tmp $x
+
+fi
+
+done
