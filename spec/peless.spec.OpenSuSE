@@ -1,7 +1,7 @@
 %define _prefix   /opt/gnome
 Name:		peless
 Summary:	Text browser
-Version:	1.155
+Version:	1.156
 Release:	1%{?dist}
 License:	GPL
 Group:		Applications/Text
