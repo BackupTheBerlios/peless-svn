@@ -1,0 +1,50 @@
+Name: peless
+%define prefix   /usr
+Summary: Text browser
+Version: 0.90
+Release: 0.070419
+License: GPL
+Group: Productivity/Text/Utilities
+Source: %{name}-%{version}.tar.bz2
+BuildRoot: %{_tmppath}/build-root-%{name}
+Packager: Paul Elliott
+Distribution: forSuSE
+Prefix: /usr
+Url: http://www.io.com/~pelliott/pme/
+Provides: peless 
+Vendor: Paul Elliott
+Requires: gtkmm2 >= 2.0.0 gconfmm >= 2.0.0
+
+%description
+peless the tabbed notebook multifile text file browser with 
+regular expression searching. Uses gtkmm, gconfmm2, boost.
+
+%prep
+rm -rf $RPM_BUILD_ROOT 
+mkdir $RPM_BUILD_ROOT
+
+%setup -q
+
+%build
+CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
+./configure --prefix=%{prefix} --with-boost-include=%{_includedir} --with-boost-lib-postfix=""
+CCFLAGS=$RPM_OPT_FLAGS make %{?_smp_mflags}
+
+%install
+rm -rf %{buildroot}
+make DESTDIR=$RPM_BUILD_ROOT install-strip
+
+cd $RPM_BUILD_ROOT
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_DIR/file.list.%{name}
+rm -rf $RPM_BUILD_DIR/file.list.%{name}.libs
+rm -rf $RPM_BUILD_DIR/file.list.%{name}.files
+rm -rf $RPM_BUILD_DIR/file.list.%{name}.files.tmp
+rm -rf $RPM_BUILD_DIR/file.list.%{name}.dirs
+
+%files
+%defattr(-, root, root)
+%doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION philo.txt
+%{prefix}/bin/peless
