@@ -39,9 +39,9 @@ fi
 for x in peless.spec.*;
 do
 
+rm ${x}.tmp
 
-
-if sed peless.spec.OpenSuSE -r \
+if sed $x -r \
  -e 's/(^Version:\s+).+$/\1'$PACKAGE'/' \
  -e 's/(^Release:\s+).+($|\%\{\?dist\})/\1'$VERSION'\2/' \
  > ${x}.tmp
