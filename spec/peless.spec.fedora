@@ -51,6 +51,8 @@ rm -rf $RPM_BUILD_ROOT
 %_mandir/man1/peless.1.*
 
 %changelog
+* Sat Jul 28 2007 Paul Elliott <pelliott@io.com>
+- implement changes requested by Mamoru Tasaka    on 2007-07-26
 * Tue Jul 24 2007 Paul Elliott <pelliott@io.com>
 - modify spec files on advise of fedora people.
 * Sun May 27 2007 Paul Elliott <pelliott@io.com>
