@@ -11,7 +11,7 @@ URL:		http://www.io.com/~pelliott/pme/
 
 
 BuildRequires: gtkmm24-devel, gconfmm26-devel,  boost-devel = 1.33.1, libsigc++20-devel
-
+BuildRequires: desktop-file-utils, gettext
 
 
 
@@ -33,7 +33,10 @@ or literal expressions. Users can choose the fonts used to display files.
 rm -rf $RPM_BUILD_ROOT
 
 make DESTDIR=$RPM_BUILD_ROOT install
-
+desktop-file-install --vendor peless                   \
+  --dir $RPM_BUILD_ROOT%{_datadir}/applications        \
+  --add-category GNOME                                 \
+  ${RPM_BUILD_ROOT}%{_datadir}/applications/peless.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT

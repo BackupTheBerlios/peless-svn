@@ -11,7 +11,7 @@ Packager:	https://developer.berlios.de/projects/peless/
 URL:		http://www.io.com/~pelliott/pme/ 
 
 
-BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel
+BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel, gettext
 
 
 
