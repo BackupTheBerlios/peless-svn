@@ -25,12 +25,8 @@ or literal expressions. Users can choose the fonts used to display files.
 %setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
-PKG_CONFIG_PATH=%{_libdir}/pkgconfig:%{_datadir}/pkgconfig \
 	%configure  --with-boost=%_prefix \
 	--with-dtcat=%{?DTCAT:%{DTCAT}}%{!?DTCAT:'Application;Utility;'}
-CCFLAGS=$RPM_OPT_FLAGS \
-PKG_CONFIG_PATH=%{_libdir}/pkgconfig:%{_datadir}/pkgconfig \
 	 make %{?_smp_mflags}
 
 %install
