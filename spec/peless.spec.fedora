@@ -43,7 +43,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-, root, root)
+%defattr(-, root, root,-)
 %doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION philo.txt
 %{_bindir}/peless
 %{_datadir}/applications/%{name}.desktop
@@ -52,9 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %_mandir/man1/peless.1.*
 
 %changelog
+* Tue Jul 24 2007 Paul Elliott <pelliott@io.com>
+- modify spec files on advise of fedora people.
 * Sun May 27 2007 Paul Elliott <pelliott@io.com>
 - update to satisfy fedora rules.
 * Sun Jan 22 2005 D. Scott Barninger <barninger@fairfieldcomputers.com>
 - modify for gwdg.de repository
-* Tue Jul 24 2007 Paul Elliott <pelliott@io.com>
-- modify spec files on advise of fedora people.
