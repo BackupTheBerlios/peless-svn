@@ -45,7 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root,-)
 %doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION
 %{_bindir}/peless
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/fedora-%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/%{name}.xpm
 %_mandir/man1/peless.1.*
