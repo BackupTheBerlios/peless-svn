@@ -37,6 +37,8 @@ desktop-file-install --vendor fedora                   \
   --delete-original                                    \
   --add-category GNOME                                 \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/peless.desktop
+mv ${RPM_BUILD_ROOT}%{_datadir}/applications/fedora-%{name}.desktop ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -45,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root,-)
 %doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION
 %{_bindir}/peless
-%{_datadir}/applications/fedora-%{name}.desktop
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/%{name}.xpm
 %_mandir/man1/peless.1.*
