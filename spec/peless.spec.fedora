@@ -34,7 +34,7 @@ rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 desktop-file-install --vendor fedora                   \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications        \
-  --remove-original                                    \
+  --delete-original                                    \
   --add-category GNOME                                 \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/peless.desktop
 
@@ -60,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 - Use fedora as vendir_id. i.e.
 - desktop-file-install --vendor fedora ....
 - and this will create fedora-peless.desktop
-- use "--remove-original"
+- use "--delete-original"
 * Sat Jul 28 2007 Paul Elliott <pelliott@io.com> - 1.156-2
 - implement changes requested by Mamoru Tasaka    on 2007-07-26
 * Tue Jul 24 2007 Paul Elliott <pelliott@io.com>
