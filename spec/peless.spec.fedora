@@ -25,15 +25,16 @@ or literal expressions. Users can choose the fonts used to display files.
 
 %build
 	%configure  --with-boost=%_prefix \
-	--with-dtcat=%{?DTCAT:%{DTCAT}}%{!?DTCAT:'Application;Utility;'}
+	--with-dtcat='Utility;'
 	 make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 make DESTDIR=$RPM_BUILD_ROOT install
-desktop-file-install --vendor peless                   \
+desktop-file-install --vendor fedora                   \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications        \
+  --remove-original                                    \
   --add-category GNOME                                 \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/peless.desktop
 
@@ -54,6 +55,12 @@ rm -rf $RPM_BUILD_ROOT
 - remove philo.txt from files distributed to end users.
 - Please remove the line "Packager". This is automatically set on
 - Fedora side
+- Catetory "Application" is deprecated and is removed
+- by removing it from --with-dtcat parameter to %configure
+- Use fedora as vendir_id. i.e.
+- desktop-file-install --vendor fedora ....
+- and this will create fedora-peless.desktop
+- use "--remove-original"
 * Sat Jul 28 2007 Paul Elliott <pelliott@io.com> - 1.156-2
 - implement changes requested by Mamoru Tasaka    on 2007-07-26
 * Tue Jul 24 2007 Paul Elliott <pelliott@io.com>
