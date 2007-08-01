@@ -6,7 +6,7 @@ License:	GPL
 Group:		Applications/Text
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-URL:		http://www.io.com/~pelliott/pme/ 
+URL:		https://developer.berlios.de/projects/peless/
 
 
 BuildRequires: gtkmm24-devel, gconfmm26-devel,  boost-devel = 1.33.1, libsigc++20-devel
@@ -63,6 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 - desktop-file-install --vendor fedora ....
 - and this will create fedora-peless.desktop
 - use "--delete-original"
+- And use https://developer.berlios.de/projects/peless/ as URL.
 * Sat Jul 28 2007 Paul Elliott <pelliott@io.com> - 1.156-2
 - implement changes requested by Mamoru Tasaka    on 2007-07-26
 * Tue Jul 24 2007 Paul Elliott <pelliott@io.com>

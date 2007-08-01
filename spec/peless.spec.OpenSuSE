@@ -8,7 +8,7 @@ Group:		Applications/Text
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Packager:	https://developer.berlios.de/projects/peless/
-URL:		http://www.io.com/~pelliott/pme/ 
+URL:		https://developer.berlios.de/projects/peless/
 
 
 BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel, gettext
@@ -54,6 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Aug  1 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - remove philo.txt from files distributed to end users.
+- And use https://developer.berlios.de/projects/peless/ as URL.
 * Sun May 27 2007 Paul Elliott <pelliott@io.com>
 - update to satisfy fedora rules.
 * Sun Jan 22 2005 D. Scott Barninger <barninger@fairfieldcomputers.com>
