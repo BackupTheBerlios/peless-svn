@@ -2,7 +2,7 @@
 Name:		peless
 Summary:	Text browser
 Version:	1.156
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPL
 Group:		Applications/Text
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
@@ -26,11 +26,11 @@ or literal expressions. Users can choose the fonts used to display files.
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
-PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig:%{_prefix}/share/pkgconfig \
+PKG_CONFIG_PATH=%{_prefix}/%{_lib}/pkgconfig:%{_prefix}/share/pkgconfig \
 	%configure  --prefix=%{_prefix} --with-boost=/usr \
 	--with-dtcat=%{?DTCAT:%{DTCAT}}%{!?DTCAT:'Application;Utility;'}
 CCFLAGS=$RPM_OPT_FLAGS \
-PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig:%{_prefix}/share/pkgconfig \
+PKG_CONFIG_PATH=%{_prefix}/%{_lib}/pkgconfig:%{_prefix}/share/pkgconfig \
 	 make %{?_smp_mflags}
 
 %install
@@ -52,12 +52,15 @@ rm -rf $RPM_BUILD_ROOT
 %_mandir/man1/peless.1.*
 
 %changelog
+* Sat Aug 25 2007 Paul Elliott <pelliott@io.com> - 1.156-3
+- reorder changelog
+- replace /lib/ by /%{_lib}/
 * Wed Aug  1 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - remove philo.txt from files distributed to end users.
 - And use https://developer.berlios.de/projects/peless/ as URL.
+* Tue Jul 24 2007 Paul Elliott <pelliott@io.com>
+- modify spec files on advise of fedora people.
 * Sun May 27 2007 Paul Elliott <pelliott@io.com>
 - update to satisfy fedora rules.
 * Sun Jan 22 2005 D. Scott Barninger <barninger@fairfieldcomputers.com>
 - modify for gwdg.de repository
-* Tue Jul 24 2007 Paul Elliott <pelliott@io.com>
-- modify spec files on advise of fedora people.
