@@ -10,7 +10,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Packager:	https://developer.berlios.de/projects/peless/
 URL:		https://developer.berlios.de/projects/peless/
 
-
+%{?suse_update_config:BuildRequires:autoconf automake libtool}
 BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel, gettext
 
 
@@ -23,6 +23,8 @@ or literal expressions. Users can choose the fonts used to display files.
 
 %prep
 %setup -q
+%{?suse_update_libdir:%{suse_update_libdir}}
+%{?suse_update_config:%{suse_update_config -f}}
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
@@ -55,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 * Sat Aug 25 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - reorder changelog
 - replace /lib/ by /%{_lib}/
+- must use %suse_update_config -f and %suse_update_libdir before configure with 
+- every package - note that it might break the build of some packages, 
+- so it must be tested (only remove it if it breaks), like this:
 * Wed Aug  1 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - remove philo.txt from files distributed to end users.
 - And use https://developer.berlios.de/projects/peless/ as URL.
