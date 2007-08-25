@@ -1,3 +1,4 @@
+# norootforbuild
 %define _prefix   /opt/gnome
 Name:		peless
 Summary:	Text browser
@@ -60,6 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 - must use %suse_update_config -f and %suse_update_libdir before configure with 
 - every package - note that it might break the build of some packages, 
 - so it must be tested (only remove it if it breaks), like this:
+- use # norootforbuild
 * Wed Aug  1 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - remove philo.txt from files distributed to end users.
 - And use https://developer.berlios.de/projects/peless/ as URL.
