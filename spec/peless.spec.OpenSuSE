@@ -5,9 +5,9 @@ Summary:	Text browser
 Version:	1.156
 Release:	4%{?dist}
 License:	GPL
-Group:		Applications/Text
+Group:		Productivity/Text/Utilities
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Packager:	https://developer.berlios.de/projects/peless/
 URL:		https://developer.berlios.de/projects/peless/
 
@@ -62,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 - every package - note that it might break the build of some packages, 
 - so it must be tested (only remove it if it breaks), like this:
 - use # norootforbuild
+- group changes from Applications/Text to Productivity/Text/Utilities
+- change buildroot to opensuse preference.
 * Wed Aug  1 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - remove philo.txt from files distributed to end users.
 - And use https://developer.berlios.de/projects/peless/ as URL.
