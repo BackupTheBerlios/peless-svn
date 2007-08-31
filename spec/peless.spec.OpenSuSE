@@ -1,20 +1,19 @@
 # norootforbuild
 %define _prefix   /opt/gnome
 Name:		peless
-Summary:	Text browser
+Summary:	Tabbed text browser
 Version:	1.156
-Release:	4%{?dist}
+Release:	19%{?dist}
 License:	GPL
 Group:		Productivity/Text/Utilities
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Packager:	https://developer.berlios.de/projects/peless/
 URL:		https://developer.berlios.de/projects/peless/
+Autoreqprov:    on
 
 %{?suse_update_config:BuildRequires:autoconf automake libtool}
-BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel, gettext
-
-
+BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel, gettext, intltool, gcc-c++
 
 %description
 Peless is a simple text file lister. It only displays files and 
@@ -55,6 +54,10 @@ rm -rf $RPM_BUILD_ROOT
 %_mandir/man1/peless.1.*
 
 %changelog
+* Fri Aug 31 2007 Paul Elliott <pelliott@io.com> - 1.156-17
+- add intltool, gcc-c++
+* Wed Aug 29 2007 Paul Elliott <pelliott@io.com> - 1.156-5
+- new Summary.
 * Sat Aug 25 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - reorder changelog
 - replace /lib/ by /%{_lib}/
@@ -64,6 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 - use # norootforbuild
 - group changes from Applications/Text to Productivity/Text/Utilities
 - change buildroot to opensuse preference.
+- add Autoreqprov:    on
 * Wed Aug  1 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - remove philo.txt from files distributed to end users.
 - And use https://developer.berlios.de/projects/peless/ as URL.

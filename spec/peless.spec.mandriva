@@ -1,7 +1,7 @@
 Name:		peless
-Summary:	Text browser
+Summary:	Tabbed text browser
 Version:	1.156
-Release:	3%{?dist}
+Release:	19%{?dist}
 License:	GPL
 Group:		Applications/Text
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
@@ -10,7 +10,7 @@ Packager:	https://developer.berlios.de/projects/peless/
 URL:		https://developer.berlios.de/projects/peless/
 
 
-BuildRequires: libgtkmm2.4_1-devel, libgconfmm2.6_1-devel, boost-devel = 1.33.1, libsigc++2.0_0-devel
+BuildRequires: libgtkmm2.4_1-devel, libgconfmm2.6_1-devel, boost-devel = 1.33.1, libsigc++2.0_0-devel, gettext, intltool, gcc-c++
 
 
 
@@ -53,6 +53,10 @@ rm -rf $RPM_BUILD_ROOT
 %_mandir/man1/peless.1.*
 
 %changelog
+* Fri Aug 31 2007 Paul Elliott <pelliott@io.com> - 1.156-17
+- add intltool, gcc-c++
+* Wed Aug 29 2007 Paul Elliott <pelliott@io.com> - 1.156-4
+- new Summary.
 * Wed Aug  1 2007 Paul Elliott <pelliott@io.com> - 1.156-3
 - remove philo.txt from files distributed to end users.
 - And use https://developer.berlios.de/projects/peless/ as URL.
