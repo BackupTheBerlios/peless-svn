@@ -1,18 +1,21 @@
 # norootforbuild
+%if %{?suse_version}
+%if 0%{?suse_version} < 1030
 %define _prefix   /opt/gnome
+%endif
+%endif
 Name:		peless
 Summary:	Tabbed text browser
 Version:	1.156
-Release:	19%{?dist}
+Release:	37%{?dist}
 License:	GPL
 Group:		Productivity/Text/Utilities
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Packager:	https://developer.berlios.de/projects/peless/
 URL:		https://developer.berlios.de/projects/peless/
 Autoreqprov:    on
 
-%{?suse_update_config:BuildRequires:autoconf automake libtool}
+BuildRequires:autoconf automake libtool
 BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel, gettext, intltool, gcc-c++
 
 %description
@@ -21,28 +24,27 @@ never modifies them. It can display multiple files using a tabbed notebook,
 display international characters, and search the files for regular expressions 
 or literal expressions. Users can choose the fonts used to display files.
 
+%debug_package
+
 %prep
 %setup -q
+#remove next 2 lines when it is verified that it works wo them.
+#I do not have 64 bit system for testing.
 %{?suse_update_libdir:%{suse_update_libdir}}
 %{?suse_update_config:%{suse_update_config -f}}
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
-PKG_CONFIG_PATH=%{_prefix}/%{_lib}/pkgconfig:%{_prefix}/share/pkgconfig \
 	%configure  --prefix=%{_prefix} --with-boost=/usr \
 	--with-dtcat=%{?DTCAT:%{DTCAT}}%{!?DTCAT:'Application;Utility;'}
-CCFLAGS=$RPM_OPT_FLAGS \
-PKG_CONFIG_PATH=%{_prefix}/%{_lib}/pkgconfig:%{_prefix}/share/pkgconfig \
-	 make %{?_smp_mflags}
+CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
+	 %__make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-make DESTDIR=$RPM_BUILD_ROOT install-strip
-
+%makeinstall
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%__rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root)
@@ -54,6 +56,17 @@ rm -rf $RPM_BUILD_ROOT
 %_mandir/man1/peless.1.*
 
 %changelog
+* Tue Sep 04 2007 Paul Elliott <pelliott@io.com> - 1.156-37
+- use macro __make
+- use macro __rm
+- use macro makeinstall
+- remove Packager
+- use macro debug_package, remove install-strip, replace with install
+- remove the 'rm -rf $RPM_BUILD_ROOT' statement in install
+- prefix is /opt/gnome only if suse and <= 10.2
+- unconditionalize BuildRequires:autoconf automake libtool
+- Remove setting of PKG_CONFIG_PATH.
+- CXXFLAGS for make.
 * Fri Aug 31 2007 Paul Elliott <pelliott@io.com> - 1.156-17
 - add intltool, gcc-c++
 * Wed Aug 29 2007 Paul Elliott <pelliott@io.com> - 1.156-5
