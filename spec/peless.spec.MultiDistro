@@ -1,0 +1,94 @@
+# norootforbuild
+%if 0%{?suse_version}
+%if 0%{?suse_version} < 1030
+%define _prefix   /opt/gnome
+%endif
+%endif
+Name:		peless
+Summary:	Tabbed text browser
+Version:	1.156
+Release:	40%{?dist}
+License:	GPL
+Group:		Productivity/Text/Utilities
+Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+URL:		https://developer.berlios.de/projects/peless/
+Autoreqprov:    on
+
+BuildRequires:autoconf automake libtool
+BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel, gettext, intltool, gcc-c++
+
+%description
+Peless is a simple text file lister. It only displays files and 
+never modifies them. It can display multiple files using a tabbed notebook, 
+display international characters, and search the files for regular expressions 
+or literal expressions. Users can choose the fonts used to display files.
+
+%debug_package
+
+%prep
+%setup -q
+#remove next 2 lines when it is verified that it works wo them.
+#I do not have 64 bit system for testing.
+%{?suse_update_libdir:%{suse_update_libdir}}
+%{?suse_update_config:%{suse_update_config -f}}
+
+%build
+CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
+	%configure  --prefix=%{_prefix} --with-boost=/usr \
+	--with-dtcat=%{?DTCAT:%{DTCAT}}%{!?DTCAT:'Application;Utility;'}
+CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
+	 %__make %{?_smp_mflags}
+
+%install
+%makeinstall
+
+%clean
+%__rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-, root, root)
+%doc AUTHORS COPYING ChangeLog NEWS README INTERNATIONALIZATION
+%{_bindir}/peless
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/pixmaps/%{name}.xpm
+%_mandir/man1/peless.1.*
+
+%changelog
+* Sat Sep 08 2007 Paul Elliott <pelliott@io.com> - 1.156-40
+- fix ifdef left off 0
+* Tue Sep 04 2007 Paul Elliott <pelliott@io.com> - 1.156-37
+- use macro __make
+- use macro __rm
+- use macro makeinstall
+- remove Packager
+- use macro debug_package, remove install-strip, replace with install
+- remove the 'rm -rf $RPM_BUILD_ROOT' statement in install
+- prefix is /opt/gnome only if suse and <= 10.2
+- unconditionalize BuildRequires:autoconf automake libtool
+- Remove setting of PKG_CONFIG_PATH.
+- CXXFLAGS for make.
+* Fri Aug 31 2007 Paul Elliott <pelliott@io.com> - 1.156-17
+- add intltool, gcc-c++
+* Wed Aug 29 2007 Paul Elliott <pelliott@io.com> - 1.156-5
+- new Summary.
+* Sat Aug 25 2007 Paul Elliott <pelliott@io.com> - 1.156-3
+- reorder changelog
+- replace /lib/ by /%{_lib}/
+- must use %suse_update_config -f and %suse_update_libdir before configure with 
+- every package - note that it might break the build of some packages, 
+- so it must be tested (only remove it if it breaks), like this:
+- use # norootforbuild
+- group changes from Applications/Text to Productivity/Text/Utilities
+- change buildroot to opensuse preference.
+- add Autoreqprov:    on
+* Wed Aug  1 2007 Paul Elliott <pelliott@io.com> - 1.156-3
+- remove philo.txt from files distributed to end users.
+- And use https://developer.berlios.de/projects/peless/ as URL.
+* Tue Jul 24 2007 Paul Elliott <pelliott@io.com>
+- modify spec files on advise of fedora people.
+* Sun May 27 2007 Paul Elliott <pelliott@io.com>
+- update to satisfy fedora rules.
+* Sun Jan 22 2005 D. Scott Barninger <barninger@fairfieldcomputers.com>
+- modify for gwdg.de repository
