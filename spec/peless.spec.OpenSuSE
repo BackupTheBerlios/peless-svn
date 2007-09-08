@@ -1,5 +1,5 @@
 # norootforbuild
-%if %{?suse_version}
+%if 0%{?suse_version}
 %if 0%{?suse_version} < 1030
 %define _prefix   /opt/gnome
 %endif
@@ -7,7 +7,7 @@
 Name:		peless
 Summary:	Tabbed text browser
 Version:	1.156
-Release:	37%{?dist}
+Release:	40%{?dist}
 License:	GPL
 Group:		Productivity/Text/Utilities
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
@@ -56,6 +56,8 @@ CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
 %_mandir/man1/peless.1.*
 
 %changelog
+* Sat Sep 08 2007 Paul Elliott <pelliott@io.com> - 1.156-40
+- fix ifdef left off 0
 * Tue Sep 04 2007 Paul Elliott <pelliott@io.com> - 1.156-37
 - use macro __make
 - use macro __rm
