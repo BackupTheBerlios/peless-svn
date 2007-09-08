@@ -7,7 +7,7 @@
 Name:		peless
 Summary:	Tabbed text browser
 Version:	1.156
-Release:	40%{?dist}
+Release:	41%{?dist}
 License:	GPL
 Group:		Productivity/Text/Utilities
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
@@ -16,7 +16,25 @@ URL:		https://developer.berlios.de/projects/peless/
 Autoreqprov:    on
 
 BuildRequires:autoconf automake libtool
-BuildRequires: gtkmm24-devel, gconfmm-devel,  boost-devel = 1.33.1, libsigc++2-devel, gettext, intltool, gcc-c++
+BuildRequires: gtkmm24-devel, boost-devel = 1.33.1, gettext, intltool, gcc-c++
+
+%if 0%{?suse_version}
+#suse here
+BuildRequires: gconfmm-devel,  libsigc++2-devel
+%else
+%if 0%{?fedora_version}
+#fedora here
+BuildRequires: gconfmm26-devel,  libsigc++20-devel
+%else
+%if 0%{?mandriva_version}
+#mandriva here
+BuildRequires: libgconfmm2.6_1-devel, libsigc++2.0_0-devel
+%else
+#unknown here.
+BuildRequires: gconfmm26-devel,  libsigc++20-devel
+%endif
+%endif
+%endif
 
 %description
 Peless is a simple text file lister. It only displays files and 
@@ -30,8 +48,11 @@ or literal expressions. Users can choose the fonts used to display files.
 %setup -q
 #remove next 2 lines when it is verified that it works wo them.
 #I do not have 64 bit system for testing.
+%if 0%{?suse_version}
+#suse here
 %{?suse_update_libdir:%{suse_update_libdir}}
 %{?suse_update_config:%{suse_update_config -f}}
+%endif
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
@@ -41,7 +62,7 @@ CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
 	 %__make %{?_smp_mflags}
 
 %install
-%makeinstall
+make DESTDIR=$RPM_BUILD_ROOT install
 
 %clean
 %__rm -rf $RPM_BUILD_ROOT
@@ -56,8 +77,15 @@ CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
 %_mandir/man1/peless.1.*
 
 %changelog
-* Sat Sep 08 2007 Paul Elliott <pelliott@io.com> - 1.156-40
+* Sat Sep 08 2007 Paul Elliott <pelliott@io.com> - 1.156-41
 - fix ifdef left off 0
+* Sat Sep 08 2007 Paul Elliott <pelliott@io.com> - 1.156-38
+- BuildRequires ifdefed for opensuse, fedora, mandriva
+- suse_update_libdir, suse_update_config ifdefed for suse only.
+- macro makeinstall removed bad under fedora
+- http://fedoraproject.org/wiki/Packaging/Guidelines that is
+- Why the makeinstall macro should not be used
+- use make DESTDIR=$RPM_BUILD_ROOT install instead
 * Tue Sep 04 2007 Paul Elliott <pelliott@io.com> - 1.156-37
 - use macro __make
 - use macro __rm
