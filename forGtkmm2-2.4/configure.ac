@@ -60,6 +60,8 @@ AX_BOOST_BASE([1.32.1])
 AX_BOOST_FILESYSTEM
 #use the boost regex library.
 AX_BOOST_REGEX
+#maybe use boost system
+AX_BOOST_SYSTEM
 
 
 #make this data visible in Makefile.am
