@@ -145,8 +145,18 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
 	  inputPtr=&input;
 
 	  // if directory
-	  if ( boost::filesystem::exists(filename) && 
-	       boost::filesystem::is_directory(filename) )
+	  bool isDir;
+	  try
+	    {
+	      isDir = boost::filesystem::exists(filename) && 
+		boost::filesystem::is_directory(filename);
+	    }
+	  catch (...)
+	    {
+	      isDir = false;
+	    };
+
+	  if ( isDir  )
 	    {
 
 
@@ -552,11 +562,18 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
     }
   else
     {
-      boost::filesystem::path filepath(fullfilename);
       try
 	{
+	  boost::filesystem::path filepath(fullfilename);
 	  // if not empty get boost to parse get leaf end of filename.
 	  label= filepath.leaf();
+	  // if directory
+	  if ( boost::filesystem::exists(filepath) && 
+	       boost::filesystem::is_directory(filepath) )
+	    {
+	      // mark label as directory
+	      label += _("-- is a directory --") ;
+	    };
 	}
       // failure to parse path: use whole filename
       // probably fail to open as well.
@@ -565,13 +582,6 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
 	  label=fullfilename;
 	};
 
-      // if directory
-      if ( boost::filesystem::exists(filepath) && 
-	   boost::filesystem::is_directory(filepath) )
-      {
-	// mark label as directory
-	label += _("-- is a directory --") ;
-      };
     };
 
   // construct our page!
