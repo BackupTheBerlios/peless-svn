@@ -16,5 +16,5 @@ Sat, 17 Jan 2009 09:47:40 -0600 fail more gracefully if the user specifies a dir
 Sat, 17 Jan 2009 09:54:59 -0600 new default search options.
 Sat, 17 Jan 2009 18:16:20 -0600 fix bug introduced by directory fail gracefully
 Sun, 17 Jan 2009 01:43:22 -0600 carefull when determining if directory.
-Sun, 17 Jan 2009 08:51:46 -0600 update m4 autoconfig boost test macros, new lib=system
+Sun, 17 Jan 2009 08:51:46 -0600 update m4 autoconfig boost test macros, new lib=system; must use --with-boost-libdir=%_libdir in .spec files
 Sun, 17 Jan 2009 09:00:18 -0600 link to new boost library boost_system if available.
