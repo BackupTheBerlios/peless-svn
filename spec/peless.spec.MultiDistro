@@ -6,8 +6,9 @@
 %endif
 Name:		peless
 Summary:	Tabbed text browser
-Version:	1.156
-Release:	46%{?dist}
+Version:	1.199
+#Release:	1%{?dist}
+Release:	11.1
 License:	GPL
 Group:		Productivity/Text/Utilities
 Source0:	http://download.berlios.de/peless/%{name}-%{version}.tar.bz2
@@ -17,6 +18,10 @@ Autoreqprov:    on
 
 BuildRequires:autoconf automake libtool
 BuildRequires: boost-devel >= 1.32.0, gettext, intltool, gcc-c++
+
+%if 0%{?sles_version}
+BuildRequires: gtkmm24-devel, gconfmm-devel,  libsigc++2-devel
+%else
 
 %if 0%{?suse_version}
 #suse here
@@ -28,6 +33,14 @@ BuildRequires: gtkmm24-devel, gconfmm-devel,  libsigc++2-devel
 BuildRequires: p_xmlpar
 %endif
 
+%if 0%{?suse_version} >= 1101
+#This is a horrible kludge that will remain only till
+#this bug is fixed:
+# https://bugzilla.novell.com/show_bug.cgi?id=430965
+BuildRequires: update-desktop-files
+%endif
+
+
 %else
 %if 0%{?fedora_version}
 #fedora here
@@ -35,13 +48,15 @@ BuildRequires: gtkmm24-devel, gconfmm26-devel,  libsigc++20-devel
 %else
 %if 0%{?mandriva_version}
 #mandriva here
-BuildRequires: gtkmm2.4-devel, libgconfmm2.6_1-devel, libsigc++2.0_0-devel
+BuildRequires: gtkmm2.4-devel, libgconfmm2.6-devel, libsigc++2.0-devel
 %else
 #unknown here.
 BuildRequires: gtkmm24-devel, gconfmm26-devel,  libsigc++20-devel
 %endif
 %endif
 %endif
+%endif
+
 
 %description
 Peless is a simple text file lister. It only displays files and 
@@ -66,12 +81,27 @@ or literal expressions. Users can choose the fonts used to display files.
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
 	%configure  --prefix=%{_prefix} --with-boost=/usr \
+%if 0%{?sles_version}
+%if %sles_version <= 10
+	--with-boost-libdir=/usr/%_lib                    \
+%else
+	--with-boost-libdir=%_libdir                      \
+%endif
+%else
+	--with-boost-libdir=%_libdir                      \
+%endif
 	--with-dtcat=%{?DTCAT:%{DTCAT}}%{!?DTCAT:'Application;Utility;'}
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
 	 %__make %{?_smp_mflags}
 
 %install
 make DESTDIR=$RPM_BUILD_ROOT install
+%if 0%{?suse_version} >= 1101
+#This is a horrible kludge that will remain only till
+#this bug is fixed:
+# https://bugzilla.novell.com/show_bug.cgi?id=430965
+%suse_update_desktop_file -n peless Utility TextEditor
+%endif
 
 %clean
 %__rm -rf $RPM_BUILD_ROOT
@@ -86,6 +116,16 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %_mandir/man1/peless.1.*
 
 %changelog
+* Sat Aug 22 2009 Paul Elliott <pelliott$blackpatchpanel.com> - 1.199-1
+- Update email address in docs comment
+- New version 1.199
+* Wed Jan 21 2009 Paul Elliott <pelliott@io.com> - 1.193-2
+- put kludge in to get around https://bugzilla.novell.com/show_bug.cgi?id=430965
+- for opensuse 11.1 must remove when bug fixed.
+* Mon Jan 19 2009 Paul Elliott <pelliott@io.com> - 1.193-1
+- Fail gracefully on directory specified.
+- Use 2008 version of ax_boost_base
+- --with-boost-libdir=%_libdir is added to configure.
 * Sat Sep 08 2007 Paul Elliott <pelliott@io.com> - 1.156-46
 - intltool requires perl(XML::Parser) but opensuse 10.0 does not know this
 - boost-devel requires 1.32.0 or better.
