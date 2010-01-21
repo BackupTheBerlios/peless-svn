@@ -596,16 +596,16 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
 
   // construct our page!
   // hold a pointer to our page locally while we fool with it.
-  std::auto_ptr<Gmore::Gmore>
+  std::auto_ptr<Gmore>
     local_gmore_holder( new 
-			Gmore::Gmore(
+			Gmore(
 				     *this,
 				     fullfilename , 
 				     textview_font_name) 
 			);
   {
     using namespace sigc;
-    Gmore::Gmore & page_to_add( *local_gmore_holder );
+    Gmore & page_to_add( *local_gmore_holder );
 
     //    page_to_add.set_font_in_use(textview_font_name);
 

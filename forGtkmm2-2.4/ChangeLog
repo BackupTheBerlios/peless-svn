@@ -1,3 +1,4 @@
+Wed, 20 Jan 2010 22:23:16 -0600 Use Gmore instead of Gmore::Gmore use konig lookup from within method
 Wed, 20 Jan 2010 22:18:13 -0600 catch exception by reference
 Wed, 20 Jan 2010 22:06:31 -0600 fixed declaration of Glib::FileError
 Thu, 19 Apr 2007 03:41:34 -0600 added peless man page.
