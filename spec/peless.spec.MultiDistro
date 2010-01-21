@@ -11,7 +11,7 @@
 #exception location boost libraries
 
 %if 0%{?sles_version} == 10
-%define boost_libdir %{_prefix}/%{_lib}
+%define boost_libdir /usr/%{_lib}
 %endif
 
 %if 0%{?mandriva_version} == 200910
@@ -23,7 +23,7 @@
 
 Name:		peless
 Summary:	Tabbed text browser
-Version:	1.199
+Version:	1.211
 #Release:	1%{?dist}
 Release:	2.1
 License:	GPL
@@ -135,6 +135,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %_mandir/man1/peless.1.*
 
 %changelog
+* Wed Jan 20 2010 Paul Elliott <pelliott@blackpatchpanel.com> - 1.221-1
+- new source compiles with gcc-45
 * Wed Sep 09 2009 Paul Elliott <pelliott$blackpatchpanel.com> - 1.199-2
 - better way to express exceptions of boost libraries.
 * Sat Aug 22 2009 Paul Elliott <pelliott$blackpatchpanel.com> - 1.199-1
