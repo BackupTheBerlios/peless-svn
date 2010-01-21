@@ -218,7 +218,7 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
     // on catching io errors while doing above.
     // display error dialog.
     // catch io error reading data.
-    catch ( Glib::FileError ex){
+    catch ( Glib::FileError & ex){
       Gtk::MessageDialog error_message(ex.what());
       error_message.set_modal();
       error_message.run();
