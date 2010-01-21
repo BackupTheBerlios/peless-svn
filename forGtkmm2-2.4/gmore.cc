@@ -161,7 +161,7 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
 
 
 	      // create failure exception.
-	      Glib::FileError::FileError  
+	      Glib::FileError
 		fail( Glib::FileError::IS_DIRECTORY, 
 		      // error when unable to open text file for reading.
 		      String::ucompose(_("unable to open %1 for reading." 
@@ -183,7 +183,7 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
 		{
 
 		  // create failure exception.
-		  Glib::FileError::FileError  
+		  Glib::FileError
 		    fail( Glib::FileError::Code(errno), 
 			  // error when unable to open text file for reading.
 			  String::ucompose(_("unable to open %1 for reading.\n"), 
@@ -218,7 +218,7 @@ Glib::RefPtr<Gtk::TextBuffer> NoteGmore::Gmore::load_textbuffer_from_file()
     // on catching io errors while doing above.
     // display error dialog.
     // catch io error reading data.
-    catch ( Glib::FileError::FileError ex){
+    catch ( Glib::FileError ex){
       Gtk::MessageDialog error_message(ex.what());
       error_message.set_modal();
       error_message.run();
