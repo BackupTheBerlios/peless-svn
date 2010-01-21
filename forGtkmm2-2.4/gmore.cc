@@ -694,7 +694,7 @@ void NoteGmore::add_less_page(const std::string& fullfilename)
   // giving deletion responsibility to the notebook
 
   // release the local holder as container takes responsibility for it.
-  notebook.append_page( *manage( local_gmore_holder.release() ), label);
+  notebook.append_page( *(manage( local_gmore_holder.release() )), label);
 };
 
 // if this sub_window_ref is the current page
