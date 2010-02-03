@@ -1,199 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Peless Text File Lister.</title>
 
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>Peless Text File Lister.</title></head><body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</head><body>
 <h1>Peless is a text file lister for X11 and Gtk.</h1>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <h2>Powered by <a href="http://developer.berlios.de">BerliOS</a><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </h2>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <a href="http://developer.berlios.de"> <img src="http://developer.berlios.de/bslogo.php?group_id=1681" alt="BerliOS Developer Logo" border="0" height="32" width="124"></a>
 <br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <h2>What is peless?</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Peless is a simple text file lister. It only displays files and never
 modifies them. It can display multiple files using a tabbed notebook.
@@ -204,61 +29,10 @@ do not seem to be distributed with many distributions. Perhaps peless
 can replace them.<span style="font-weight: bold;"> <a href="http://developer.berlios.de/screenshots/?group_id=1681">Take a
 look at some screen shots.</a></span><br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <h2>How do I use peless?</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 In a command context, like bash, or something like that, type: <code>peless
 [list of files to display]</code><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Once peless is going, you can click on notebook tabs to switch between
 files you want to view. You can use the File menu to open new files to
@@ -269,261 +43,52 @@ size used in display in the files. You can also use the Edit menu to
 Search for text in your files. You can search for a literal string, or
 for a full fledged regular expression.<br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <br>
 
-
-
-
-
-
-
-
-
 <br>
-
-
-
-
-
-
-
-
 
 <h2>License = GPL.</h2>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Peless is released under the GPL.<br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <h2>Where can I get Peless?</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 There is a gtkmm2-2.4 version available as a tarball in <a href="https://developer.berlios.de/project/showfiles.php?group_id=1681">files
 area.</a><br>
 
+<br>
 
-
-
-
-
-
-
+Peless has been <a href="http://packages.debian.org/search?keywords=peless&amp;searchon=names&amp;suite=all&amp;section=all">accepted
+into Debian sid</a>. Debian sid users can install peless using the
+usual Debian sid repository tools.<br>
 
 <br>
 
-
-
-
-
-
-
-
-
-Peless has been <a href="http://packages.debian.org/search?keywords=peless&amp;searchon=names&amp;suite=all&amp;section=all">accepted into Debian sid</a>. Debian sid users can install peless using the usual Debian sid repository tools.<br>
-
-
-
-
-
-
-
-
-
-<br>
-
-
-
-
-
-
-
-
-
-I have created a&nbsp;<a href="ftp://ftp.BerliOS.de/pub/peless/rubuntu.704">peless repository for Ubuntu 7.04 for 86x</a>. To use this repository for 32 bit Ubuntu 7.04, as root do the following:<br>
-
-
-
-
-
-
-
-
+I have created a&nbsp;<a href="ftp://ftp.BerliOS.de/pub/peless/rubuntu.704">peless repository
+for Ubuntu 7.04 for 86x</a>. To use this repository for 32 bit Ubuntu
+7.04, as root do the following:<br>
 
 <ol>
 
-
-
-
-
-
-
-
-
   <li>add the following two lines to <code>/etc/apt/sources.list</code><br>
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    <blockquote>
-deb ftp://ftp.BerliOS.de/pub/peless/ubuntu.704 feisty unstable<br>
-
-
-
-
-
-
-
-
-deb-src ftp://ftp.BerliOS.de/pub/peless/ubuntu.704 feisty unstable
-    </blockquote>
-
-
-
-
-
-
-
-This can also be accomplished using <it>synaptic</it>. <it>Synaptic</it> 
-can be invoked as System\Administration\Synaptic package manager. Once Synaptic is
-running, Settings\Repositories\Third Party Software can be used to add the above two
-lines.
-
-
-  </li>
-
-
-
-
-
-
-
-
-
+    <blockquote>deb ftp://ftp.BerliOS.de/pub/peless/ubuntu.704 feisty
+unstable<br>
+deb-src ftp://ftp.BerliOS.de/pub/peless/ubuntu.704 feisty unstable </blockquote>
+This can also be accomplished using <it>synaptic</it>. <it>Synaptic</it>
+can be invoked as System\Administration\Synaptic package manager. Once
+Synaptic is
+running, Settings\Repositories\Third Party Software can be used to add
+the above two
+lines. </li>
   <li>do the command: <code>apt-get update</code><br>
-
-
-
-
-
-
-
 The <it>Reload button</it> can be used to accomplish this in synaptic.
-
   </li>
-
-
-
-
-
-
-
-
-
-  <li>install peless with <code>apt-get install peless</code>
-    <br>
-
-
-
-
-
-
-This can be done in synaptic, by searching for peless, marking peless for installation, and then
-    <it>applying</it> the changes.
-  </li>
-
-
-
-
-
-
-
-
+  <li>install peless with <code>apt-get install peless</code> <br>
+This can be done in synaptic, by searching for peless, marking peless
+for installation, and then <it>applying</it> the changes. </li>
 </ol>
 
-
-
-
-
-
-
-Rpm repositories for peless can be found on 
-<a href="http://en.opensuse.org/Build_Service">OpenSuSE build service</a>. 
+Rpm repositories for peless can be found on <a href="http://en.opensuse.org/Build_Service">OpenSuSE build service</a>.
 Find peless on the build service using <a href="http://software.opensuse.org/search?p=1&amp;q=peless&amp;baseproject=ALL">
 the search page</a>.
 Add the proper peless repository for your distribution and architecture
@@ -538,196 +103,75 @@ Due to an unfortunate flaw in the build service, the binary packages,
 (that is the .deb files) are located in a different location than the
 source repositories. This can be seen in the table below.<br>
 
-
-
-
-
-
-
-
 <h2>Repository table</h2>
-
-
-
-
-
-
-
-
 
 <table style="text-align: left; width: 906px; height: 590px;" border="1" cellpadding="2" cellspacing="2">
 
-
-
-
-
-
-
-
-
   <tbody>
-
-
-
-
-
-
-
-
-
     <tr>
-
-
-
-
-
-
-
-
-
       <td>Distribution</td>
-
-
-
-
-
-
-
-
-
       <td>Repository</td>
-
-
-
-
-
-
-
-
-
     </tr>
-
-
-
-
-
-
-
-
-
     <tr>
       <td style="vertical-align: top;">Debian_5.0<br>
       </td>
-      <td style="vertical-align: top;"><a href="http://download.opensuse.org/repositories/home:/pelliott11/Debian_5.0/">deb http://download.opensuse.org/repositories/home:/pelliott11/Debian_5.0/</a> ./<br>
-      <a href="ftp://ftp.berlios.de/pub/peless/debian">deb-src ftp://ftp.berlios.de/pub/peless/debian</a> ./<br>
+      <td style="vertical-align: top;"><a href="http://download.opensuse.org/repositories/home:/pelliott11/Debian_5.0/">deb
+http://download.opensuse.org/repositories/home:/pelliott11/Debian_5.0/</a>
+./<br>
+      <a href="ftp://ftp.berlios.de/pub/peless/debian">deb-src
+ftp://ftp.berlios.de/pub/peless/debian</a> lenny main<br>
       </td>
     </tr>
-<tr>
-
+    <tr>
       <td>Debian Etch</td>
-
-      <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/Debian_Etch/">deb http://download.opensuse.org/repositories/home:/pelliott11/Debian_Etch/</a> ./<br>
-
-      <a href="ftp://ftp.berlios.de/pub/peless/debian">deb-src ftp://ftp.berlios.de/pub/peless/debian</a> ./</td>
-
+      <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/Debian_Etch/">deb
+http://download.opensuse.org/repositories/home:/pelliott11/Debian_Etch/</a>
+./<br>
+      <a href="ftp://ftp.berlios.de/pub/peless/debian">deb-src
+ftp://ftp.berlios.de/pub/peless/debian</a> etch main<br>
+      </td>
     </tr>
-
     <tr>
       <td style="vertical-align: top;">Ubuntu 904<br>
       </td>
-      <td style="vertical-align: top;"><span style="text-decoration: underline;"><a href="http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.04/">deb http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.04/</a> ./<br>
-      <a href="ftp://ftp.berlios.de/pub/peless/ubuntu.9.04">deb-src ftp://ftp.berlios.de/pub/peless/ubuntu.9.04</a> ./<br>
-      </span></td>
+      <td style="vertical-align: top;"><span style="text-decoration: underline;"><a href="http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.04/">deb
+http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.04/</a></span>
+./<br>
+      <span style="text-decoration: underline;">
+<a href="ftp://ftp.berlios.de/pub/peless/debian">deb-src
+ftp://ftp.berlios.de/pub/peless/debian</a></span> jaunty main<br>
+      </td>
     </tr>
     <tr>
       <td style="vertical-align: top;">Ubuntu 910<br>
       </td>
-      <td style="vertical-align: top;"><a href="http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.10/"><span style="text-decoration: underline;"></span></a><a href="http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.10/">deb http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.10/</a> ./<br>
-      <a href="ftp://ftp.berlios.de/pub/peless/ubuntu.9.10"><span style="text-decoration: underline;"></span></a><a href="ftp://ftp.berlios.de/pub/peless/ubuntu.9.10">deb-src ftp://ftp.berlios.de/pub/peless/ubuntu.9.10</a> ./<br>
+      <td style="vertical-align: top;"><a href="http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.10/"><span style="text-decoration: underline;"></span></a><a href="http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.10/">deb
+http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_9.10/</a>
+./<br>
+      <a href="ftp://ftp.berlios.de/pub/peless/ubuntu.9.10"><span style="text-decoration: underline;"></span></a><a href="ftp://ftp.berlios.de/pub/peless/debian">deb-src
+ftp://ftp.berlios.de/pub/peless/debian</a> karmic main<br>
       </td>
     </tr>
-<tr>
-
+    <tr>
       <td>Ubuntu 810</td>
-
-      <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_8.10/">deb http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_8.10/</a> ./<br>
-
-      <a href="ftp://ftp.berlios.de/pub/peless/debian">deb-src ftp://ftp.berlios.de/pub/peless/debian</a> ./</td>
-
+      <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_8.10/">deb
+http://download.opensuse.org/repositories/home:/pelliott11/xUbuntu_8.10/</a>
+./<br>
+      <a href="ftp://ftp.berlios.de/pub/peless/debian">deb-src
+ftp://ftp.berlios.de/pub/peless/debian</a> intrepid main<br>
+      </td>
     </tr>
-
     <tr>
-
-
-
-
-
-
-
-
-
       <td>Debian</td>
-
-
-
-
-
-
-
-
-
       <td><a href="http://http.us.debian.org/">http://http.us.debian.org/</a></td>
-
-
-
-
-
-
-
-
-
     </tr>
-
-
-
-
-
-
     <tr>
-
-
-
-
-
-
       <td>Ubuntu 7.04 x86</td>
-
-
-
-
-
-
-      <td><a href="ftp://ftp.BerliOS.de/pub/peless/ubuntu.704">deb ftp://ftp.BerliOS.de/pub/peless/ubuntu.704 feisty unstable</a><br>
-
-
-
-
-
-
-      <a href="ftp://ftp.BerliOS.de/pub/peless/ubuntu.704">deb-src ftp://ftp.BerliOS.de/pub/peless/ubuntu.704 feisty unstable</a></td>
-
-
-
-
-
-
+      <td><a href="ftp://ftp.BerliOS.de/pub/peless/ubuntu.704">deb
+ftp://ftp.BerliOS.de/pub/peless/ubuntu.704 feisty unstable</a><br>
+      <a href="ftp://ftp.BerliOS.de/pub/peless/ubuntu.704">deb-src
+ftp://ftp.BerliOS.de/pub/peless/ubuntu.704 feisty unstable</a></td>
     </tr>
-
-
-
-
-
-
     <tr>
       <td>Fedora 10</td>
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/Fedora_10/">http://download.opensuse.org/repositories/home:/pelliott11/Fedora_10/</a></td>
@@ -740,31 +184,13 @@ source repositories. This can be seen in the table below.<br>
       <td>Fedora 8</td>
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/Fedora_8/">http://download.opensuse.org/repositories/home:/pelliott11/Fedora_8/</a></td>
     </tr>
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
     <tr>
       <td style="vertical-align: top;">Mandriva 2009.1<br>
       </td>
       <td style="vertical-align: top;"><a href="http://download.opensuse.org/repositories/home:/pelliott11/Mandriva_2009.1/">http://download.opensuse.org/repositories/home:/pelliott11/Mandriva_2009.1/</a><br>
       </td>
     </tr>
-<tr>
+    <tr>
       <td>Mandriva 2009</td>
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/Mandriva_2009/">http://download.opensuse.org/repositories/home:/pelliott11/Mandriva_2009/</a></td>
     </tr>
@@ -773,17 +199,9 @@ source repositories. This can be seen in the table below.<br>
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/Mandriva_2008/">http://download.opensuse.org/repositories/home:/pelliott11/Mandriva_2008/</a></td>
     </tr>
     <tr>
-
-
       <td>Mandriva 2007 32 bit</td>
-
-
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/Mandriva_2007/i586/">http://download.opensuse.org/repositories/home:/pelliott11/Mandriva_2007/i586/</a></td>
-
-
     </tr>
-
-
     <tr>
       <td>OpenSuSE 11.1</td>
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/openSUSE_11.1/">http://download.opensuse.org/repositories/home:/pelliott11/openSUSE_11.1/</a></td>
@@ -793,357 +211,51 @@ source repositories. This can be seen in the table below.<br>
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/openSUSE_11.0/">http://download.opensuse.org/repositories/home:/pelliott11/openSUSE_11.0/</a></td>
     </tr>
     <tr>
-
-
-
-
-
-
       <td>OpenSuSE 10.3<br>
-</td>
-
-
-
-
-
-
+      </td>
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/openSUSE_10.3/">http://download.opensuse.org/repositories/home:/pelliott11/openSUSE_10.3/</a></td>
-
-
-
-
-
-
     </tr>
-
-
-
-
-
-
-    
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
     <tr>
       <td style="vertical-align: top;">SLES 11<br>
       </td>
       <td style="vertical-align: top;"><a href="http://download.opensuse.org/repositories/home:/pelliott11/SLE_11/">http://download.opensuse.org/repositories/home:/pelliott11/SLE_11/</a><br>
       </td>
     </tr>
-<tr>
-
-
-
-
-
-
+    <tr>
       <td>SLES 10<br>
-</td>
-
-
-
-
-
-
+      </td>
       <td><a href="http://download.opensuse.org/repositories/home:/pelliott11/SLE_10/">http://download.opensuse.org/repositories/home:/pelliott11/SLE_10/</a></td>
-
-
-
-
-
-
     </tr>
-
-
-
-
-
-
-    
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-    
-
-    
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   </tbody>
-</table><br>
+</table>
 
-
-
-
-
-
-
-
+<br>
 
 <h2>What are peless's dependencies?</h2>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Peless uses the following libraries:<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <ul>
 
-
-
-
-
-
-
-
-
   <li><a href="http://www.boost.org/">The Boost library.</a></li>
-
-
-
-
-
-
-
-
-
   <li><a href="http://www.gtkmm.org/">The Gtkmm library.</a></li>
-
-
-
-
-
-
-
-
-
   <li><a href="http://libsigc.sourceforge.net/">The Libsigc++ library.</a></li>
-
-
-
-
-
-
-
-
-
   <li><a href="http://www.gtkmm.org/gnomemm2/reference/html/namespaceGnome_1_1Conf.html">The
 Gconfmm2 library.</a></li>
-
-
-
-
-
-
-
-
-
 </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 The names of these dependencies varries slightly depending on
 Distribution. To get the dependencies point your GUI package tool
 (synaptic, yum, apt-get or whatnot) at the usual suspects and look for
 the above dependencies.&nbsp;<br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <h2>Peless internals.</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Peless is written in C++, using the Gtkmm and boost libraries. Peless
 is written in English at this time, but all user visible strings are
 indicated with the _() macro so it should be easy to translate. Any
 volunteers for translators?<br>
 
-
-
-
-
-
-
-
-
 <br>
-
-
-
-
-
-
-
-
-
-<h2></h2>
-
-
-
-
-
-
-
-
-
-<h2></h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body></html>
