@@ -23,7 +23,7 @@
 
 Name:		peless
 Summary:	Tabbed text browser
-Version:	1.211
+Version:	1.223
 #Release:	1%{?dist}
 Release:	2.1
 License:	GPL
@@ -69,12 +69,15 @@ BuildRequires: update-desktop-files
 
 
 %else
-%if 0%{?fedora_version}
+%if 0%{?fedora_version} || 0%{?rhel_version} || 0%{?centos_version}
 #fedora here
 BuildRequires: gtkmm24-devel, gconfmm26-devel,  libsigc++20-devel
 %else
 %if 0%{?mandriva_version}
 #mandriva here
+%if 0%{?mandriva_version} == 201010
+BuildRequires: polkit-gnome
+%endif
 BuildRequires: gtkmm2.4-devel, libgconfmm2.6-devel, libsigc++2.0-devel
 %else
 #unknown here.
@@ -135,7 +138,13 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %_mandir/man1/peless.1.*
 
 %changelog
-* Wed Jan 20 2010 Paul Elliott <pelliott@blackpatchpanel.com> - 1.221-1
+* Thu Nov 04 2010 Paul Elliott <pelliott@blackpatchpanel.com> - 1.223-1
+- new release version 223
+- mandriva 2010.1 prefers polkit-gnome
+- support rhel and centos
+* Tue Mar 02 2010 Paul Elliott <pelliott@blackpatchpanel.com> - 1.221-1
+- new autoconf m4 macros
+* Wed Jan 20 2010 Paul Elliott <pelliott@blackpatchpanel.com> - 1.211-1
 - new source compiles with gcc-45
 * Wed Sep 09 2009 Paul Elliott <pelliott$blackpatchpanel.com> - 1.199-2
 - better way to express exceptions of boost libraries.
